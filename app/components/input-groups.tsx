@@ -20,11 +20,11 @@ export default function InputGroups({ itemGroups, config, setConfig }: { itemGro
         <> 
         {
             itemGroups.map((groups) => (
-                <div className="pb-12">
+                <div key={groups.title} className="pb-12">
                     <h2 className="dark:text-zinc-100 text-base font-semibold leading-7 text-zinc-900">{groups.title}</h2>
                     <p className="dark:text-zinc-400 mt-1 mb-4 text-sm leading-6 text-zinc-600">{groups.description}</p>
                     {groups.items.map((item) => (
-                        <div className="mt-1 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
+                        <div key={item.key} className="mt-1 grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-6">
                             <div className="col-span-full">
                                 <label htmlFor={item.key} className="dark:text-zinc-100 px-4 block text-sm font-medium leading-6 text-zinc-900">
                                     {item.name}

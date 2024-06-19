@@ -63,7 +63,7 @@ export default function CardsList({ cardDataList }: Props) {
                                 >
                                     <MenuItems className="dark:ring-zinc-100/5 dark:bg-zinc-800 absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-zinc-800/5 focus:outline-none">
                                         {cardData.menuList.map((menu) => (
-                                            <MenuItem>
+                                            <MenuItem key={menu.title}>
                                                 {({ focus }) => (
                                                     <a
                                                         onClick={() => menu.clickTrigger()}
@@ -83,7 +83,7 @@ export default function CardsList({ cardDataList }: Props) {
                         </div>
                         <dl className="dark:divide-zinc-800 -my-3 divide-y divide-zinc-100 px-4 py-4 text-sm leading-6">
                             {cardData.infoList.map((info) => (
-                                <div className="flex justify-between gap-x-4 py-1">
+                                <div key={info.title} className="flex justify-between gap-x-4 py-1">
                                     <dt className={info.titleClassName ? info.titleClassName : 'dark:text-zinc-500 text-zinc-500'}>{info.title}</dt>
                                     <dd className={info.infoClassName ? info.infoClassName : 'dark:text-zinc-300 text-zinc-700'}>
                                         {info.info}

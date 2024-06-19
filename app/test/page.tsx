@@ -79,11 +79,12 @@ export default function Test(){
     }
 
     return (
-        <FileTree data={data}
-            onSelectFile={(id, name) => {
-                console.log(id, name, "is selected");
-            }}
-            fetchChildren={fetchChildren}
-            ></FileTree>
+        // <FileTree data={data}
+        //     onSelectFile={(id, name) => {
+        //         console.log(id, name, "is selected");
+        //     }}
+        //     fetchChildren={fetchChildren}
+        //     ></FileTree>
+        <></>
     );
 }

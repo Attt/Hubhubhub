@@ -18,10 +18,12 @@ export default function List({ folder_id, path }: { folder_id: string, path: str
             {files && files.map((file: FileItem) => (
                 (file.is_folder &&
                     <Folder
+                        key={file.id}
                         id={file.id}
                         name={file.name}
                         path={path}></Folder>) ||
                     <File 
+                        key={file.id}
                         id={file.id}
                         name={file.name}
                         path={path}></File>
