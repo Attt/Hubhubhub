@@ -105,12 +105,12 @@ export default function RootLayout({
                       <div className="dark:bg-zinc-800 flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-2">
                         <div className="flex h-16 shrink-0 items-center">
                           <img
-                            className="h-16 mt-10 w-auto dark:hidden"
+                            className="h-16 mt-10 w-auto dark:hidden block"
                             src="./logo.png"
                             alt="HubHubHub"
                           />
                           <img
-                            className="h-16 mt-10 w-auto dark:block"
+                            className="h-16 mt-10 w-auto dark:block hidden"
                             src="./logo-dark.png"
                             alt="HubHubHub"
                           />
