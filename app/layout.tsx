@@ -4,7 +4,7 @@ import "./globals.css";
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { CurrNavItemContext, APIConfigGroupsContxt, ConfigGroupsContxt, MenuGroupsContxt } from "@/app/contexts";
+import { CurrNavItemContext, APIConfigGroupsContxt, ConfigGroupsContxt, MenuGroupsContxt, APISchemaContext } from "@/app/contexts";
 import { ModalProvider, NotificationProvider } from "@/app/reducers";
 import { GET, getAPIUrl, updateAPIUrl } from "./requests";
 import InputScreen from "./components/input-screen";
@@ -24,7 +24,8 @@ export default function RootLayout({
   const [configsFetched, setConfigsFetched] = useState(false);
   const [menuGroups, setMenuGroups] = useState([] as { title: string, menus: { id: number, key: string, name: string, initial: string }[] }[]);
   const [configGroups, setConfigGroups] = useState([] as { title: string, description: string, items: { key: string, name: string, placehodler?: string }[] }[]);
-  const [apiConfigGroups, setAPIConfigGroups] = useState([] as { title: string, description: string, items: { key: string, name: string, prefix: string }[] }[]);
+  const [apiConfigGroups, setAPIConfigGroups] = useState([] as { title: string, description: string, items: { key: string, name: string }[] }[]);
+  const [apiSchema, setApiSchema] = useState('https://');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currNavItem, setCurrNavItem] = useState({} as { name: string, key: string });
 
@@ -36,6 +37,7 @@ export default function RootLayout({
           setMenuGroups(data.menu_groups)
           setConfigGroups(data.config_groups)
           setAPIConfigGroups(data.api_config_groups)
+          setApiSchema(data.schema || 'https://')
           setInitialized(true)
         } else {
           updateAPIUrl('fetch_configs', '');
@@ -170,11 +172,13 @@ export default function RootLayout({
             <MenuGroupsContxt.Provider value={menuGroups}>
               <ConfigGroupsContxt.Provider value={configGroups}>
                 <APIConfigGroupsContxt.Provider value={apiConfigGroups}>
-                <ModalProvider>
-                  <NotificationProvider>
-                    {children}
-                  </NotificationProvider>
-                </ModalProvider>
+                  <APISchemaContext.Provider value={apiSchema}>
+                    <ModalProvider>
+                      <NotificationProvider>
+                        {children}
+                      </NotificationProvider>
+                    </ModalProvider>
+                  </APISchemaContext.Provider>
                 </APIConfigGroupsContxt.Provider>
               </ConfigGroupsContxt.Provider>
             </MenuGroupsContxt.Provider>

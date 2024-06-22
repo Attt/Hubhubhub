@@ -4,10 +4,12 @@ import { getAllAPIUrls, updateAllAPIUrls } from '@/app/requests';
 import { ConfirmBody, ConfirmButton, CancelButton } from '@/app/components/modals/confirm-modal';
 import { useToggleModal, useToggleNotification } from '@/app/reducers';
 import InputGroups from '@/app/components/input-groups';
-import { APIConfigGroupsContxt } from '@/app/contexts';
+import { APIConfigGroupsContxt, APISchemaContext } from '@/app/contexts';
 
 export default function ApiConfigs() {
     const apiConfigGroupsContext = useContext(APIConfigGroupsContxt);
+    const apiSchemaContext = useContext(APISchemaContext);
+    
     const [config, setConfig] = useState({} as any);
  
     const toggleModal = useToggleModal();
@@ -55,6 +57,7 @@ export default function ApiConfigs() {
             <form>
                 <div className="space-y-12">
                     <InputGroups
+                        itemPrefix={apiSchemaContext}
                         itemGroups={apiConfigGroupsContext}
                         config={config}
                         setConfig={setConfig}
