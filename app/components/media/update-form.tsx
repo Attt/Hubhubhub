@@ -272,7 +272,14 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
     };
 
     useEffect(() => {
-        if (open && plan) {
+        if (open && selectedPlan) {
+            setPlan(convertToUpdateConfig(selectedPlan));
+        }
+    }, [open]);
+
+
+    useEffect(() => {
+        if (plan) {
             toggleModal({
                 type: 'open',
                 body:
@@ -282,20 +289,20 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
                         setPlanInEdit={setPlan}
                     ></UpdateFormBody>,
                 confirmButton:
-                    { 
-                        callback: updateMedia,
-                        title: '保存',
-                        className: 'dark:text-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 mt-3 sm:w-auto sm:ml-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
-                    },
+                {
+                    callback: updateMedia,
+                    title: '保存',
+                    className: 'dark:text-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 mt-3 sm:w-auto sm:ml-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+                },
                 cancelButton:
-                    { 
-                        callback: () => setOpen(false),
-                        title: '取消',
-                        className: 'dark:text-zinc-100 dark:ring-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-950 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 mt-3 sm:w-auto text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50',
-                    },
+                {
+                    callback: () => setOpen(false),
+                    title: '取消',
+                    className: 'dark:text-zinc-100 dark:ring-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-950 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 mt-3 sm:w-auto text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50',
+                },
             });
         }
-    }, [open]);
+    }, [plan]);
 
     return (
         <></>

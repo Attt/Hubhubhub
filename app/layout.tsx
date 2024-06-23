@@ -44,7 +44,6 @@ export default function RootLayout({
         }
       },
       (r) => {
-        updateAPIUrl('fetch_configs', '');
       }
     );
   }

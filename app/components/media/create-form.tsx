@@ -28,7 +28,7 @@ function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, 
                 <div className="flex items-start justify-between space-x-3">
                     <div className="space-y-1">
                     </div>
-                    <div className="flex h-7 items-center">
+                    <div className="flex h-5 items-center">
                         <DialogTitle className="dark:text-zinc-100 text-base font-semibold leading-6 text-zinc-900">
                             新媒体计划
                         </DialogTitle>
