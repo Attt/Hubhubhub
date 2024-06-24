@@ -19,6 +19,10 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
 
     const [currentStepId, setCurrentStepId] = useState(0);
 
+    const setPartOfPlanData = (key: string, value: any) => {
+        setPlanData({ ...planData, [key]: value })
+    }
+
     const steps = [
         {
             id: 0,
@@ -38,13 +42,14 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
         },
         {
             id: 2,
-            name: '查看RSS源',
+            name: 'RSS源',
             element: (<RSSPreviewer
+                rssUrlSetCallback={(value) => setPartOfPlanData('rss_url', value)}
             ></RSSPreviewer>)
         },
         {
             id: 3,
-            name: '创建媒体计划',
+            name: '创建计划',
             element: (<CreateFormBody
                 planData={planData}
                 setPlanData={setPlanData}
@@ -98,18 +103,21 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
                     >
                     </Steps>,
                 confirmButton:
-                currentStepId == steps[-1].id ? {
-                    callback: createMedia,
-                    title: '创建',
-                    className: 'dark:text-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 mt-3 sm:w-auto sm:ml-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
-                } : {
-                    callback: toNextStep,
-                    title: '下一步',
-                    className: 'dark:text-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 mt-3 sm:w-auto sm:ml-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
-                },
+                    currentStepId == steps[steps.length - 1].id ? {
+                        callback: createMedia,
+                        title: '创建',
+                        className: 'dark:text-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 mt-3 sm:w-auto sm:ml-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+                    } : {
+                        callback: toNextStep,
+                        title: '下一步',
+                        className: 'dark:text-indigo-900 dark:bg-indigo-400 dark:hover:bg-indigo-500 inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 mt-3 sm:w-auto sm:ml-3 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600',
+                    },
                 cancelButton:
                 {
-                    callback: () => setOpen(false),
+                    callback: () => {
+                        setOpen(false);
+                        setCurrentStepId(0);
+                    },
                     title: '取消',
                     className: 'dark:text-zinc-100 dark:ring-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-950 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 mt-3 sm:w-auto text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50',
                 },

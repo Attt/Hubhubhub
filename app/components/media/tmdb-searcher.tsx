@@ -3,9 +3,9 @@ import { getAPIUrl } from "@/app/requests";
 
 export default function TMDBSearcher({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: React.Dispatch<React.SetStateAction<MediaPlanConfig>> }) {
     
-    getAPIUrl("search_tv")
+    // getAPIUrl("search_tv")
 
-    getAPIUrl("fetch_tv_info")
+    // getAPIUrl("fetch_tv_info")
 
     return (
         // TODO
