@@ -5,7 +5,7 @@ import { POST, getAPIUrl } from "@/app/requests";
 import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
 
 
-function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: React.Dispatch<React.SetStateAction<MediaPlanConfig>> }) {
+export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: React.Dispatch<React.SetStateAction<MediaPlanConfig>> }) {
 
     const handleInputChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setPlanData(prevState => ({

@@ -9,6 +9,7 @@ import EmptyPage from "@/app/components/media/empty-page";
 import { MediaPlan } from "@/app/interfaces";
 import { GET, POST, PATCH, DELETE, getAPIUrl } from "@/app/requests";
 import { useRefreshFlag, useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
+import { CreateSteps } from '@/app/components/media/create-steps';
 
 const statuses: any = {
     'enabled': 'text-green-700 bg-green-50 ring-green-600/20',
@@ -242,10 +243,15 @@ export default function MediaPlans() {
                 setOpen={setOpenDownloadList}
                 selectedPlan={currentMediaPlan}
             />
-            <CreateForm
+            {/* <CreateForm
                 open={openCreateForm}
                 setOpen={setOpenCreateForm}
-            />
+            /> */}
+            <CreateSteps
+                open={openCreateForm}
+                setOpen={setOpenCreateForm}
+            >
+            </CreateSteps>
             <UpdateForm
                 open={openUpdateForm}
                 setOpen={setOpenUpdateForm}
