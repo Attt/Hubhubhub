@@ -7,7 +7,7 @@ import Steps from "@/app/components/steps";
 import RSSPreviewer from "@/app/components/media/rss-previewer";
 import TMDBSearcher from "@/app/components/media/tmdb-searcher";
 import { CreateFormBody } from "@/app/components/media/create-form";
-import TMDBViewer from './tmdb-viewer';
+import TMDBTVSeasonViewer from './tmdb-viewer';
 
 
 export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -39,10 +39,10 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
         {
             id: 1,
             name: '选择季',
-            element: (<TMDBViewer
+            element: (<TMDBTVSeasonViewer
                 planData={planData}
                 setPlanData={setPlanData}
-            ></TMDBViewer>)
+            ></TMDBTVSeasonViewer>)
         },
         {
             id: 2,
