@@ -7,6 +7,7 @@ import Steps from "@/app/components/steps";
 import RSSPreviewer from "@/app/components/media/rss-previewer";
 import TMDBSearcher from "@/app/components/media/tmdb-searcher";
 import { CreateFormBody } from "@/app/components/media/create-form";
+import TMDBViewer from './tmdb-viewer';
 
 
 export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -14,13 +15,16 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const flipRefreshFlag = useFlipRefreshFlag();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
-
     const [planData, setPlanData] = useState({} as MediaPlanConfig);
-
     const [currentStepId, setCurrentStepId] = useState(0);
+    const [tmdbId, setTmdbId] = useState('');
 
     const setPartOfPlanData = (key: string, value: any) => {
         setPlanData({ ...planData, [key]: value })
+    }
+
+    const updateTmdbId = (tmdbId: string) => {
+        setTmdbId(tmdbId)
     }
 
     const steps = [
@@ -28,17 +32,17 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
             id: 0,
             name: '检索媒体',
             element: (<TMDBSearcher
-                planData={planData}
-                setPlanData={setPlanData}
+                isTv={true}
+                tmdbIdSetCallback={updateTmdbId}
             ></TMDBSearcher>)
         },
         {
             id: 1,
             name: '选择季',
-            element: (<TMDBSearcher
+            element: (<TMDBViewer
                 planData={planData}
                 setPlanData={setPlanData}
-            ></TMDBSearcher>)
+            ></TMDBViewer>)
         },
         {
             id: 2,

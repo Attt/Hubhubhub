@@ -1,5 +1,4 @@
-import XMLViewer from "react-xml-viewer";
-import toast, { Toaster } from "react-hot-toast";
+import XMLViewer from "react-xml-viewer/dist";
 import { DocumentDuplicateIcon } from "@heroicons/react/24/outline";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useToggleNotification } from "@/app/reducers";
