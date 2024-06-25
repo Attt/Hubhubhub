@@ -7,7 +7,7 @@ import Steps from "@/app/components/steps";
 import RSSPreviewer from "@/app/components/media/rss-previewer";
 import TMDBSearcher from "@/app/components/media/tmdb-searcher";
 import { CreateFormBody } from "@/app/components/media/create-form";
-import TMDBTVSeasonViewer from './tmdb-viewer';
+import TMDBTVSeasonViewer from './tmdb-tv-season-viewer';
 
 
 export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -18,13 +18,20 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const [planData, setPlanData] = useState({} as MediaPlanConfig);
     const [currentStepId, setCurrentStepId] = useState(0);
     const [tmdbId, setTmdbId] = useState('');
+    const [tmdbSelectedPoster, setTmdbSelectedPoster] = useState('');
 
     const setPartOfPlanData = (key: string, value: any) => {
         setPlanData({ ...planData, [key]: value })
     }
 
-    const updateTmdbId = (tmdbId: string) => {
+    const onTmdbSelected = (tmdbId: string, poster: string) => {
         setTmdbId(tmdbId)
+        setPartOfPlanData('tmdb_id', tmdbId)
+        setTmdbSelectedPoster(poster)
+    }
+
+    const onSeasonSelected = (seasonNo: number) => {
+        setPartOfPlanData('season_no', seasonNo)
     }
 
     const steps = [
@@ -33,15 +40,16 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
             name: '检索媒体',
             element: (<TMDBSearcher
                 isTv={true}
-                tmdbIdSetCallback={updateTmdbId}
+                selectCallback={onTmdbSelected}
             ></TMDBSearcher>)
         },
         {
             id: 1,
             name: '选择季',
             element: (<TMDBTVSeasonViewer
-                planData={planData}
-                setPlanData={setPlanData}
+                tmdbId={tmdbId}
+                defaultPoster={tmdbSelectedPoster}
+                selectCallback={onSeasonSelected}
             ></TMDBTVSeasonViewer>)
         },
         {

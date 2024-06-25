@@ -1,3 +1,4 @@
+import { DialogTitle, } from '@headlessui/react'
 import { GET, getAPIUrl } from "@/app/requests"
 import { useEffect, useState } from "react"
 import CodeBlock from "../code-block"
@@ -20,7 +21,18 @@ export default function RSSPreviewer({ rssUrlSetCallback }: { rssUrlSetCallback:
     }
 
     return (
-        <div>
+        <div className='flex-1'>
+            <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
+                <div className="flex items-start justify-between space-x-3">
+                    <div className="space-y-1">
+                    </div>
+                    <div className="flex h-5 items-center">
+                        <DialogTitle className="dark:text-zinc-100 text-base font-semibold leading-6 text-zinc-900">
+                            RSS预览
+                        </DialogTitle>
+                    </div>
+                </div>
+            </div>
             <div>
                 <label htmlFor="rss_link" className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900">
                     RSS链接

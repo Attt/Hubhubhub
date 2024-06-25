@@ -4,7 +4,7 @@ import { MagnifyingGlassIcon, FilmIcon } from '@heroicons/react/20/solid'
 import { useState } from "react";
 import PictureTiles from "../picture-tiles";
 
-export default function TMDBSearcher({ isTv, tmdbIdSetCallback }: { isTv: boolean, tmdbIdSetCallback: (tmdb_id: string) => void }) {
+export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: { isTv: boolean, selectCallback: (tmdb_id: string, default_poster: string) => void }) {
     const toggleNotification = useToggleNotification();
     const [keyword, setKeyword] = useState("");
     const [tmdbData, setTmdbData] = useState([] as {
@@ -22,15 +22,16 @@ export default function TMDBSearcher({ isTv, tmdbIdSetCallback }: { isTv: boolea
         getAPIUrl("search_tv") && GET(getAPIUrl("search_tv") + '/' + keyword + "?page=1",
             (data) => {
                 setTmdbData(data.results.map((d: any) => {
+                    let poster = "https://image.tmdb.org/t/p/w500" + d.cover;
                     return {
-                        id: d.id,
+                        id: d.id + "",
                         name: d.name,
-                        imageSrc: "https://image.tmdb.org/t/p/w500" + d.cover,
+                        imageSrc: poster,
                         imageAlt: d.name,
                         title: d.name,
                         color: "text-red-500",
                         onClick: () => {
-                            tmdbIdSetCallback(d.id)
+                            selectCallback(d.id + "", poster)
                         }
                     }
                 }))
