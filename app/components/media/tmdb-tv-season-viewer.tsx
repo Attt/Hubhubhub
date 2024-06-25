@@ -13,7 +13,7 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
         imageAlt: string,
         href?: string,
         title: string,
-        color: string,
+        subtitle: string,
         onClick: () => void,
     }[]);
     
@@ -26,8 +26,8 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
                         name: d.name,
                         imageSrc: d.poster_path ? "https://image.tmdb.org/t/p/w500" + d.poster_path : defaultPoster,
                         imageAlt: d.overview,
-                        title: d.name,
-                        color: "text-red-500",
+                        title: "",
+                        subtitle: d.overview,
                         onClick: () => {
                             selectCallback(d.season_number)
                         }

@@ -1,4 +1,5 @@
 import { GET, getAPIUrl } from "@/app/requests";
+import { DialogTitle, } from '@headlessui/react'
 import { useToggleNotification } from "@/app/reducers";
 import { MagnifyingGlassIcon, FilmIcon } from '@heroicons/react/20/solid'
 import { useState } from "react";
@@ -14,7 +15,7 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
         imageAlt: string,
         href?: string,
         title: string,
-        color: string,
+        subtitle: string,
         onClick: () => void,
     }[]);
 
@@ -28,8 +29,8 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
                         name: d.name,
                         imageSrc: poster,
                         imageAlt: d.name,
-                        title: d.name,
-                        color: "text-red-500",
+                        title: "",
+                        subtitle: d.first_air_date,
                         onClick: () => {
                             selectCallback(d.id + "", poster)
                         }
@@ -43,6 +44,17 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
 
     return (
         <div>
+            <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
+                <div className="flex items-start justify-between space-x-3">
+                    <div className="space-y-1">
+                    </div>
+                    <div className="flex h-5 items-center">
+                        <DialogTitle className="dark:text-zinc-100 text-base font-semibold leading-6 text-zinc-900">
+                            检索TMDB
+                        </DialogTitle>
+                    </div>
+                </div>
+            </div>
             <div>
                 <label htmlFor="tmdb_keyword" className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900">
                     {isTv ? '剧集检索' : '电影检索'}

@@ -28,10 +28,12 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
         setTmdbId(tmdbId)
         setPartOfPlanData('tmdb_id', tmdbId)
         setTmdbSelectedPoster(poster)
+        toNextStep();
     }
 
     const onSeasonSelected = (seasonNo: number) => {
         setPartOfPlanData('season_no', seasonNo)
+        toNextStep();
     }
 
     const steps = [
