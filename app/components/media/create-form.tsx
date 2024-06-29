@@ -8,19 +8,23 @@ import { APITokenContext } from '@/app/contexts';
 
 export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: React.Dispatch<React.SetStateAction<MediaPlanConfig>> }) {
 
-    const handleInputChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPlanData(prevState => ({
-            ...prevState,
-            [name]: event.target.type == 'checkbox' ? event.target.checked : event.target.value
-        }));
-    };
+    const onChange = (name: string, value: any) => {
+        setPlanData({ ...planData, [name]: value })
+    }
+    
+    // const handleInputChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     setPlanData(prevState => ({
+    //         ...prevState,
+    //         [name]: event.target.type == 'checkbox' ? event.target.checked : event.target.value
+    //     }));
+    // };
 
-    const handleTextareaChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPlanData(prevState => ({
-            ...prevState,
-            [name]: event.target.value
-        }));
-    };
+    // const handleTextareaChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    //     setPlanData(prevState => ({
+    //         ...prevState,
+    //         [name]: event.target.value
+    //     }));
+    // };
 
     return (
         <div className="flex-1">
@@ -55,7 +59,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="tmdb-id"
                             id="tmdb-id"
                             value={planData.tmdb_id}
-                            onChange={handleInputChange('tmdb_id')}
+                            onChange={(e) => onChange('tmdb_id', e.target.value)}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                     </div>
@@ -76,7 +80,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             id="rss-link"
                             name="rss-link"
                             value={planData.rss_url}
-                            onChange={handleTextareaChange('rss_url')}
+                            onChange={(e) => onChange('rss_url', e.target.value)}
                             rows={3}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 
@@ -101,7 +105,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="ep-pattern"
                             id="ep-pattern"
                             value={planData.ep_pos}
-                            onChange={handleInputChange('ep_pos')}
+                            onChange={(e) => onChange('ep_pos', e.target.value)}
                             placeholder="Conan S01E{ep}"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -124,7 +128,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="season"
                             id="season"
                             value={planData.season_no}
-                            onChange={handleInputChange('season_no')}
+                            onChange={(e) => onChange('season_no', e.target.value)}
                             min={1}
                             placeholder="默认1"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -149,7 +153,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="start-ep"
                             id="start-ep"
                             value={planData.start_ep}
-                            onChange={handleInputChange('start_ep')}
+                            onChange={(e) => onChange('start_ep', e.target.value)}
                             min={1}
                             placeholder="默认1"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -174,7 +178,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="ep-offset"
                             id="ep-offset"
                             value={planData.ep_offset}
-                            onChange={handleInputChange('ep_offset')}
+                            onChange={(e) => onChange('ep_offset', e.target.value)}
                             placeholder="默认0"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -198,7 +202,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="subtitles"
                             id="subtitles"
                             value={planData.subtitles}
-                            onChange={handleInputChange('subtitles')}
+                            onChange={(e) => onChange('subtitles', e.target.value)}
                             placeholder=".srt:jpn.srt,.cn.srt:.chi.srt"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -219,7 +223,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                                         id="public-access"
                                         name="check-files"
                                         checked={planData.try_check_files}
-                                        onChange={handleInputChange('try_check_files')}
+                                        onChange={(e) => onChange('try_check_files', e.target.checked)}
                                         aria-describedby="public-access-description"
                                         type="checkbox"
                                         className="dark:text-indigo-400 dark:focus:ring-indigo-400 h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600"
@@ -241,7 +245,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                                         id="restricted-access"
                                         name="from-local"
                                         checked={planData.from_local}
-                                        onChange={handleInputChange('from_local')}
+                                        onChange={(e) => onChange('from_local', e.target.checked)}
                                         aria-describedby="restricted-access-description"
                                         type="checkbox"
                                         className="dark:text-indigo-400 dark:focus:ring-indigo-400 h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600"
