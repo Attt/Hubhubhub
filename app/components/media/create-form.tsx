@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DialogTitle, } from '@headlessui/react'
 import { MediaPlanConfig } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
 import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
+import { APITokenContext } from '@/app/contexts';
 
 
 export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: React.Dispatch<React.SetStateAction<MediaPlanConfig>> }) {
@@ -269,10 +270,12 @@ export function CreateForm({ open, setOpen }: { open: boolean, setOpen: React.Di
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
 
+    const apiTokenContext = useContext(APITokenContext);
+
     const [planData, setPlanData] = useState({} as MediaPlanConfig);
 
     const createMedia = async () => {
-        POST(getAPIUrl('create_media_plan'),
+        POST(getAPIUrl('create_media_plan') + '?token=' + apiTokenContext,
             planData,
             (data) => {
                 flipRefreshFlag({});

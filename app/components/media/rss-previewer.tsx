@@ -1,17 +1,19 @@
 import { DialogTitle, } from '@headlessui/react'
 import { GET, getAPIUrl } from "@/app/requests"
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CodeBlock from "../code-block"
 import { useToggleNotification } from "@/app/reducers";
 import { CheckIcon, LinkIcon } from '@heroicons/react/20/solid'
+import { APITokenContext } from '@/app/contexts';
 
 export default function RSSPreviewer({ rssUrlSetCallback }: { rssUrlSetCallback: (url: string) => void }) {
     const toggleNotification = useToggleNotification();
     const [url, setUrl] = useState("")
     const [rssContent, setRssContent] = useState("")
+    const apiTokenContext = useContext(APITokenContext);
 
     const fetchRssContent = () => {
-        getAPIUrl('fetch_rss') && GET(getAPIUrl('fetch_rss') + '?url=' + url,
+        getAPIUrl('fetch_rss') && GET(getAPIUrl('fetch_rss') + '?url=' + url + '&token=' + apiTokenContext,
             (data) => {
                 setRssContent(data)
                 rssUrlSetCallback(url)

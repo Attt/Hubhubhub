@@ -1,9 +1,10 @@
 import ButtonHeader, { HeaderButton } from '@/app/components/button-header';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { GET, getAPIUrl } from '@/app/requests';
 import { useToggleModal, useToggleNotification } from '@/app/reducers';
 import { ConfirmBody, ConfirmButton, CancelButton } from '@/app/components/modals/confirm-modal';
 import Divider from '@/app/components/divider';
+import { APITokenContext } from '@/app/contexts';
 
 
 export default function Drive115Configs() {
@@ -18,6 +19,8 @@ export default function Drive115Configs() {
     const [haveLoggedIn, setHaveLoggedIn] = useState(false);
 
     const loginMethodRef = useRef(loginMethod);
+
+    const apiTokenContext = useContext(APITokenContext);
 
     const openConfirmModal = (title: string, msg: string, positive: boolean, callback: () => void) => {
         toggleModal({
@@ -34,7 +37,7 @@ export default function Drive115Configs() {
     }
 
     const fetchQRCode = () => {
-        GET(getAPIUrl('get_115_qr_code') + '/' + loginMethod,
+        GET(getAPIUrl('get_115_qr_code') + '/' + loginMethod + '?token=' + apiTokenContext,
             (data) => {
                 setQrCode(data.image_data)
                 setUid(data.uid)
@@ -47,7 +50,7 @@ export default function Drive115Configs() {
 
     useEffect(() => {
         if (uid) {
-            GET(getAPIUrl('login_115_with_qr_code') + '/' + uid,
+            GET(getAPIUrl('login_115_with_qr_code') + '/' + uid + '?token=' + apiTokenContext,
                 (data) => {
                     toggleNotification({
                         type: 'show',
@@ -73,7 +76,7 @@ export default function Drive115Configs() {
     }, [loginMethod]);
 
     useEffect(() => {
-        GET(getAPIUrl('check_115_config'),
+        GET(getAPIUrl('check_115_config') + '?token=' + apiTokenContext,
             (data) => {
                 setShowLoginPart(true);
                 if (data == true) {

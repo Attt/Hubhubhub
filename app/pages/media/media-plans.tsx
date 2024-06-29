@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ConfirmBody, ConfirmButton, CancelButton } from "@/app/components/modals/confirm-modal";
 import { CreateForm } from "@/app/components/media/create-form";
 import { UpdateForm } from "@/app/components/media/update-form";
@@ -10,6 +10,7 @@ import { MediaPlan } from "@/app/interfaces";
 import { GET, POST, PATCH, DELETE, getAPIUrl } from "@/app/requests";
 import { useRefreshFlag, useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
 import { CreateSteps } from '@/app/components/media/create-steps';
+import { APITokenContext } from '@/app/contexts';
 
 const statuses: any = {
     'enabled': 'text-green-700 bg-green-50 ring-green-600/20',
@@ -46,10 +47,11 @@ export default function MediaPlans() {
     const [openUpdateForm, setOpenUpdateForm] = useState(false);
     const [openDownloadList, setOpenDownloadList] = useState(false);
     const [currentMediaPlan, setCurrentMediaPlan] = useState({} as MediaPlan);
+    const apiTokenContext = useContext(APITokenContext);
 
     useEffect(() => {
         const fetchData = async () => {
-            GET(getAPIUrl('query_media_plans'),
+            GET(getAPIUrl('query_media_plans') + '?token=' + apiTokenContext,
                 (data) => {
                     const mediaPlansData = data.map((d: any): MediaPlan[] => {
                         d.config = JSON.parse(d.config);
@@ -181,7 +183,7 @@ export default function MediaPlans() {
 
     const stopMedia = async (media_plan_id: number) => {
         openConfirmModal('暂停媒体计划', '暂停媒体计划会停止后续剧集的订阅更新，可以随时恢复。', false, () => {
-            PATCH(getAPIUrl('stop_media_plan') + '/' + media_plan_id,
+            PATCH(getAPIUrl('stop_media_plan') + '/' + media_plan_id + '?token=' + apiTokenContext,
                 (data) => {
                     flipRefreshFlag({});
                     toggleNotification({ type: 'show', title: '成功', msg: '媒体计划已暂停', status: 'success' });
@@ -195,7 +197,7 @@ export default function MediaPlans() {
 
     const resumeMedia = async (media_plan_id: number) => {
         openConfirmModal('恢复媒体计划', '恢复媒体计划将会在下次扫描时继续后续剧集的订阅更新。', true, () => {
-            PATCH(getAPIUrl('resume_media_plan') + '/' + media_plan_id,
+            PATCH(getAPIUrl('resume_media_plan') + '/' + media_plan_id + '?token=' + apiTokenContext,
                 (data) => {
                     flipRefreshFlag({});
                     toggleNotification({ type: 'show', title: '成功', msg: '媒体计划已恢复', status: 'success' });
@@ -209,7 +211,7 @@ export default function MediaPlans() {
 
     const deleteMedia = async (media_plan_id: number) => {
         openConfirmModal('删除媒体计划', '删除媒体计划会停止后续剧集的订阅更新，可以随时恢复。', false, () => {
-            DELETE(getAPIUrl('delete_media_plan') + '/' + media_plan_id,
+            DELETE(getAPIUrl('delete_media_plan') + '/' + media_plan_id + '?token=' + apiTokenContext,
                 (data) => {
                     flipRefreshFlag({});
                     toggleNotification({ type: 'show', title: '成功', msg: '媒体计划已删除', status: 'success' });
@@ -223,7 +225,7 @@ export default function MediaPlans() {
 
     const executeMedia = async (media_plan_id: number) => {
         openConfirmModal('立即执行媒体计划', '立即执行媒体计划会立即检查后续剧集的订阅更新。', true, () => {
-            POST(getAPIUrl('execute_media_plan') + '/' + media_plan_id,
+            POST(getAPIUrl('execute_media_plan') + '/' + media_plan_id + '?token=' + apiTokenContext,
                 null,
                 (data) => {
                     flipRefreshFlag({});

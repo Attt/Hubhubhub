@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { FileItem } from "@/app/components/file-tree/commons";
 import FileTree from "@/app/components/file-tree/file-tree";
 import { GET, POST, getAPIUrl } from "@/app/requests";
 import { useToggleNotification, useToggleModal } from "@/app/reducers";
 import { ConfirmBody, ConfirmButton, CancelButton } from "@/app/components/modals/confirm-modal";
 import ButtonHeader, { HeaderButton } from "@/app/components/button-header";
+import { APITokenContext } from "@/app/contexts";
 
 export default function MountedFiles({}: {}) {
     const toggleNotification = useToggleNotification();
@@ -14,6 +15,8 @@ export default function MountedFiles({}: {}) {
     const [fileId, setFileId] = useState('0')
 
     const fileNameRef = useRef(fileName);
+
+    const apiTokenContext = useContext(APITokenContext);
 
     useEffect(() => {
         fileNameRef.current = fileName
@@ -34,7 +37,7 @@ export default function MountedFiles({}: {}) {
     }
 
     const fetchChildren = (id: string, setChildren: (id: string, children: FileItem[]) => void) => {
-        POST(getAPIUrl('query_mounted_files'),
+        POST(getAPIUrl('query_mounted_files') + '?token=' + apiTokenContext,
             id,
             (data) => {
                 setChildren(id, data)
@@ -57,7 +60,7 @@ export default function MountedFiles({}: {}) {
             false,
             () => {
                 // 请求同步接口
-                POST(getAPIUrl('sync_files'),
+                POST(getAPIUrl('sync_files') + '?token=' + apiTokenContext,
                     fileNameRef.current,
                     (data) => {
                         if (data.ret == 0){

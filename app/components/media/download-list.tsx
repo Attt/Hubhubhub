@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { DownloadTask, MediaPlan } from "@/app/interfaces";
 import { GET, getAPIUrl } from "@/app/requests";
 import { useToggleModal, useToggleNotification } from "@/app/reducers";
+import { APITokenContext } from '@/app/contexts';
 
 const statuses: any = {
     'linking': 'text-rose-400 bg-rose-400/10',
@@ -75,12 +76,13 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
     const [downloadTasks, setDownloadTasks] = useState([] as DownloadTask[])
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const apiTokenContext = useContext(APITokenContext);
 
     useEffect(() => {
         if (open) {
             if (selectedPlan.id) {
                 const fetchData = async () => {
-                    GET(getAPIUrl('list_download_tasks') + '/' + selectedPlan.id,
+                    GET(getAPIUrl('list_download_tasks') + '/' + selectedPlan.id + '?token=' + apiTokenContext,
                         (data) => {
                             setDownloadTasks(data as DownloadTask[]);
                         },

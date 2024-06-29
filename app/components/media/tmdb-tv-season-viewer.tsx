@@ -2,7 +2,8 @@ import { DialogTitle, } from '@headlessui/react'
 import PictureTiles from "@/app/components/picture-tiles";
 import { useToggleNotification } from "@/app/reducers";
 import { GET, getAPIUrl } from "@/app/requests";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { APITokenContext } from '@/app/contexts';
 
 export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallback} : {defaultPoster: string, tmdbId: string, selectCallback: (season_no: number) => void}) {
     const toggleNotification = useToggleNotification();
@@ -16,9 +17,10 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
         subtitle: string,
         onClick: () => void,
     }[]);
+    const apiTokenContext = useContext(APITokenContext);
     
     useEffect(() => {
-        getAPIUrl("fetch_tv_info") && GET(getAPIUrl("fetch_tv_info") + '/' + tmdbId,
+        getAPIUrl("fetch_tv_info") && GET(getAPIUrl("fetch_tv_info") + '/' + tmdbId + "?token=" + apiTokenContext,
             (data) => {
                 setTmdbData(data.seasons.map((d: any) => {
                     return {

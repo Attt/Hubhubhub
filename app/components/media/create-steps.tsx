@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { MediaPlanConfig } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
 import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
@@ -8,10 +8,12 @@ import RSSPreviewer from "@/app/components/media/rss-previewer";
 import TMDBSearcher from "@/app/components/media/tmdb-searcher";
 import { CreateFormBody } from "@/app/components/media/create-form";
 import TMDBTVSeasonViewer from './tmdb-tv-season-viewer';
+import { APITokenContext } from '@/app/contexts';
 
 
 export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
 
+    const apiTokenContext = useContext(APITokenContext);
     const flipRefreshFlag = useFlipRefreshFlag();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
@@ -80,7 +82,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     }
 
     const createMedia = async () => {
-        POST(getAPIUrl('create_media_plan'),
+        POST(getAPIUrl('create_media_plan') + '?token=' + apiTokenContext,
             planData,
             (data) => {
                 flipRefreshFlag({});

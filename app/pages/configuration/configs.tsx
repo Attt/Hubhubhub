@@ -5,7 +5,7 @@ import { useToggleModal, useToggleNotification } from '@/app/reducers';
 import { ConfirmBody, ConfirmButton, CancelButton } from '@/app/components/modals/confirm-modal';
 import InputGroups from '@/app/components/input-groups';
 import Divider from '@/app/components/divider';
-import { ConfigGroupsContxt } from '@/app/contexts';
+import { APITokenContext, ConfigGroupsContxt } from '@/app/contexts';
 
 
 export default function Configs() {
@@ -16,6 +16,7 @@ export default function Configs() {
     const [config, setConfig] = useState({} as any);
 
     const configRef = useRef();
+    const apiTokenContext = useContext(APITokenContext);
 
     const openConfirmModal = (title: string, msg: string, positive: boolean, callback: () => void) => {
         toggleModal({
@@ -36,7 +37,7 @@ export default function Configs() {
     }, [config]);
 
     const updateCommonConfigs = () => {
-        POST(getAPIUrl('update_common_configs'),
+        POST(getAPIUrl('update_common_configs') + '?token=' + apiTokenContext,
             configRef.current,
             (data) => {
                 toggleNotification({
@@ -60,7 +61,7 @@ export default function Configs() {
     useEffect(() => {
 
         if (getAPIUrl('get_common_configs')) {
-            GET(getAPIUrl('get_common_configs'),
+            GET(getAPIUrl('get_common_configs') + '?token=' + apiTokenContext,
                 (data) => {
                     setConfig(data)
                 },

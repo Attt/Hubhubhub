@@ -2,8 +2,9 @@ import { GET, getAPIUrl } from "@/app/requests";
 import { DialogTitle, } from '@headlessui/react'
 import { useToggleNotification } from "@/app/reducers";
 import { MagnifyingGlassIcon, FilmIcon } from '@heroicons/react/20/solid'
-import { useState } from "react";
+import { useContext, useState } from "react";
 import PictureTiles from "../picture-tiles";
+import { APITokenContext } from "@/app/contexts";
 
 export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: { isTv: boolean, selectCallback: (tmdb_id: string, default_poster: string) => void }) {
     const toggleNotification = useToggleNotification();
@@ -18,9 +19,10 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
         subtitle: string,
         onClick: () => void,
     }[]);
+    const apiTokenContext = useContext(APITokenContext);
 
     const searchTmdb = () => {
-        getAPIUrl("search_tv") && GET(getAPIUrl("search_tv") + '/' + keyword + "?page=1",
+        getAPIUrl("search_tv") && GET(getAPIUrl("search_tv") + '/' + keyword + "?page=1" + "&token=" + apiTokenContext,
             (data) => {
                 setTmdbData(data.results.map((d: any) => {
                     let poster = "https://image.tmdb.org/t/p/w500" + d.cover;

@@ -4,7 +4,7 @@ import "./globals.css";
 import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
-import { CurrNavItemContext, APIConfigGroupsContxt, ConfigGroupsContxt, MenuGroupsContxt, APISchemaContext } from "@/app/contexts";
+import { CurrNavItemContext, APIConfigGroupsContxt, ConfigGroupsContxt, MenuGroupsContxt, APISchemaContext, APITokenContext } from "@/app/contexts";
 import { ModalProvider, NotificationProvider } from "@/app/reducers";
 import { GET, getAPIUrl, updateAPIUrl } from "./requests";
 import InputScreen from "./components/input-screen";
@@ -28,9 +28,10 @@ export default function RootLayout({
   const [apiSchema, setApiSchema] = useState('https://');
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currNavItem, setCurrNavItem] = useState({} as { name: string, key: string });
+  const [apiToken, setApiToken] = useState('');
 
   const intializeMenu = () => {
-    getAPIUrl('fetch_configs') && GET(getAPIUrl('fetch_configs'),
+    getAPIUrl('fetch_configs') && GET(getAPIUrl('fetch_configs') + "?token=" + apiToken,
       (data) => {
         if (data.menu_groups && data.config_groups && data.api_config_groups) {
           setConfigsFetched(true)
@@ -38,6 +39,7 @@ export default function RootLayout({
           setConfigGroups(data.config_groups)
           setAPIConfigGroups(data.api_config_groups)
           setApiSchema(data.schema || 'https://')
+          setApiToken(data.token || '')
           setInitialized(true)
         } else {
           updateAPIUrl('fetch_configs', '');
@@ -172,11 +174,13 @@ export default function RootLayout({
               <ConfigGroupsContxt.Provider value={configGroups}>
                 <APIConfigGroupsContxt.Provider value={apiConfigGroups}>
                   <APISchemaContext.Provider value={apiSchema}>
-                    <ModalProvider>
-                      <NotificationProvider>
-                        {children}
-                      </NotificationProvider>
-                    </ModalProvider>
+                    <APITokenContext.Provider value={apiToken}>
+                      <ModalProvider>
+                        <NotificationProvider>
+                          {children}
+                        </NotificationProvider>
+                      </ModalProvider>
+                    </APITokenContext.Provider>
                   </APISchemaContext.Provider>
                 </APIConfigGroupsContxt.Provider>
               </ConfigGroupsContxt.Provider>

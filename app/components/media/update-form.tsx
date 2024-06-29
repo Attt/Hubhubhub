@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { DialogTitle } from '@headlessui/react'
 import { MediaPlan, MediaPlanConfig, MediaPlanConfigForUpdate } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
 import { useToggleModal, useToggleNotification, useFlipRefreshFlag } from '@/app/reducers';
+import { APITokenContext } from '@/app/contexts';
 
 function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: string, planInEdit: MediaPlanConfigForUpdate, setPlanInEdit: React.Dispatch<React.SetStateAction<MediaPlanConfigForUpdate | undefined>> }) {
 
@@ -243,10 +244,11 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
     const flipRefreshFlag = useFlipRefreshFlag();
+    const apiTokenContext = useContext(APITokenContext);
 
     const updateMedia = async () => {
         if (plan) {
-            POST(getAPIUrl('update_media_plan') + '/' + plan.media_plan_id,
+            POST(getAPIUrl('update_media_plan') + '/' + plan.media_plan_id + '?token=' + apiTokenContext,
                 plan,
                 (data) => {
                     flipRefreshFlag({});
