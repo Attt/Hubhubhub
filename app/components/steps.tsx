@@ -47,7 +47,7 @@ export default function Steps({ steps, currentId, clickCallback }: { steps: { id
                 // return <div style={{ visibility: currentId == eleObj.id ? "visible" : "hidden" }}>
                 //     {eleObj.ele}
                 // </div>
-                return <div hidden={currentId != eleObj.id}>
+                return <div key={eleObj.id} hidden={currentId != eleObj.id}>
                     {eleObj.ele}
                 </div>
             })}
