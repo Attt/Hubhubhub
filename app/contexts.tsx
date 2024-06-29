@@ -15,3 +15,4 @@ export const MenuGroupsContxt = createContext([] as {title: string, menus: {id: 
 export const ConfigGroupsContxt = createContext([] as {title: string, description: string, items: {key: string, name: string, placehodler?: string}[]}[])
 export const APIConfigGroupsContxt = createContext([] as {title: string, description: string, items: {key: string, name: string}[]}[])
 export const APISchemaContext = createContext("https://")
+export const APITokenContext = createContext("")
