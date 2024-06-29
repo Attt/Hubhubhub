@@ -13,20 +13,13 @@ export default function RSSPreviewer({ rssUrlSetCallback }: { rssUrlSetCallback:
     const apiTokenContext = useContext(APITokenContext);
 
     const fetchRssContent = () => {
-        url && GET(url,
+        getAPIUrl('fetch_rss') && GET(getAPIUrl('fetch_rss') + '?url=' + url + '&token=' + apiTokenContext,
             (data) => {
                 setRssContent(data)
                 rssUrlSetCallback(url)
             }, (r) => {
                 toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
             })
-        // getAPIUrl('fetch_rss') && GET(getAPIUrl('fetch_rss') + '?url=' + url + '&token=' + apiTokenContext,
-        //     (data) => {
-        //         setRssContent(data)
-        //         rssUrlSetCallback(url)
-        //     }, (r) => {
-        //         toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
-        //     })
     }
 
     return (
