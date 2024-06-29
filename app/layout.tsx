@@ -31,7 +31,7 @@ export default function RootLayout({
   const [apiToken, setApiToken] = useState('');
 
   const intializeMenu = () => {
-    getAPIUrl('fetch_configs') && GET(getAPIUrl('fetch_configs') + "?token=" + apiToken,
+    getAPIUrl('fetch_configs') && GET(getAPIUrl('fetch_configs'),
       (data) => {
         if (data.menu_groups && data.config_groups && data.api_config_groups) {
           setConfigsFetched(true)
