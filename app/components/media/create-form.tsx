@@ -6,11 +6,8 @@ import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app
 import { APITokenContext } from '@/app/contexts';
 
 
-export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: React.Dispatch<React.SetStateAction<MediaPlanConfig>> }) {
+export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: (key: string, value: any) => void }) {
 
-    const onChange = (name: string, value: any) => {
-        setPlanData({ ...planData, [name]: value })
-    }
     
     // const handleInputChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
     //     setPlanData(prevState => ({
@@ -59,7 +56,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="tmdb-id"
                             id="tmdb-id"
                             value={planData.tmdb_id}
-                            onChange={(e) => onChange('tmdb_id', e.target.value)}
+                            onChange={(e) => setPlanData('tmdb_id', e.target.value)}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                     </div>
@@ -80,7 +77,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             id="rss-link"
                             name="rss-link"
                             value={planData.rss_url}
-                            onChange={(e) => onChange('rss_url', e.target.value)}
+                            onChange={(e) => setPlanData('rss_url', e.target.value)}
                             rows={3}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 
@@ -105,7 +102,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="ep-pattern"
                             id="ep-pattern"
                             value={planData.ep_pos}
-                            onChange={(e) => onChange('ep_pos', e.target.value)}
+                            onChange={(e) => setPlanData('ep_pos', e.target.value)}
                             placeholder="Conan S01E{ep}"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -128,7 +125,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="season"
                             id="season"
                             value={planData.season_no}
-                            onChange={(e) => onChange('season_no', e.target.value)}
+                            onChange={(e) => setPlanData('season_no', e.target.value)}
                             min={1}
                             placeholder="默认1"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -153,7 +150,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="start-ep"
                             id="start-ep"
                             value={planData.start_ep}
-                            onChange={(e) => onChange('start_ep', e.target.value)}
+                            onChange={(e) => setPlanData('start_ep', e.target.value)}
                             min={1}
                             placeholder="默认1"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -178,7 +175,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="ep-offset"
                             id="ep-offset"
                             value={planData.ep_offset}
-                            onChange={(e) => onChange('ep_offset', e.target.value)}
+                            onChange={(e) => setPlanData('ep_offset', e.target.value)}
                             placeholder="默认0"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -202,7 +199,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             name="subtitles"
                             id="subtitles"
                             value={planData.subtitles}
-                            onChange={(e) => onChange('subtitles', e.target.value)}
+                            onChange={(e) => setPlanData('subtitles', e.target.value)}
                             placeholder=".srt:jpn.srt,.cn.srt:.chi.srt"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -223,7 +220,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                                         id="public-access"
                                         name="check-files"
                                         checked={planData.try_check_files}
-                                        onChange={(e) => onChange('try_check_files', e.target.checked)}
+                                        onChange={(e) => setPlanData('try_check_files', e.target.checked)}
                                         aria-describedby="public-access-description"
                                         type="checkbox"
                                         className="dark:text-indigo-400 dark:focus:ring-indigo-400 h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600"
@@ -232,10 +229,10 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                                 </div>
                                 <div className="pl-7 text-sm leading-6">
                                     <label htmlFor="public-access" className="dark:text-zinc-100 font-medium text-zinc-900">
-                                        检查文件名
+                                        尝试检查文件名
                                     </label>
                                     <p id="public-access-description" className="dark:text-zinc-500 text-zinc-500">
-                                        尝试下载每个磁力或者种子的原文件，通过文件列表中的文件名而不是订阅链接的标题来判断是否命中
+                                        如果订阅链接的标题未命中订阅信息，尝试下载每个磁力或者种子的原文件，通过文件列表中的文件名来判断是否命中
                                     </p>
                                 </div>
                             </div>
@@ -245,7 +242,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                                         id="restricted-access"
                                         name="from-local"
                                         checked={planData.from_local}
-                                        onChange={(e) => onChange('from_local', e.target.checked)}
+                                        onChange={(e) => setPlanData('from_local', e.target.checked)}
                                         aria-describedby="restricted-access-description"
                                         type="checkbox"
                                         className="dark:text-indigo-400 dark:focus:ring-indigo-400 h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600"
@@ -256,7 +253,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                                         下载到本地
                                     </label>
                                     <p id="restricted-access-description" className="dark:text-zinc-500 text-zinc-500">
-                                        是否先将种子下载到本地再上传至网盘整理，不使用网盘的离线功能
+                                        是否先将种子下载到本地再上传至网盘整理，不使用网盘的离线功能（防止网盘离线失败）
                                     </p>
                                 </div>
                             </div>
@@ -277,6 +274,10 @@ export function CreateForm({ open, setOpen }: { open: boolean, setOpen: React.Di
     const apiTokenContext = useContext(APITokenContext);
 
     const [planData, setPlanData] = useState({} as MediaPlanConfig);
+
+    const setPartOfPlanData = (key: string, value: any) => {
+        setPlanData({ ...planData, [key]: value })
+    }
 
     const createMedia = async () => {
         POST(getAPIUrl('create_media_plan') + '?token=' + apiTokenContext,
@@ -312,7 +313,7 @@ export function CreateForm({ open, setOpen }: { open: boolean, setOpen: React.Di
                 body:
                     <CreateFormBody
                         planData={planData}
-                        setPlanData={setPlanData}
+                        setPlanData={setPartOfPlanData}
                     ></CreateFormBody>,
                 confirmButton:
                     { 

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { MediaPlanConfig } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
 import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
@@ -22,7 +22,10 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const [tmdbId, setTmdbId] = useState('');
     const [tmdbSelectedPoster, setTmdbSelectedPoster] = useState('');
 
+    const planDataRef = useRef(planData);
+
     const setPartOfPlanData = (key: string, value: any) => {
+        planDataRef.current = { ...planDataRef.current, [key]: value }
         setPlanData({ ...planData, [key]: value })
     }
 
@@ -68,7 +71,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
             name: '创建计划',
             element: (<CreateFormBody
                 planData={planData}
-                setPlanData={setPlanData}
+                setPlanData={setPartOfPlanData}
             ></CreateFormBody>)
         }
     ]
@@ -82,8 +85,9 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     }
 
     const createMedia = async () => {
+        // FIX planData reference
         POST(getAPIUrl('create_media_plan') + '?token=' + apiTokenContext,
-            planData,
+            planDataRef.current,
             (data) => {
                 flipRefreshFlag({});
                 toggleModal({ type: 'close' });
