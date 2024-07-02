@@ -24,9 +24,9 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
     }
 
     const fetchChildren = (id: string, setChildren: (id: string, children: FileItem[]) => void) => {
-        if(fileData && fileData['mapping']){
+        if (fileData && fileData['mapping']) {
             let c = fileData['mapping'][id]
-            if(c){
+            if (c) {
                 setChildren(id, c)
             }
         }
@@ -74,12 +74,17 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
                     </button>
                 </div>
             </div>
-            {fileData && fileData['mapping'] && <FileTree 
-                    folder_id={'0'}
-                    fetchChildren={fetchChildren}
-                    fullPathCallback={(id, name) => {
-                    }}
-                ></FileTree>}
+            {fileData && fileData['mapping'] &&
+                <div className="overflow-y-auto max-h-screen text-xs w-full p-4 mt-4 shadow-sm">
+                    <FileTree
+                        key={url}
+                        folder_id={'0'}
+                        fetchChildren={fetchChildren}
+                        fullPathCallback={(id, name) => {
+                        }}
+                    ></FileTree>
+                </div>
+            }
         </div>
     )
 }
