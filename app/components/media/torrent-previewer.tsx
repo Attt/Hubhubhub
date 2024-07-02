@@ -74,7 +74,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
                     </button>
                 </div>
             </div>
-            {fileData && <FileTree 
+            {fileData && fileData['mapping'] && <FileTree 
                     folder_id={'0'}
                     fetchChildren={fetchChildren}
                     fullPathCallback={(id, name) => {
