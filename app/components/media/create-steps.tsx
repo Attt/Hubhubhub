@@ -9,6 +9,7 @@ import TMDBSearcher from "@/app/components/media/tmdb-searcher";
 import { CreateFormBody } from "@/app/components/media/create-form";
 import TMDBTVSeasonViewer from './tmdb-tv-season-viewer';
 import { APITokenContext } from '@/app/contexts';
+import TorrentPreviewer from './torrent-previewer';
 
 
 export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -68,6 +69,13 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
         },
         {
             id: 3,
+            name: '种子预览',
+            element: (<TorrentPreviewer
+                torrentUrlSetCallback={(value) => {}}
+            ></TorrentPreviewer>)
+        },
+        {
+            id: 4,
             name: '创建计划',
             element: (<CreateFormBody
                 planData={planData}
