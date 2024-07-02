@@ -14,7 +14,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
     const apiTokenContext = useContext(APITokenContext);
 
     const fetchTorrentMagnetContent = () => {
-        getAPIUrl('fetch_torrent_magnet_files') && GET(getAPIUrl('fetch_torrent_magnet_files') + '?url=' + url + '&token=' + apiTokenContext,
+        getAPIUrl('fetch_torrent_magnet_files') && url && GET(getAPIUrl('fetch_torrent_magnet_files') + '?url=' + url + '&token=' + apiTokenContext,
             (data) => {
                 setFileData(data)
                 torrentUrlSetCallback(url)
@@ -24,7 +24,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
     }
 
     const fetchChildren = (id: string, setChildren: (id: string, children: FileItem[]) => void) => {
-        if(fileData){
+        if(fileData && fileData['mapping']){
             let c = fileData['mapping'][id]
             if(c){
                 setChildren(id, c)
@@ -75,7 +75,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
                 </div>
             </div>
             {fileData && <FileTree 
-                    folder_id={'?'}
+                    folder_id={'0'}
                     fetchChildren={fetchChildren}
                     fullPathCallback={(id, name) => {
                     }}
