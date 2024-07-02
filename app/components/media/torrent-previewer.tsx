@@ -12,6 +12,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
     const [url, setUrl] = useState("")
     const [fileData, setFileData] = useState({} as any)
     const apiTokenContext = useContext(APITokenContext);
+    const [id, setId] = useState(0)
 
     const fetchTorrentMagnetContent = () => {
         getAPIUrl('fetch_torrent_magnet_files') && url && GET(getAPIUrl('fetch_torrent_magnet_files') + '?url=' + url + '&token=' + apiTokenContext,
@@ -31,6 +32,10 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
             }
         }
     }
+
+    useEffect(() => {
+        setId(id + 1)
+    }, [fileData])
 
     return (
         <div className='flex-1'>
@@ -77,7 +82,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
             {fileData && fileData['mapping'] &&
                 <div className="overflow-y-auto max-h-screen text-xs w-full p-4 mt-4 shadow-sm">
                     <FileTree
-                        key={url}
+                        key={id}
                         folder_id={'0'}
                         fetchChildren={fetchChildren}
                         fullPathCallback={(id, name) => {
