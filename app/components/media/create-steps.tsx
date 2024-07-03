@@ -26,7 +26,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const planDataRef = useRef(planData);
 
     const setPartOfPlanData = (key: string, value: any) => {
-        planDataRef.current = { ...planDataRef.current, [key]: value }
+        //planDataRef.current = { ...planDataRef.current, [key]: value }
         setPlanData({ ...planData, [key]: value })
     }
 
