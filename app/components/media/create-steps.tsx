@@ -18,16 +18,16 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const flipRefreshFlag = useFlipRefreshFlag();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
-    const [planData, setPlanData] = useState({} as MediaPlanConfig);
+    // const [planData, setPlanData] = useState({} as MediaPlanConfig);
     const [currentStepId, setCurrentStepId] = useState(0);
     const [tmdbId, setTmdbId] = useState('');
     const [tmdbSelectedPoster, setTmdbSelectedPoster] = useState('');
 
-    const planDataRef = useRef(planData);
+    const planDataRef = useRef({} as MediaPlanConfig);
 
     const setPartOfPlanData = (key: string, value: any) => {
-        //planDataRef.current = { ...planDataRef.current, [key]: value }
-        setPlanData({ ...planData, [key]: value })
+        planDataRef.current = { ...planDataRef.current, [key]: value }
+        // setPlanData({ ...planData, [key]: value })
     }
 
     const onTmdbSelected = (tmdbId: string, poster: string) => {
@@ -78,7 +78,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
             id: 4,
             name: '创建计划',
             element: (<CreateFormBody
-                planData={planData}
+                planData={planDataRef.current}
                 setPlanData={setPartOfPlanData}
             ></CreateFormBody>)
         }
