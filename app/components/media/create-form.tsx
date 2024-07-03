@@ -7,7 +7,19 @@ import { APITokenContext } from '@/app/contexts';
 
 
 export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanConfig, setPlanData: (key: string, value: any) => void }) {
+    
+    const [tmdbId, setTmdbId] = useState('');
+    const [rssUrl, setRssUrl] = useState('');
 
+    const onTmdbIdChanged = (tmdbId: string) => {
+        setTmdbId(tmdbId)
+        setPlanData('tmdb_id', tmdbId)
+    }
+
+    const onRssUrlChanged = (rssUrl: string) => {
+        setRssUrl(rssUrl)
+        setPlanData('rss_url', rssUrl)
+    }
     
     // const handleInputChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
     //     setPlanData(prevState => ({
@@ -55,8 +67,8 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             type="text"
                             name="tmdb-id"
                             id="tmdb-id"
-                            value={planData.tmdb_id}
-                            onChange={(e) => setPlanData('tmdb_id', e.target.value)}
+                            value={tmdbId}
+                            onChange={(e) => onTmdbIdChanged(e.target.value)}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                     </div>
@@ -76,8 +88,8 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                         <textarea
                             id="rss-link"
                             name="rss-link"
-                            value={planData.rss_url}
-                            onChange={(e) => setPlanData('rss_url', e.target.value)}
+                            value={rssUrl}
+                            onChange={(e) => onRssUrlChanged(e.target.value)}
                             rows={3}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 
