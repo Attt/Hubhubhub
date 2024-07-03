@@ -18,6 +18,18 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
     const [tryCheckFiles, setTryCheckFiles] = useState(false);
     const [fromLocal, setFromLocal] = useState(false);
 
+    useEffect(() => {
+        setTmdbId(planData.tmdb_id)
+        setRssUrl(planData.rss_url)
+        setEpPos(planData.ep_pos)
+        setSeasonNo(planData.season_no)
+        setStartEp(planData.start_ep)
+        setEpOffset(planData.ep_offset)
+        setSubtitles(planData.subtitles)
+        setTryCheckFiles(planData.try_check_files)
+        setFromLocal(planData.from_local)
+    }, [planData])
+
     const onTmdbIdChanged = (tmdbId: string) => {
         setTmdbId(tmdbId)
         setPlanData('tmdb_id', tmdbId)
