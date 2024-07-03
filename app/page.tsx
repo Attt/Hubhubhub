@@ -8,6 +8,7 @@ import Drive115Configs from "@/app/pages/115/configs";
 import ApiConfigs from "@/app/pages/configuration/api-configs";
 import Configs from "@/app/pages/configuration/configs";
 import MountedFiles from "@/app/pages/storage/mounted-files";
+import Downloads from "@/app/pages/media/downloads";
 
 
 export default function Home() {
@@ -20,6 +21,12 @@ export default function Home() {
       break;
     case 'configuration/configs':
       child = <Configs></Configs>
+      break;
+    case 'media/downloads':
+      child = 
+      <RefreshProvider>
+        <Downloads></Downloads>
+      </RefreshProvider>
       break;
     case 'media/media-plans':
       child =
