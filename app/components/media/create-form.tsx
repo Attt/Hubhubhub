@@ -232,7 +232,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900 sm:mt-1.5"
                         >
                             集序号偏移
-                            <div className='dark:text-zinc-500 mt-1 text-zinc-500 mt-1'>修正标题中的集序号和实际的误差</div>
+                            <div className='dark:text-zinc-500 mt-1 text-zinc-500 mt-1'>真实剧集序号 = 标题/文件集序号 + 集序号偏移</div>
                         </label>
                     </div>
                     <div className="sm:col-span-2">
