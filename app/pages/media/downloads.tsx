@@ -55,7 +55,7 @@ export default function Downloads() {
                                 <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{download.name_sts_prg[0]}</p>
                                 <p
                                     className={classNames(
-                                        statuses[download.name_sts_prg[2]],
+                                        statuses[download.name_sts_prg[1]],
                                         'rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset'
                                     )}
                                 >
