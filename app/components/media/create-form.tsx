@@ -12,7 +12,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
     const [rssUrl, setRssUrl] = useState('');
     const [epPos, setEpPos] = useState('');
     const [seasonNo, setSeasonNo] = useState(0);
-    const [startEp, setStartEp] = useState(0);
+    const [startEp, setStartEp] = useState(1);
     const [epOffset, setEpOffset] = useState(0);
     const [subtitles, setSubtitles] = useState('');
     const [tryCheckFiles, setTryCheckFiles] = useState(false);
