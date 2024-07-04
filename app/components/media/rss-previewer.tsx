@@ -13,7 +13,7 @@ export default function RSSPreviewer({ rssUrlSetCallback }: { rssUrlSetCallback:
     const apiTokenContext = useContext(APITokenContext);
 
     const fetchRssContent = () => {
-        getAPIUrl('fetch_rss') && GET(getAPIUrl('fetch_rss') + '?url=' + encodeURI(url) + '&token=' + apiTokenContext,
+        getAPIUrl('fetch_rss') && GET(getAPIUrl('fetch_rss') + '?url=' + encodeURIComponent(url) + '&token=' + apiTokenContext,
             (data) => {
                 setRssContent(data)
                 rssUrlSetCallback(url)
