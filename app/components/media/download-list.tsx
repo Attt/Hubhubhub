@@ -82,7 +82,7 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
         if (open) {
             if (selectedPlan.id) {
                 const fetchData = async () => {
-                    GET(getAPIUrl('list_download_tasks') + '/' + selectedPlan.id + '?token=' + apiTokenContext,
+                    GET(getAPIUrl('list_downloads') + '/' + selectedPlan.id + '?token=' + apiTokenContext,
                         (data) => {
                             setDownloadTasks(data as DownloadTask[]);
                         },
