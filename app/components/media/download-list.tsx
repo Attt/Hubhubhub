@@ -126,7 +126,7 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
         if (open) {
             openModal();
         }
-    }, [open]);
+    }, [downloadTasks]);
 
     return (
         <></>
