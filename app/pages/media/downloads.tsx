@@ -11,6 +11,7 @@ const statuses = {
     'RUNNING': 'text-blue-600 bg-blue-50 ring-blue-500/10',
     'PAUSED': 'text-yellow-800 bg-yellow-50 ring-yellow-600/20',
     'ERROR': 'text-pink-800 bg-pink-50 ring-pink-600/20',
+    'MIA': 'text-pink-800 bg-pink-50 ring-pink-600/20',
     'PENDING': 'text-zinc-600 bg-zinc-50 ring-zinc-500/20',
 } as any
 
@@ -54,12 +55,13 @@ export default function Downloads() {
                                 <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{download.name_sts_prg[0]}</p>
                                 <p
                                     className={classNames(
-                                        statuses[download.name_sts_prg[2]],
+                                        statuses[download.name_sts_prg[1]],
                                         'rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset'
                                     )}
                                 >
                                     {download.name_sts_prg[2]}
                                 </p>
+                                <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{download.ep}</p>
                             </div>
                             <div className="mt-1 flex items-center gap-x-2 text-xs leading-5 text-zinc-500">
                                 <p className="whitespace-nowrap">
@@ -68,7 +70,7 @@ export default function Downloads() {
                                 <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 fill-current">
                                     <circle cx={1} cy={1} r={1} />
                                 </svg>
-                                <p className="truncate">Downloaded by {download.name}</p>
+                                <p className="truncate">Downloaded by {download.downloader}</p>
                             </div>
                         </div>
                         {/* <div className="flex flex-none items-center gap-x-4">

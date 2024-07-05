@@ -106,6 +106,9 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
                     status: 'success',
                 });
                 setOpen(false);
+                // clean all form data
+                setCurrentStepId(0);
+                planDataRef.current = {} as MediaPlanConfig;
             },
             (r) => {
                 toggleNotification({
