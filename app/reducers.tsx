@@ -12,7 +12,7 @@ import BaseModal from "@/app/components/modals/base-modal";
 
 /* refresh flag reducer */
 function flip(flag: boolean, action: any | undefined) {
-    console.log("flip", flag, action)
+    // console.log("flip", flag, action)
     return !flag;
 }
 

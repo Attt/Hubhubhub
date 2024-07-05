@@ -27,7 +27,7 @@ export default function Steps({ steps, currentId, clickCallback }: { steps: { id
         }))
 
         setElements(steps.map((step) => {
-            console.log(step.element)
+            // console.log(step.element)
             return {
                 id: step.id,
                 ele: step.element,

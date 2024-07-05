@@ -41,6 +41,7 @@ export interface MediaPlan {
 
 export interface DownloadTask {
     id: number;
+    name: string;
     url: string;
     ep: number;
     media_plan_id: number;
@@ -49,6 +50,14 @@ export interface DownloadTask {
     status: string;
     created: string;
     updated: string;
+}
+
+export interface DownloadListData {
+    downloader: string;
+    media: MediaPlan;
+    task: DownloadTask;
+    ep: string;
+    name_sts_prg: any[]; // name status progress
 }
 
 export interface NotificationVar {

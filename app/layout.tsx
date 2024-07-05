@@ -41,6 +41,9 @@ export default function RootLayout({
           setApiSchema(data.schema || 'https://')
           setApiToken(data.token || '')
           setInitialized(true)
+
+          // open initial menu item as default
+          setCurrNavItem(data.menu_groups.menus[0])
         } else {
           updateAPIUrl('fetch_configs', '');
         }

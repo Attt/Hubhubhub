@@ -1,15 +1,6 @@
 import { CheckIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
 
-// const statusArr = [ 'upcoming', 'current', 'complete']
-
-// const steps = [
-//   { id: '01', name: '剧集选择', href: '#', status: statusArr[2] },
-//   { id: '02', name: '季选择', href: '#', status: statusArr[2] },
-//   { id: '03', name: 'RSS预览', href: '#', status: statusArr[1] },
-//   { id: '04', name: '计划配置', href: '#', status: statusArr[0] },
-// ]
-
 export default function StepHeader({ steps, currentId, clickCallback }: { steps: { id: number, name: string, href?: string, status?: string }[], currentId: number, clickCallback?: (id: number) => void }) {
 
     const [headerSteps, setHeaderSteps] = useState(steps.map((step) => {
@@ -22,7 +13,7 @@ export default function StepHeader({ steps, currentId, clickCallback }: { steps:
     }))
 
     useEffect(() => {
-        console.log("setHeaderSteps", steps, currentId)
+        // console.log("setHeaderSteps", steps, currentId)
         let currentSet = false
         for (let i = 0; i < steps.length; i++) {
             if (!currentSet) {
