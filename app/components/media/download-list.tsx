@@ -69,19 +69,19 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                             </svg>
                             <p className="whitespace-normal break-all text-xs">{downloadTask.task.url}</p>
                         </div>
-                    </div>
-                    <div className="flex items-start gap-x-3">
-                        <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{downloadTask.name_sts_prg[0]}</p>
-                        <p
-                            className={classNames(
-                                downloaderStatuses[downloadTask.name_sts_prg[1]],
-                                'rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset'
-                            )}
-                        >
-                            {/* TODO progress bar? */}
-                            {downloadTask.name_sts_prg[2]}
-                        </p>
-                        <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{downloadTask.ep}</p>
+                        <div className="flex items-start gap-x-3">
+                            <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{downloadTask.name_sts_prg[0]}</p>
+                            <p
+                                className={classNames(
+                                    downloaderStatuses[downloadTask.name_sts_prg[1]],
+                                    'rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset'
+                                )}
+                            >
+                                {/* TODO progress bar? */}
+                                {downloadTask.name_sts_prg[2]}
+                            </p>
+                            <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{downloadTask.ep}</p>
+                        </div>
                     </div>
                     <div
                         className={classNames(
