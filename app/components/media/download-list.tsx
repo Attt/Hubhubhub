@@ -74,6 +74,7 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                                 <circle cx={1} cy={1} r={1} />
                             </svg>
                             <p className="whitespace-normal break-all text-xs">{downloadTask.name_sts_prg[0]}</p>
+                            <p className="whitespace-normal break-all text-xs">{downloadTask.ep}</p>
                             <p
                                 className={classNames(
                                     downloaderStatuses[downloadTask.name_sts_prg[1]],
@@ -81,9 +82,12 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                                 )}
                             >
                                 {/* TODO progress bar? */}
+                                <div className="overflow-hidden rounded-full bg-gray-200">
+                                    <div className="h-2 rounded-full bg-indigo-600" style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
+                                </div>
                                 {downloadTask.name_sts_prg[2]}
                             </p>
-                            <p className="whitespace-normal break-all text-xs">{downloadTask.ep}</p>
+                            
                         </div>
                     </div>
                     <div
