@@ -14,9 +14,18 @@ const downloaderStatuses: any = {
     'COMPLETE': 'text-blue-700 bg-blue-700/10 ring-blue-600/20',
     'RUNNING': 'text-green-600 bg-green-600/10 ring-green-500/10',
     'PAUSED': 'text-yellow-800 bg-yellow-800/10 ring-yellow-600/20',
-    'ERROR': 'text-pink-800 bg-pink-800/10 ring-pink-600/20',
+    'ERROR': 'text-red-800 bg-red-800/10 ring-red-600/20',
     'MIA': 'text-pink-800 bg-pink-800/10 ring-pink-600/20',
     'PENDING': 'text-zinc-600 bg-zinc-600/10 ring-zinc-500/20',
+}
+
+const downloaderProgressStatuses: any = {
+    'COMPLETE': 'bg-blue-700 ring-blue-600/20',
+    'RUNNING': 'bg-green-600 ring-green-500/10',
+    'PAUSED': 'bg-yellow-800 ring-yellow-600/20',
+    'ERROR': 'bg-red-800 ring-red-600/20',
+    'MIA': 'bg-pink-800 ring-pink-600/20',
+    'PENDING': 'bg-zinc-600 ring-zinc-500/20',
 }
 
 
@@ -106,7 +115,7 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                                 <circle cx={1} cy={1} r={1} />
                             </svg>
                             <div className="w-full overflow-hidden rounded-full bg-zinc-200">
-                                <div className="h-2 rounded-full bg-green-400" style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
+                                <div className={classNames(downloaderProgressStatuses[downloadTask.name_sts_prg[1]], 'rounded-full')} style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
                             </div>
                         </div>
                     </div>
