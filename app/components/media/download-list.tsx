@@ -115,7 +115,7 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                                 <circle cx={1} cy={1} r={1} />
                             </svg>
                             <div className="w-full overflow-hidden rounded-full bg-zinc-200">
-                                <div className={classNames(downloaderProgressStatuses[downloadTask.name_sts_prg[1]], 'rounded-full')} style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
+                                <div className={classNames(downloaderProgressStatuses[downloadTask.name_sts_prg[1]], 'h-2 rounded-full')} style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
                             </div>
                         </div>
                     </div>
