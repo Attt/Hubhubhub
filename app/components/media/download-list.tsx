@@ -82,12 +82,16 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                                 )}
                             >
                                 {/* TODO progress bar? */}
-                                <div className="overflow-hidden rounded-full bg-gray-200">
-                                    <div className="h-2 rounded-full bg-indigo-600" style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
-                                </div>
                                 {downloadTask.name_sts_prg[2]}
                             </p>
-                            
+                        </div>
+                        <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
+                            <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
+                                <circle cx={1} cy={1} r={1} />
+                            </svg>
+                            <div className="overflow-hidden rounded-full bg-gray-200">
+                                <div className="h-2 rounded-full bg-indigo-600" style={{ width: downloadTask.name_sts_prg[2] + '%' }} />
+                            </div>
                         </div>
                     </div>
                     <div
