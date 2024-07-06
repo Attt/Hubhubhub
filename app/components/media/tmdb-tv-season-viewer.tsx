@@ -20,7 +20,7 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
     const apiTokenContext = useContext(APITokenContext);
     
     useEffect(() => {
-        getAPIUrl("fetch_tv_info") && tmdbId && GET(getAPIUrl("fetch_tv_info") + '/' + tmdbId + "?token=" + apiTokenContext,
+        tmdbId && getAPIUrl("fetch_tv_info") && tmdbId && GET(getAPIUrl("fetch_tv_info") + '/' + tmdbId + "?token=" + apiTokenContext,
             (data) => {
                 setTmdbData(data.seasons.map((d: any) => {
                     return {

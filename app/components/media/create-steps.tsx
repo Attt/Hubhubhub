@@ -108,6 +108,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
                 setOpen(false);
                 // clean all form data
                 setCurrentStepId(0);
+                setTmdbId('')
                 planDataRef.current = {} as MediaPlanConfig;
             },
             (r) => {
@@ -148,6 +149,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
                     callback: () => {
                         setOpen(false);
                         setCurrentStepId(0);
+                        setTmdbId('')
                     },
                     title: '取消',
                     className: 'dark:text-zinc-100 dark:ring-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-950 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 mt-3 sm:w-auto text-sm font-semibold text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 hover:bg-zinc-50',
