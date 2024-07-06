@@ -238,10 +238,6 @@ export default function MediaPlans() {
         });
     }
 
-    setInterval(() => {
-        flipRefreshFlag({});
-    }, 5000);
-
     return (
         <>
             <DownloadList
