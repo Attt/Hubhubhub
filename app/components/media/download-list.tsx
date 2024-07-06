@@ -69,8 +69,11 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                             </svg>
                             <p className="whitespace-normal break-all text-xs">{downloadTask.task.url}</p>
                         </div>
-                        <div className="flex items-start gap-x-3">
-                            <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{downloadTask.name_sts_prg[0]}</p>
+                        <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
+                            <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
+                                <circle cx={1} cy={1} r={1} />
+                            </svg>
+                            <p className="whitespace-normal break-all text-xs">{downloadTask.name_sts_prg[0]}</p>
                             <p
                                 className={classNames(
                                     downloaderStatuses[downloadTask.name_sts_prg[1]],
@@ -80,7 +83,7 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                                 {/* TODO progress bar? */}
                                 {downloadTask.name_sts_prg[2]}
                             </p>
-                            <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">{downloadTask.ep}</p>
+                            <p className="whitespace-normal break-all text-xs">{downloadTask.ep}</p>
                         </div>
                     </div>
                     <div
