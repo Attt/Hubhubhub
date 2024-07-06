@@ -17,6 +17,7 @@ export interface MediaPlanConfig {
     cover: string
     homepage: string
     next_air_date: string
+    preferred_keywords: string
 }
 
 export interface MediaPlanConfigForUpdate {
@@ -28,6 +29,7 @@ export interface MediaPlanConfigForUpdate {
     subtitles: string
     try_check_files: boolean
     from_local: boolean
+    preferred_keywords: string
 }
 
 export interface MediaPlan {

@@ -162,6 +162,30 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                     </div>
                 </div>
 
+                {/* Preferred keywords */}
+                <div className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
+                    <div>
+                        <label
+                            htmlFor="preferred_keywords"
+                            className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900 sm:mt-1.5"
+                        >
+                            优先关键字
+                            <div className='dark:text-zinc-500 mt-1 text-zinc-500 mt-1'>命中相同的剧集优先选择包含这些关键字的标题/文件，可以有多个，用逗号分隔</div>
+                        </label>
+                    </div>
+                    <div className="sm:col-span-2">
+                        <input
+                            type="text"
+                            name="preferred_keywords"
+                            id="preferred_keywords"
+                            value={planInEdit.preferred_keywords}
+                            onChange={handleInputChange('preferred_keywords')}
+                            placeholder="60fps,hdr,2160p"
+                            className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                    </div>
+                </div>
+
                 {/* Experimental */}
                 <fieldset className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
                     <legend className="sr-only">实验性功能</legend>
@@ -236,6 +260,7 @@ function convertToUpdateConfig(plan: MediaPlan | undefined): MediaPlanConfigForU
         subtitles: config.subtitles,
         try_check_files: config.try_check_files,
         from_local: config.from_local,
+        preferred_keywords: config.preferred_keywords,
     };
 }
 
