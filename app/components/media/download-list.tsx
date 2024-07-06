@@ -43,6 +43,22 @@ function convertStatus(status: string) {
     }
 }
 
+function convertDownloaderStatus(status: string) {
+    if (status == 'PENDING') {
+        return '准备中'
+    } else if (status == 'RUNNING') {
+        return '运行中'
+    } else if (status == 'COMPLETE') {
+        return '已完成'
+    } else if (status == 'PAUSED') {
+        return '暂停中'
+    } else if (status == 'ERROR') {
+        return '错误'
+    } else {
+        return '未知'
+    }
+}
+
 export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadListData[] }) {
     return (
         <ul role="list" className="dark:divide-zinc-900/5 divide-y divide-white/5">
@@ -50,14 +66,14 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                 <li key={downloadTask.task.id} className="relative flex items-center space-x-4 py-4">
                     <div className="min-w-0 flex-auto">
                         <div className="flex items-center gap-x-3">
-                            <div className={classNames(taskStatuses[downloadTask.task.status], 'flex-none rounded-full p-1')}>
+                            <div className={classNames(downloaderStatuses[downloadTask.name_sts_prg[1]], 'flex-none rounded-full p-1')}>
                                 <div className="h-2 w-2 rounded-full bg-current" ></div>
                             </div>
                             <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                                 <div className="flex gap-x-2">
                                     <span className="truncate">{downloadTask.task.name}</span>
                                     <span className="text-gray-400">/</span>
-                                    <span className="whitespace-nowrap">{convertStatus(downloadTask.task.status)}</span>
+                                    <span className="whitespace-nowrap">{convertDownloaderStatus(downloadTask.name_sts_prg[1])}</span>
                                     <span className="absolute inset-0" />
                                 </div>
                             </h2>
