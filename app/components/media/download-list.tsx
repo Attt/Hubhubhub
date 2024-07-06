@@ -11,12 +11,12 @@ const taskStatuses: any = {
 }
 
 const downloaderStatuses: any = {
-    'COMPLETE': 'text-green-700 bg-green-50 ring-green-600/20',
-    'RUNNING': 'text-blue-600 bg-blue-50 ring-blue-500/10',
-    'PAUSED': 'text-yellow-800 bg-yellow-50 ring-yellow-600/20',
-    'ERROR': 'text-pink-800 bg-pink-50 ring-pink-600/20',
-    'MIA': 'text-pink-800 bg-pink-50 ring-pink-600/20',
-    'PENDING': 'text-zinc-600 bg-zinc-50 ring-zinc-500/20',
+    'COMPLETE': 'text-green-700 bg-green-700/10 ring-green-600/20',
+    'RUNNING': 'text-blue-600 bg-blue-600/10 ring-blue-500/10',
+    'PAUSED': 'text-yellow-800 bg-yellow-800/10 ring-yellow-600/20',
+    'ERROR': 'text-pink-800 bg-pink-800/10 ring-pink-600/20',
+    'MIA': 'text-pink-800 bg-pink-800/10 ring-pink-600/20',
+    'PENDING': 'text-zinc-600 bg-zinc-600/10 ring-zinc-500/20',
 }
 
 
