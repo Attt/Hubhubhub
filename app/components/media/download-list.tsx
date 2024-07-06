@@ -11,8 +11,8 @@ const taskStatuses: any = {
 }
 
 const downloaderStatuses: any = {
-    'COMPLETE': 'text-green-700 bg-green-700/10 ring-green-600/20',
-    'RUNNING': 'text-blue-600 bg-blue-600/10 ring-blue-500/10',
+    'COMPLETE': 'text-blue-700 bg-blue-700/10 ring-blue-600/20',
+    'RUNNING': 'text-green-600 bg-green-600/10 ring-green-500/10',
     'PAUSED': 'text-yellow-800 bg-yellow-800/10 ring-yellow-600/20',
     'ERROR': 'text-pink-800 bg-pink-800/10 ring-pink-600/20',
     'MIA': 'text-pink-800 bg-pink-800/10 ring-pink-600/20',
