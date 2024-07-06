@@ -23,7 +23,10 @@ export default function Downloads() {
                 })
                 afterSuccess(data)
             }, (err) => {
-
+                // sleep for 5 second
+                setTimeout(() => {
+                    flipRefreshFlag({});
+                }, 5000);
             })
         }
 
