@@ -362,7 +362,7 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
 
 
     useEffect(() => {
-        if (planDataRef.current) {
+        if (open && planDataRef.current) {
             toggleModal({
                 type: 'open',
                 body:
@@ -385,7 +385,7 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
                 },
             });
         }
-    }, [planDataRef.current]);
+    }, [planDataRef.current, open]);
 
     return (
         <></>
