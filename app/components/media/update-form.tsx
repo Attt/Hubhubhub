@@ -312,7 +312,7 @@ function convertToUpdateConfig(plan: MediaPlan | undefined): MediaPlanConfigForU
 
 export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: MediaPlan, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     // const [plan, setPlan] = useState(convertToUpdateConfig(selectedPlan));
-    const [taskName, setTaskName] = useState(selectedPlan.config.task_name);
+    const [taskName, setTaskName] = useState('');
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
     const flipRefreshFlag = useFlipRefreshFlag();
@@ -356,6 +356,7 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
     useEffect(() => {
         if (open && selectedPlan) {
             planDataRef.current = convertToUpdateConfig(selectedPlan);
+            setTaskName(selectedPlan.config.task_name);
         }
     }, [open]);
 
