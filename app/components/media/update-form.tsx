@@ -1,25 +1,71 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { DialogTitle } from '@headlessui/react'
 import { MediaPlan, MediaPlanConfig, MediaPlanConfigForUpdate } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
 import { useToggleModal, useToggleNotification, useFlipRefreshFlag } from '@/app/reducers';
 import { APITokenContext } from '@/app/contexts';
 
-function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: string, planInEdit: MediaPlanConfigForUpdate, setPlanInEdit: React.Dispatch<React.SetStateAction<MediaPlanConfigForUpdate | undefined>> }) {
+function UpdateFormBody({ task_name, planData, setPlanData }: { task_name: string, planData: MediaPlanConfigForUpdate, setPlanData: (key: string, value: any) => void }) {
 
-    const handleInputChange = (name: keyof MediaPlanConfigForUpdate) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPlanInEdit(prevState => (prevState && {
-            ...prevState,
-            [name]: event.target.type == 'checkbox' ? event.target.checked : event.target.value
-        }));
-    };
+    const [rssUrl, setRssUrl] = useState('');
+    const [epPos, setEpPos] = useState('');
+    const [startEp, setStartEp] = useState(1);
+    const [epOffset, setEpOffset] = useState(0);
+    const [subtitles, setSubtitles] = useState('');
+    const [tryCheckFiles, setTryCheckFiles] = useState(false);
+    const [fromLocal, setFromLocal] = useState(false);
+    const [preferredKeywords, setPreferredKeywords] = useState('');
 
-    const handleTextareaChange = (name: keyof MediaPlanConfigForUpdate) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setPlanInEdit(prevState => (prevState && {
-            ...prevState,
-            [name]: event.target.value
-        }));
-    };
+    useEffect(() => {
+        setRssUrl(planData.rss_url)
+        setEpPos(planData.ep_pos)
+        setStartEp(planData.start_ep)
+        setEpOffset(planData.ep_offset)
+        setSubtitles(planData.subtitles)
+        setTryCheckFiles(planData.try_check_files)
+        setFromLocal(planData.from_local)
+        setPreferredKeywords(planData.preferred_keywords)
+    }, [planData])
+
+    const onRssUrlChanged = (rssUrl: string) => {
+        setRssUrl(rssUrl)
+        setPlanData('rss_url', rssUrl)
+    }
+    
+    const onEpPosChanged = (epPos: string) => {
+        setEpPos(epPos)
+        setPlanData('ep_pos', epPos)
+    }
+    
+    const onStartEpChanged = (startEp: number) => {
+        setStartEp(startEp)
+        setPlanData('start_ep', startEp)
+    }
+
+    const onEpOffsetChanged = (epOffset: number) => {
+        setEpOffset(epOffset)
+        setPlanData('ep_offset', epOffset)
+    }
+
+    const onSubtitlesChanged = (subtitles: string) => {
+        setSubtitles(subtitles)
+        setPlanData('subtitles', subtitles)
+    }
+
+    const onTryCheckFilesChanged = (tryCheckFiles: boolean) => {
+        setTryCheckFiles(tryCheckFiles)
+        setPlanData('try_check_files', tryCheckFiles)
+    }
+
+    const onFromLocalChanged = (fromLocal: boolean) => {
+        setFromLocal(fromLocal)
+        setPlanData('from_local', fromLocal)
+    }
+
+    const onPreferredKeywordsChanged = (preferredKeywords: string) => {
+        setPreferredKeywords(preferredKeywords)
+        setPlanData('preferred_keywords', preferredKeywords)
+    }
 
     return (
         <div className="flex-1">
@@ -56,8 +102,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                         <textarea
                             id="rss-link"
                             name="rss-link"
-                            value={planInEdit.rss_url}
-                            onChange={handleTextareaChange('rss_url')}
+                            value={rssUrl}
+                            onChange={(e) => onRssUrlChanged(e.target.value)}
                             rows={3}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
 
@@ -81,8 +127,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                             type="text"
                             name="ep-pattern"
                             id="ep-pattern"
-                            value={planInEdit.ep_pos}
-                            onChange={handleInputChange('ep_pos')}
+                            value={epPos}
+                            onChange={(e) => onEpPosChanged(e.target.value)}
                             placeholder="Conan S01E{ep}"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -105,8 +151,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                             type="number"
                             name="start-ep"
                             id="start-ep"
-                            value={planInEdit.start_ep}
-                            onChange={handleInputChange('start_ep')}
+                            value={startEp}
+                            onChange={(e) => onStartEpChanged(e.target.valueAsNumber)}
                             min={1}
                             placeholder="默认1"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -130,8 +176,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                             type="number"
                             name="ep-offset"
                             id="ep-offset"
-                            value={planInEdit.ep_offset}
-                            onChange={handleInputChange('ep_offset')}
+                            value={epOffset}
+                            onChange={(e) => onEpOffsetChanged(e.target.valueAsNumber)}
                             placeholder="默认0"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -154,8 +200,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                             type="text"
                             name="subtitles"
                             id="subtitles"
-                            value={planInEdit.subtitles}
-                            onChange={handleInputChange('subtitles')}
+                            value={subtitles}
+                            onChange={(e) => onSubtitlesChanged(e.target.value)}
                             placeholder=".srt:jpn.srt,.cn.srt:.chi.srt"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -178,8 +224,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                             type="text"
                             name="preferred_keywords"
                             id="preferred_keywords"
-                            value={planInEdit.preferred_keywords}
-                            onChange={handleInputChange('preferred_keywords')}
+                            value={preferredKeywords}
+                            onChange={(e) => onPreferredKeywordsChanged(e.target.value)}
                             placeholder="60fps,hdr,2160p"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
@@ -199,8 +245,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                                     <input
                                         id="public-access"
                                         name="check-files"
-                                        checked={planInEdit.try_check_files}
-                                        onChange={handleInputChange('try_check_files')}
+                                        checked={tryCheckFiles}
+                                        onChange={(e) => onTryCheckFilesChanged(e.target.checked)}
                                         aria-describedby="public-access-description"
                                         type="checkbox"
                                         className="dark:text-indigo-400 dark:focus:ring-indigo-400 h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600"
@@ -221,8 +267,8 @@ function UpdateFormBody({ task_name, planInEdit, setPlanInEdit }: { task_name: s
                                     <input
                                         id="restricted-access"
                                         name="from-local"
-                                        checked={planInEdit.from_local}
-                                        onChange={handleInputChange('from_local')}
+                                        checked={fromLocal}
+                                        onChange={(e) => onFromLocalChanged(e.target.checked)}
                                         aria-describedby="restricted-access-description"
                                         type="checkbox"
                                         className="dark:text-indigo-400 dark:focus:ring-indigo-400 h-4 w-4 border-zinc-300 text-indigo-600 focus:ring-indigo-600"
@@ -265,16 +311,24 @@ function convertToUpdateConfig(plan: MediaPlan | undefined): MediaPlanConfigForU
 }
 
 export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: MediaPlan, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
-    const [plan, setPlan] = useState(convertToUpdateConfig(selectedPlan));
+    // const [plan, setPlan] = useState(convertToUpdateConfig(selectedPlan));
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
     const flipRefreshFlag = useFlipRefreshFlag();
     const apiTokenContext = useContext(APITokenContext);
 
+    const planDataRef = useRef({} as MediaPlanConfigForUpdate | undefined);
+
+    const setPartOfPlanData = (key: string, value: any) => {
+        if (planDataRef.current){
+            planDataRef.current = { ...planDataRef.current, [key]: value }
+        }
+    }
+
     const updateMedia = async () => {
-        if (plan) {
-            POST(getAPIUrl('update_media_plan') + '/' + plan.media_plan_id + '?token=' + apiTokenContext,
-                plan,
+        if (planDataRef.current) {
+            POST(getAPIUrl('update_media_plan') + '/' + planDataRef.current.media_plan_id + '?token=' + apiTokenContext,
+                planDataRef.current,
                 (data) => {
                     flipRefreshFlag({});
                     toggleNotification({
@@ -300,20 +354,20 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
 
     useEffect(() => {
         if (open && selectedPlan) {
-            setPlan(convertToUpdateConfig(selectedPlan));
+            planDataRef.current = convertToUpdateConfig(selectedPlan);
         }
     }, [open]);
 
 
     useEffect(() => {
-        if (plan) {
+        if (planDataRef.current) {
             toggleModal({
                 type: 'open',
                 body:
                     <UpdateFormBody
                         task_name={selectedPlan.config.task_name}
-                        planInEdit={plan}
-                        setPlanInEdit={setPlan}
+                        planData={planDataRef.current}
+                        setPlanData={setPartOfPlanData}
                     ></UpdateFormBody>,
                 confirmButton:
                 {
@@ -329,7 +383,7 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
                 },
             });
         }
-    }, [plan]);
+    }, [planDataRef.current]);
 
     return (
         <></>

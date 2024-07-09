@@ -82,20 +82,6 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
         setPlanData('preferred_keywords', preferredKeywords)
     }
 
-    // const handleInputChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setPlanData(prevState => ({
-    //         ...prevState,
-    //         [name]: event.target.type == 'checkbox' ? event.target.checked : event.target.value
-    //     }));
-    // };
-
-    // const handleTextareaChange = (name: keyof MediaPlanConfig) => (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    //     setPlanData(prevState => ({
-    //         ...prevState,
-    //         [name]: event.target.value
-    //     }));
-    // };
-
     return (
         <div className="flex-1">
             {/* Header */}
