@@ -18,6 +18,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
     const [tryCheckFiles, setTryCheckFiles] = useState(false);
     const [fromLocal, setFromLocal] = useState(false);
     const [preferredKeywords, setPreferredKeywords] = useState('');
+    const [excludedKeywords, setExcludedKeywords] = useState('');
 
     useEffect(() => {
         setTmdbId(planData.tmdb_id)
@@ -30,6 +31,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
         setTryCheckFiles(planData.try_check_files)
         setFromLocal(planData.from_local)
         setPreferredKeywords(planData.preferred_keywords)
+        setExcludedKeywords(planData.excluded_keywords)
     }, [planData])
 
     const onTmdbIdChanged = (tmdbId: string) => {
@@ -80,6 +82,11 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
     const onPreferredKeywordsChanged = (preferredKeywords: string) => {
         setPreferredKeywords(preferredKeywords)
         setPlanData('preferred_keywords', preferredKeywords)
+    }
+
+    const onExcludedKeywordsChanged = (excludedKeywords: string) => {
+        setExcludedKeywords(excludedKeywords)
+        setPlanData('excluded_keywords', excludedKeywords)
     }
 
     return (
@@ -283,6 +290,30 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                             id="preferred_keywords"
                             value={preferredKeywords}
                             onChange={(e) => onPreferredKeywordsChanged(e.target.value)}
+                            placeholder="60fps,hdr,2160p"
+                            className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                        />
+                    </div>
+                </div>
+
+                {/* Excluded keywords */}
+                <div className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
+                    <div>
+                        <label
+                            htmlFor="excluded_keywords"
+                            className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900 sm:mt-1.5"
+                        >
+                            排除关键字
+                            <div className='dark:text-zinc-500 mt-1 text-zinc-500 mt-1'>排除这些关键字的标题/文件，可以有多个，用逗号分隔</div>
+                        </label>
+                    </div>
+                    <div className="sm:col-span-2">
+                        <input
+                            type="text"
+                            name="excluded_keywords"
+                            id="excluded_keywords"
+                            value={excludedKeywords}
+                            onChange={(e) => onExcludedKeywordsChanged(e.target.value)}
                             placeholder="60fps,hdr,2160p"
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />

@@ -18,6 +18,7 @@ export interface MediaPlanConfig {
     homepage: string
     next_air_date: string
     preferred_keywords: string
+    excluded_keywords: string
 }
 
 export interface MediaPlanConfigForUpdate {
@@ -30,6 +31,7 @@ export interface MediaPlanConfigForUpdate {
     try_check_files: boolean
     from_local: boolean
     preferred_keywords: string
+    excluded_keywords: string
 }
 
 export interface MediaPlan {
