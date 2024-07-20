@@ -11,6 +11,7 @@ import { GET, POST, PATCH, DELETE, getAPIUrl } from "@/app/requests";
 import { useRefreshFlag, useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
 import { CreateSteps } from '@/app/components/media/create-steps';
 import { APITokenContext } from '@/app/contexts';
+import { TaskConfigList } from '@/app/components/media/task-config-list';
 
 const statuses: any = {
     'enabled': 'text-green-700 bg-green-50 ring-green-600/20',
@@ -46,6 +47,7 @@ export default function MediaPlans() {
     const [openCreateForm, setOpenCreateForm] = useState(false);
     const [openUpdateForm, setOpenUpdateForm] = useState(false);
     const [openDownloadList, setOpenDownloadList] = useState(false);
+    const [openTaskConfigList, setOpenTaskConfigList] = useState(false);
     const [currentMediaPlan, setCurrentMediaPlan] = useState({} as MediaPlan);
     const apiTokenContext = useContext(APITokenContext);
 
@@ -60,6 +62,13 @@ export default function MediaPlans() {
 
                     setMediaPlans(mediaPlansData.map((plan: MediaPlan): CardData => {
                         const menuList = [
+                            {
+                                title: '选择剧集',
+                                clickTrigger: () => {
+                                    setCurrentMediaPlan(plan);
+                                    setOpenTaskConfigList(true);
+                                },
+                            },
                             {
                                 title: '查看下载',
                                 clickTrigger: () => {
@@ -240,6 +249,12 @@ export default function MediaPlans() {
 
     return (
         <>
+            <TaskConfigList
+                open={openTaskConfigList}
+                setOpen={setOpenTaskConfigList}
+                selectedPlan={currentMediaPlan}
+            />
+
             <DownloadList
                 open={openDownloadList}
                 setOpen={setOpenDownloadList}
