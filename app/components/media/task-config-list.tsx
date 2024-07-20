@@ -149,7 +149,7 @@ export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: 
         if (open) {
             if (selectedPlan.id && getAPIUrl('query_task_configs')) {
                 const fetchData = async () => {
-                    GET(getAPIUrl('query_task_configs') + '/' + selectedPlan.id + '?token=' + apiTokenContext,
+                    GET(getAPIUrl('query_task_configs') + '?plan_id=' + selectedPlan.id + '&token=' + apiTokenContext,
                         (data) => {
                             data = data[selectedPlan.id]
                             setTaskConfigs(data as TaskConfigData[]);
