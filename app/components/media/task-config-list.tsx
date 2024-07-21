@@ -87,10 +87,10 @@ export function TaskConfigListBody({ taskConfigs, configIdListRef }: { taskConfi
                         <div className="min-w-0 flex-auto">
                         {/* <p className="dark:text-zinc-100 text-sm leading-6 text-zinc-900">EP.{taskConfig.ep} / TYPE: {taskConfig.ep_type}</p> */}
                         <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">
-                            {mergeEpInfo(taskConfig.ep_list)}
+                            {taskConfig.name}
                         </p>
                         <p className="mt-1 flex text-xs leading-5 text-zinc-500 break-all">
-                            {taskConfig.title}
+                            {mergeEpInfo(taskConfig.ep_list)}
                         </p>
                         <p className="mt-1 flex text-xs leading-5 text-zinc-500 break-all">
                             {taskConfig.url}

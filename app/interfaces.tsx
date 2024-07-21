@@ -68,14 +68,14 @@ export interface TaskConfigEpData {
     id: number
     ep: number
     ep_type: string
-    name: string
+    title: string
     preferred_keywords: string[]
 }
 
 export interface TaskConfigData {
     id: number
     ep_list: TaskConfigEpData[]
-    title: string;
+    name: string;
     url: string;
     type: string;
     is_new: boolean;
