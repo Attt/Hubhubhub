@@ -64,25 +64,20 @@ export interface DownloadListData {
     name_sts_prg: any[]; // name status progress
 }
 
-// class TaskConfig:
-//     title: str | None
-//     name: str | None
-//     url: str | None
-//     type: Literal["magnet", "torrent", "ed2k", "file", "th_cloud"]
-//     ep: int
-//     ep_type: Literal["media", "subtitle", "any"]
-//     preferred_keywords: list[str] | None
-//     is_new: bool = False
+export interface TaskConfigEpData {
+    id: number
+    ep: number
+    ep_type: string
+    name: string
+    preferred_keywords: string[]
+}
 
 export interface TaskConfigData {
-    id: number;
+    id: number
+    ep_list: TaskConfigEpData[]
     title: string;
-    name: string;
     url: string;
     type: string;
-    ep: number;
-    ep_type: string;
-    preferred_keywords: string[];
     is_new: boolean;
 }
 
