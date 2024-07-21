@@ -3,6 +3,7 @@ import { MediaPlan, TaskConfigData } from "@/app/interfaces";
 import { GET, POST, getAPIUrl } from "@/app/requests";
 import { useFlipRefreshFlag, useToggleModal, useToggleNotification } from "@/app/reducers";
 import { APITokenContext } from '@/app/contexts';
+import { FilmIcon } from '@heroicons/react/20/solid'
 
 
 const taskIsNew = (is_new: boolean) => {
@@ -13,10 +14,6 @@ const taskIsNew = (is_new: boolean) => {
     }
 }
 
-const isSelect = (id: number, configIdListRef: MutableRefObject<number[]>) => {
-    return configIdListRef.current.includes(id) ? 'border-lime-400' : ''
-}
-
 function classNames(...classes: any[]) {
     return classes.filter(Boolean).join(' ')
 }
@@ -24,63 +21,65 @@ function classNames(...classes: any[]) {
 
 export function TaskConfigListBody({ taskConfigs, configIdListRef }: { taskConfigs: TaskConfigData[], configIdListRef: MutableRefObject<number[]> }) {
     
+    const [configIdList, setConfigIdList] = useState<number[]>([])
+
     const onSelectList = (id: number) => {
-        if (configIdListRef.current.includes(id)) {
-            configIdListRef.current = configIdListRef.current.filter((item) => item !== id)
+        if (configIdList.includes(id)) {
+            configIdList.splice(configIdList.indexOf(id), 1)
         } else {
-            configIdListRef.current.push(id)
+            configIdList.push(id)
         }
+        setConfigIdList([...configIdList])
     }
 
+    useEffect(() => {
+        configIdListRef.current = configIdList
+    }, [configIdList])
+
     return (
-        <ul role="list" className="dark:divide-zinc-900/5 divide-y divide-white/5">
+        <ul role="list" className="dark:divide-zinc-800 divide-y divide-zinc-100">
             {taskConfigs && taskConfigs.length > 0 && taskConfigs.map((taskConfig) => (
-                <li onClick={() => onSelectList(taskConfig.id)} key={taskConfig.id} className={classNames(isSelect(taskConfig.id, configIdListRef), 'relative flex items-center space-x-4 py-4')}>
-                    <div className="min-w-0 flex-auto">
-                        <div className="flex items-center gap-x-3">
-                            <div className={classNames(taskIsNew(taskConfig.is_new), 'flex-none rounded-full p-1')}>
-                                <div className="h-2 w-2 rounded-full bg-current" ></div>
-                            </div>
-                            <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
-                                <div className="flex gap-x-2">
-                                    <span className="truncate">{taskConfig.title}</span>
-                                    <span className="text-gray-400">/</span>
-                                    <span className="whitespace-nowrap">{taskConfig.type}</span>
-                                    <span className="absolute inset-0" />
-                                </div>
-                            </h2>
-                        </div>
-                        <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
-
-                            <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
-                                <circle cx={1} cy={1} r={1} />
-                            </svg>
-                            <p className="whitespace-normal break-all text-xs">{taskConfig.url}</p>
-                        </div>
-                        <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
-                            <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
-                                <circle cx={1} cy={1} r={1} />
-                            </svg>
-                            <p className="whitespace-normal break-all text-xs">{taskConfig.name}</p>
-                            <p className="whitespace-normal break-all text-xs">{taskConfig.ep}</p>
-                            <p
-                                className={classNames(
-                                    taskIsNew(taskConfig.is_new),
-                                    'rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset'
-                                )}
-                            >
-                                {/* TODO progress bar? */}
-                                {taskConfig.ep_type}
-                            </p>
-                        </div>
-                        <div className="mt-3 flex items-center gap-x-2.5 text-xs leading-5 text-gray-400">
-
-                            <svg viewBox="0 0 2 2" className="h-0.5 w-0.5 flex-none fill-gray-300">
-                                <circle cx={1} cy={1} r={1} />
-                            </svg>
-                            <p className="whitespace-normal break-all text-xs">{taskConfig.preferred_keywords}</p>
-                        </div>
+                <li
+                onClick={() => onSelectList(taskConfig.id)} key={taskConfig.id} 
+                className={
+                    configIdList.includes(taskConfig.id) ? 'dark:hover:bg-green-600/10 text-green-600 bg-green-600/10 ring-green-500/10 rounded-md relative flex justify-between gap-x-6 px-4 py-5 hover:bg-zinc-50 sm:px-6 lg:px-8' : 'dark:hover:bg-zinc-900 rounded-md relative flex justify-between gap-x-6 px-4 py-5 hover:bg-zinc-50 sm:px-6 lg:px-8'
+                }
+                >
+                <div className="flex min-w-0 gap-x-4">
+                    <div className={classNames(taskIsNew(taskConfig.is_new), 'flex-none rounded-full p-1')}>
+                        <div className="h-2 w-2 rounded-full bg-current" ></div>
                     </div>
+                    <div className="min-w-0 flex-auto">
+                    <p className="dark:text-zinc-100 text-sm leading-6 text-zinc-900">EP.{taskConfig.ep} / TYPE: {taskConfig.ep_type}</p>
+                    <p className="dark:text-zinc-100 text-sm font-semibold leading-6 text-zinc-900">
+                        {taskConfig.title}
+                    </p>
+                    <p className="mt-1 flex text-xs leading-5 text-zinc-500 break-all">
+                        {taskConfig.url}
+                    </p>
+                    </div>
+                </div>
+                <div className="flex shrink-0 items-center gap-x-4">
+                    <div className="hidden sm:flex sm:flex-col sm:items-end">
+                    {taskConfig.is_new ?
+                    (
+                        <div className="mt-1 flex items-center gap-x-1.5">
+                        <div className="flex-none rounded-full bg-emerald-500/20 p-1">
+                            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+                        </div>
+                        <p className="text-xs leading-5 text-zinc-500">新着！</p>
+                        </div>
+                    ) : (
+                        <p className="mt-1 text-xs leading-5 text-zinc-500">
+                        {/* Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time> */}
+                        </p>
+                    )}
+                    <p className="mt-1 text-xs leading-5 text-zinc-500">
+                        {taskConfig.preferred_keywords ? "Prefered: " + taskConfig.preferred_keywords : ""}
+                    </p>
+                    </div>
+                    <FilmIcon className="dark:text-zinc-600 h-5 w-5 flex-none text-zinc-400" aria-hidden="true" />
+                </div>
                 </li>
             ))}
         </ul>
@@ -151,7 +150,6 @@ export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: 
                 const fetchData = async () => {
                     GET(getAPIUrl('query_task_configs') + '?plan_id=' + selectedPlan.id + '&token=' + apiTokenContext,
                         (data) => {
-                            data = data[selectedPlan.id]
                             setTaskConfigs(data as TaskConfigData[]);
                         },
                         (r) => {
