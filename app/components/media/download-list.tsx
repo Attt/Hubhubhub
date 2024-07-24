@@ -6,8 +6,10 @@ import { APITokenContext } from '@/app/contexts';
 
 const taskStatuses: any = {
     'linking': 'text-rose-400 bg-rose-400/10',
-    'finished': 'text-gray-500 bg-gray-100/10',
+    'finished': 'text-blue-500 bg-blue-100/10',
     'downloading': 'text-green-400 bg-green-400/10',
+    'cancelled': 'text-gray-400 bg-gray-400/10',
+    'failed': 'text-red-800 bg-red-600/10',
 }
 
 const downloaderStatuses: any = {
@@ -29,11 +31,21 @@ const downloaderProgressStatuses: any = {
 }
 
 
-const environments: any = {
+const downloader: any = {
     'aria2': 'text-gray-400 bg-gray-400/10 ring-gray-400/20',
     '115': 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
     'thunder': 'text-blue-400 bg-blue-400/10 ring-blue-400/30',
     'qb': 'text-green-400 bg-green-400/10 ring-green-400/30',
+    'file': 'text-yellow-400 bg-yellow-400/10 ring-yellow-400/30',
+    'th_cloud': 'text-pink-400 bg-pink-400/10 ring-pink-400/30',
+}
+
+const urlType: any = {
+    'magnet': 'text-gray-400 bg-gray-400/10 ring-gray-400/20',
+    'torrent': 'text-indigo-400 bg-indigo-400/10 ring-indigo-400/30',
+    'ed2k': 'text-blue-400 bg-blue-400/10 ring-blue-400/30',
+    'file': 'text-green-400 bg-green-400/10 ring-green-400/30',
+    'th_cloud': 'text-pink-400 bg-pink-400/10 ring-pink-400/30',
 }
 
 function classNames(...classes: any[]) {
@@ -47,6 +59,10 @@ function convertStatus(status: string) {
         return '整理中'
     } else if (status == 'finished') {
         return '已完成'
+    } else if (status == 'cancelled') {
+        return '已取消'
+    } else if (status == 'failed') {
+        return '失败'
     } else {
         return '未知'
     }
@@ -121,11 +137,27 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                     </div>
                     <div
                         className={classNames(
-                            environments[downloadTask.task.type],
+                            urlType[downloadTask.task.type],
                             'rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
                         )}
                     >
                         {downloadTask.task.type}
+                    </div>
+                    <div
+                        className={classNames(
+                            downloader[downloadTask.downloader],
+                            'mt-2 rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
+                        )}
+                    >
+                        {downloadTask.downloader}
+                    </div>
+                    <div
+                        className={classNames(
+                            taskStatuses[downloadTask.task.status],
+                            'mt-2 rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
+                        )}
+                    >
+                        {convertStatus(downloadTask.task.status)}
                     </div>
                 </li>
             ))}

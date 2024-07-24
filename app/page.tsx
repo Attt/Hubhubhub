@@ -9,6 +9,7 @@ import ApiConfigs from "@/app/pages/configuration/api-configs";
 import Configs from "@/app/pages/configuration/configs";
 import MountedFiles from "@/app/pages/storage/mounted-files";
 import Downloads from "@/app/pages/media/downloads";
+import Drive115Tasks from "@/app/pages/115/tasks";
 
 
 export default function Home() {
@@ -36,6 +37,9 @@ export default function Home() {
       break;
     case '115/configs':
       child = <Drive115Configs></Drive115Configs>
+      break;
+    case '115/tasks':
+      child = <Drive115Tasks></Drive115Tasks>
       break;
     case 'storage/mounted-files':
       child = <MountedFiles></MountedFiles>
