@@ -135,29 +135,31 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                             </div>
                         </div>
                     </div>
-                    <div
-                        className={classNames(
-                            urlType[downloadTask.task.type],
-                            'rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
-                        )}
-                    >
-                        {downloadTask.task.type}
-                    </div>
-                    <div
-                        className={classNames(
-                            downloader[downloadTask.downloader],
-                            'mt-2 rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
-                        )}
-                    >
-                        {downloadTask.downloader}
-                    </div>
-                    <div
-                        className={classNames(
-                            taskStatuses[downloadTask.task.status],
-                            'mt-2 rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
-                        )}
-                    >
-                        {convertStatus(downloadTask.task.status)}
+                    <div className='mt-3 flex-auto items-center gap-x-2.5 leading-5'>
+                        <div
+                            className={classNames(
+                                urlType[downloadTask.task.type],
+                                'rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
+                            )}
+                        >
+                            {downloadTask.task.type}
+                        </div>
+                        <div
+                            className={classNames(
+                                downloader[downloadTask.downloader],
+                                'mt-2 rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
+                            )}
+                        >
+                            {downloadTask.downloader}
+                        </div>
+                        <div
+                            className={classNames(
+                                taskStatuses[downloadTask.task.status],
+                                'mt-2 rounded-full flex-none py-1 px-2 text-xs font-medium ring-1 ring-inset'
+                            )}
+                        >
+                            {convertStatus(downloadTask.task.status)}
+                        </div>
                     </div>
                 </li>
             ))}
