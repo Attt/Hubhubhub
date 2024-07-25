@@ -53,7 +53,6 @@ export default function MediaPlans() {
     const apiTokenContext = useContext(APITokenContext);
 
     useEffect(() => {
-        toggleLoading({ type: 'show' })
         const fetchData = async () => {
             GET(getAPIUrl('query_media_plans') + '?token=' + apiTokenContext,
                 (data) => {
@@ -172,7 +171,7 @@ export default function MediaPlans() {
                 (r) => {
                     toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询媒体计划列表失败，请重试' });
                 },
-                
+                toggleLoading
             )
         };
 
