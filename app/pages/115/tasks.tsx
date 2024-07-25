@@ -1,5 +1,5 @@
 import { CreateDrive115TaskForm, TaskListBody } from "@/app/components/115/task-list";
-import { HeaderButton } from "@/app/components/button-header";
+import ButtonHeader, { HeaderButton } from "@/app/components/button-header";
 import { APITokenContext } from "@/app/contexts";
 import { Drive115ListData } from "@/app/interfaces";
 import { useFlipRefreshFlag, useRefreshFlag, useToggleLoading } from "@/app/reducers";
@@ -43,11 +43,13 @@ export default function Drive115Tasks() {
                 open={openCreateForm}
                 setOpen={setOpenCreateForm}
             />
-            <HeaderButton
-                buttonText='新增115离线任务'
-                buttonTrigger={() => setOpenCreateForm(true)}
-            >
-            </HeaderButton>
+            <ButtonHeader>
+                <HeaderButton
+                    buttonText='新增115离线任务'
+                    buttonTrigger={() => setOpenCreateForm(true)}
+                >
+                </HeaderButton>
+                </ButtonHeader>
             <TaskListBody
                 drive115Tasks={drive115Tasks}
             ></TaskListBody>

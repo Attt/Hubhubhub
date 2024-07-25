@@ -6,12 +6,19 @@ import { APITokenContext } from '@/app/contexts';
 import { CancelButton, ConfirmBody, ConfirmButton } from '../modals/confirm-modal';
 import { DialogTitle } from '@headlessui/react';
 
-const taskStatuses: any = {
-    'linking': 'text-rose-400 bg-rose-400/10',
-    'finished': 'text-blue-500 bg-blue-100/10',
-    'downloading': 'text-green-400 bg-green-400/10',
-    'cancelled': 'text-gray-400 bg-gray-400/10',
-    'failed': 'text-red-800 bg-red-600/10',
+// Running = 1
+//     """Task is running."""
+//     Complete = 2
+//     """Task is complete."""
+//     Failed = -1
+//     """Task is failed."""
+//     Unknown = 0
+
+const statuss: any = {
+    "1" : "Running",
+    "2" : "Complete",
+    "-1" : "Failed",
+    "0" : "Unknown",
 }
 
 const downloaderStatuses: any = {
@@ -102,14 +109,14 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
                 <li key={drive115Task.task_id} className="relative flex items-center space-x-4 py-4">
                     <div className="min-w-0 flex-auto">
                         <div className="flex items-center gap-x-3">
-                            <div className={classNames(downloaderStatuses[drive115Task.status], 'flex-none rounded-full p-1')}>
+                            <div className={classNames(downloaderStatuses[statuss[drive115Task.status + '']], 'flex-none rounded-full p-1')}>
                                 <div className="h-2 w-2 rounded-full bg-current" ></div>
                             </div>
                             <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                                 <div className="flex gap-x-2">
                                     <span className="truncate">{drive115Task.name}</span>
                                     <span className="text-gray-400">/</span>
-                                    <span className="whitespace-nowrap">{convertDownloaderStatus(drive115Task.status)}</span>
+                                    <span className="whitespace-nowrap">{convertDownloaderStatus(statuss[drive115Task.status + ''])}</span>
                                     <span className="absolute inset-0" />
                                 </div>
                             </h2>
@@ -129,7 +136,7 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
                             <p className="whitespace-normal break-all text-xs">{drive115Task.created_time}</p>
                             <p
                                 className={classNames(
-                                    downloaderStatuses[drive115Task.status],
+                                    downloaderStatuses[statuss[drive115Task.status + '']],
                                     'rounded-md whitespace-nowrap mt-0.5 px-1.5 py-0.5 text-xs font-medium ring-1 ring-inset'
                                 )}
                             >
@@ -141,7 +148,7 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
                                 <circle cx={1} cy={1} r={1} />
                             </svg>
                             <div className="w-full overflow-hidden rounded-full bg-zinc-200">
-                                <div className={classNames(downloaderProgressStatuses[drive115Task.status], 'h-2 rounded-full')} style={{ width: (drive115Task.percent ? drive115Task.percent : (drive115Task.precent ? drive115Task.precent : 0)) + '%' }} />
+                                <div className={classNames(downloaderProgressStatuses[statuss[drive115Task.status + '']], 'h-2 rounded-full')} style={{ width: (drive115Task.percent ? drive115Task.percent : (drive115Task.precent ? drive115Task.precent : 0)) + '%' }} />
                             </div>
                         </div>
                     </div>
