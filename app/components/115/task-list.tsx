@@ -51,22 +51,6 @@ function convertStatus(status: string) {
     }
 }
 
-function convertDownloaderStatus(status: string) {
-    if (status == 'PENDING') {
-        return '准备中'
-    } else if (status == 'RUNNING') {
-        return '运行中'
-    } else if (status == 'COMPLETE') {
-        return '已完成'
-    } else if (status == 'PAUSED') {
-        return '暂停中'
-    } else if (status == 'ERROR') {
-        return '错误'
-    } else {
-        return '未知'
-    }
-}
-
 export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListData[] }) {
     const toggleModal = useToggleModal();
     const flipRefreshFlag = useFlipRefreshFlag();
@@ -116,7 +100,7 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
                                 <div className="flex gap-x-2">
                                     <span className="truncate">{drive115Task.name}</span>
                                     <span className="text-gray-400">/</span>
-                                    <span className="whitespace-nowrap">{convertDownloaderStatus(statuss[drive115Task.status + ''])}</span>
+                                    <span className="whitespace-nowrap">{convertStatus(statuss[drive115Task.status + ''])}</span>
                                     <span className="absolute inset-0" />
                                 </div>
                             </h2>
