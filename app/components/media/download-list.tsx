@@ -209,8 +209,7 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
                                 msg: '获取下载任务失败',
                                 status: 'error',
                             });
-                        },
-                        toggleLoading
+                        }
                     )
                 };
 

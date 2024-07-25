@@ -203,8 +203,7 @@ export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: 
                                 msg: '获取任务配置失败',
                                 status: 'error',
                             });
-                        },
-                        toggleLoading
+                        }
                     )
                 };
 
