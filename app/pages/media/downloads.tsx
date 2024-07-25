@@ -16,8 +16,6 @@ export default function Downloads() {
     const [downloads, setDownloads] = useState([] as DownloadListData[]);
     const apiTokenContext = useContext(APITokenContext);
 
-    const [showLoading, setShowLoading] = useState(0);
-
     useEffect(() => {
         const loadData = async (afterSuccess: (data: DownloadListData[]) => void) => {
             getAPIUrl("query_all_downloads") && GET(getAPIUrl("query_all_downloads") + '?token=' + apiTokenContext, (data) => {
@@ -29,17 +27,15 @@ export default function Downloads() {
             }, (err) => {
                 // sleep for 5 second
                 setTimeout(() => {
-                    setShowLoading(1)
                     flipRefreshFlag({});
                 }, 5000);
-            }, showLoading == 0 ? undefined : toggleLoading)
+            })
         }
 
         loadData((data) => {
             setDownloads(data)
             // sleep for 5 second
             setTimeout(() => {
-                setShowLoading(1)
                 flipRefreshFlag({});
             }, 5000);
         })

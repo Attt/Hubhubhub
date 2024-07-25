@@ -16,8 +16,6 @@ export default function Drive115Tasks() {
 
     const [openCreateForm, setOpenCreateForm] = useState(false);
 
-    const [showLoading, setShowLoading] = useState(0);
-
     useEffect(() => {
         const loadData = async (afterSuccess: (data: Drive115ListData[]) => void) => {
             getAPIUrl("query_115_tasks") && GET(getAPIUrl("query_115_tasks") + '?token=' + apiTokenContext, (data) => {
@@ -25,17 +23,15 @@ export default function Drive115Tasks() {
             }, (err) => {
                 // sleep for 5 second
                 setTimeout(() => {
-                    setShowLoading(1)
                     flipRefreshFlag({});
                 }, 5000);
-            }, showLoading == 0 ? undefined : toggleLoading)
+            })
         }
 
         loadData((data) => {
             setDrive115Tasks(data)
             // sleep for 5 second
             setTimeout(() => {
-                setShowLoading(1)
                 flipRefreshFlag({});
             }, 5000);
         })
