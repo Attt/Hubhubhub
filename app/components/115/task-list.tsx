@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { Drive115ListData } from "@/app/interfaces";
 import { DELETE, getAPIUrl, POST } from "@/app/requests";
-import { useFlipRefreshFlag, useToggleModal, useToggleNotification } from "@/app/reducers";
+import { useFlipRefreshFlag, useToggleLoading, useToggleModal, useToggleNotification } from "@/app/reducers";
 import { APITokenContext } from '@/app/contexts';
 import { CancelButton, ConfirmBody, ConfirmButton } from '../modals/confirm-modal';
 import { DialogTitle } from '@headlessui/react';
@@ -64,6 +64,7 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
     const toggleModal = useToggleModal();
     const flipRefreshFlag = useFlipRefreshFlag();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const apiTokenContext = useContext(APITokenContext);
 
     const openConfirmModal = (title: string, msg: string, positive: boolean, callback: () => void) => {
@@ -89,7 +90,8 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
                 },
                 (r) => {
                     toggleNotification({ type: 'show', title: '失败', msg: '离线任务删除失败', status: 'error' });
-                }
+                },
+                toggleLoading
             )
         });
     }
@@ -206,6 +208,7 @@ export function Create115TaskFormBody({ url, setUrl }: { url: string, setUrl: (u
 
 export function CreateDrive115TaskForm({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const flipRefreshFlag = useFlipRefreshFlag();
+    const toggleLoading = useToggleLoading();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
 
@@ -239,7 +242,8 @@ export function CreateDrive115TaskForm({ open, setOpen }: { open: boolean, setOp
                     status: 'error',
                 });
                 setOpen(false);
-            }
+            },
+            toggleLoading
         )
 
     };

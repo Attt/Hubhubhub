@@ -1,7 +1,7 @@
 import ButtonHeader, { HeaderButton } from '@/app/components/button-header';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { GET, POST, getAPIUrl } from '@/app/requests';
-import { useToggleModal, useToggleNotification } from '@/app/reducers';
+import { useToggleLoading, useToggleModal, useToggleNotification } from '@/app/reducers';
 import { ConfirmBody, ConfirmButton, CancelButton } from '@/app/components/modals/confirm-modal';
 import InputGroups from '@/app/components/input-groups';
 import Divider from '@/app/components/divider';
@@ -12,6 +12,7 @@ export default function Configs() {
     const configGroupsContxt = useContext(ConfigGroupsContxt);
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
 
     const [config, setConfig] = useState({} as any);
 
@@ -54,7 +55,8 @@ export default function Configs() {
                     msg: '保存失败',
                     status: 'error',
                 });
-            }
+            },
+            toggleLoading
         );
     }
 
@@ -67,7 +69,8 @@ export default function Configs() {
                 },
                 (r) => {
                     setConfig({})
-                }
+                },
+                toggleLoading
             )
         }
     }, []);

@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from 'react';
 import { DownloadListData, DownloadTask, MediaPlan } from "@/app/interfaces";
 import { GET, getAPIUrl } from "@/app/requests";
-import { useToggleModal, useToggleNotification } from "@/app/reducers";
+import { useToggleLoading, useToggleModal, useToggleNotification } from "@/app/reducers";
 import { APITokenContext } from '@/app/contexts';
 
 const taskStatuses: any = {
@@ -171,6 +171,7 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
     const [downloadTasks, setDownloadTasks] = useState([] as DownloadListData[])
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const apiTokenContext = useContext(APITokenContext);
 
     const openModal = () => {
@@ -208,7 +209,8 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
                                 msg: '获取下载任务失败',
                                 status: 'error',
                             });
-                        }
+                        },
+                        toggleLoading
                     )
                 };
 

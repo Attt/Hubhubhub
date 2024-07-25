@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext, useRef, MutableRefObject } from 'react';
 import { MediaPlan, TaskConfigData, TaskConfigEpData } from "@/app/interfaces";
 import { GET, POST, getAPIUrl } from "@/app/requests";
-import { useFlipRefreshFlag, useToggleModal, useToggleNotification } from "@/app/reducers";
+import { useFlipRefreshFlag, useToggleLoading, useToggleModal, useToggleNotification } from "@/app/reducers";
 import { APITokenContext } from '@/app/contexts';
 import { FilmIcon, ChevronRightIcon } from '@heroicons/react/20/solid'
 
@@ -126,6 +126,7 @@ export function TaskConfigListBody({ taskConfigs, configIdListRef }: { taskConfi
 
 export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: MediaPlan, open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const [taskConfigs, setTaskConfigs] = useState([] as TaskConfigData[])
+    const toggleLoading = useToggleLoading();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
     const apiTokenContext = useContext(APITokenContext);
@@ -154,7 +155,8 @@ export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: 
                         status: 'error',
                     });
                     setOpen(false);
-                }
+                },
+                toggleLoading
             );
         }
     };
@@ -201,7 +203,8 @@ export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: 
                                 msg: '获取任务配置失败',
                                 status: 'error',
                             });
-                        }
+                        },
+                        toggleLoading
                     )
                 };
 

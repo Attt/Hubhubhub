@@ -2,13 +2,14 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { FileItem } from "@/app/components/file-tree/commons";
 import FileTree from "@/app/components/file-tree/file-tree";
 import { GET, POST, getAPIUrl } from "@/app/requests";
-import { useToggleNotification, useToggleModal } from "@/app/reducers";
+import { useToggleNotification, useToggleModal, useToggleLoading } from "@/app/reducers";
 import { ConfirmBody, ConfirmButton, CancelButton } from "@/app/components/modals/confirm-modal";
 import ButtonHeader, { HeaderButton } from "@/app/components/button-header";
 import { APITokenContext } from "@/app/contexts";
 
 export default function MountedFiles({}: {}) {
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const toggleModal = useToggleModal();
 
     const [fileName, setFileName] = useState('')
@@ -49,7 +50,8 @@ export default function MountedFiles({}: {}) {
                     msg: '获取文件列表失败',
                     status: 'error',
                 });
-            }
+            },
+            toggleLoading
         )
     }
 
@@ -86,7 +88,8 @@ export default function MountedFiles({}: {}) {
                             msg: '文件' + fileNameRef.current + '同步失败',
                             status: 'error',
                         });
-                    }
+                    },
+                    toggleLoading
                 )
             },
         )

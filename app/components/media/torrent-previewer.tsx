@@ -1,7 +1,7 @@
 import { DialogTitle, } from '@headlessui/react'
 import { GET, getAPIUrl } from "@/app/requests"
 import { useContext, useEffect, useState } from "react"
-import { useToggleNotification } from "@/app/reducers";
+import { useToggleLoading, useToggleNotification } from "@/app/reducers";
 import { CheckIcon, LinkIcon } from '@heroicons/react/20/solid'
 import { APITokenContext } from '@/app/contexts';
 import FileTree from '@/app/components/file-tree/file-tree';
@@ -9,6 +9,7 @@ import { FileItem } from '@/app/components/file-tree/commons';
 
 export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrlSetCallback: (url: string) => void }) {
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const [url, setUrl] = useState("")
     const [fileData, setFileData] = useState({} as any)
     const apiTokenContext = useContext(APITokenContext);
@@ -21,7 +22,7 @@ export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrl
                 torrentUrlSetCallback(url)
             }, (r) => {
                 toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询种子/磁力内容失败，请重试' });
-            })
+            }, toggleLoading)
     }
 
     const fetchChildren = (id: string, setChildren: (id: string, children: FileItem[]) => void) => {

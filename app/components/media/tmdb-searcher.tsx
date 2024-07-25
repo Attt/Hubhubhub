@@ -1,6 +1,6 @@
 import { GET, getAPIUrl } from "@/app/requests";
 import { DialogTitle, } from '@headlessui/react'
-import { useToggleNotification } from "@/app/reducers";
+import { useToggleLoading, useToggleNotification } from "@/app/reducers";
 import { MagnifyingGlassIcon, FilmIcon } from '@heroicons/react/20/solid'
 import { useContext, useState } from "react";
 import PictureTiles from "../picture-tiles";
@@ -8,6 +8,7 @@ import { APITokenContext } from "@/app/contexts";
 
 export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: { isTv: boolean, selectCallback: (tmdb_id: string, default_poster: string) => void }) {
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const [keyword, setKeyword] = useState("");
     const [tmdbData, setTmdbData] = useState([] as {
         id: string,
@@ -41,7 +42,7 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
             },
             (err) => {
                 toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '检索TMDB内容失败，请重试' });
-            })
+            }, toggleLoading)
     }
 
     return (

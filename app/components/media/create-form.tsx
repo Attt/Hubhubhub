@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { DialogTitle, } from '@headlessui/react'
 import { MediaPlanConfig } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
-import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
+import { useFlipRefreshFlag, useToggleNotification, useToggleModal, useToggleLoading } from '@/app/reducers';
 import { APITokenContext } from '@/app/contexts';
 
 
@@ -382,6 +382,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
 
 export function CreateForm({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
     const flipRefreshFlag = useFlipRefreshFlag();
+    const toggleLoading = useToggleLoading();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
 
@@ -415,7 +416,8 @@ export function CreateForm({ open, setOpen }: { open: boolean, setOpen: React.Di
                     status: 'error',
                 });
                 setOpen(false);
-            }
+            },
+            toggleLoading
         )
 
     };

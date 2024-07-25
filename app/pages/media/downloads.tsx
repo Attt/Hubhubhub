@@ -1,5 +1,5 @@
 import { APITokenContext } from "@/app/contexts";
-import { useFlipRefreshFlag, useRefreshFlag } from "@/app/reducers";
+import { useFlipRefreshFlag, useRefreshFlag, useToggleLoading } from "@/app/reducers";
 import { GET, getAPIUrl } from "@/app/requests";
 import { useContext, useEffect, useState } from "react";
 import { DownloadListBody } from "@/app/components/media/download-list";
@@ -11,10 +11,12 @@ export default function Downloads() {
     const refreshFlag = useRefreshFlag();
     const flipRefreshFlag = useFlipRefreshFlag();
 
+    const toggleLoading = useToggleLoading();
+
     const [downloads, setDownloads] = useState([] as DownloadListData[]);
     const apiTokenContext = useContext(APITokenContext);
 
-    const [showLoading, setShowLoading] = useState(true);
+    const [showLoading, setShowLoading] = useState(0);
 
     useEffect(() => {
         const loadData = async (afterSuccess: (data: DownloadListData[]) => void) => {
@@ -27,17 +29,17 @@ export default function Downloads() {
             }, (err) => {
                 // sleep for 5 second
                 setTimeout(() => {
-                    setShowLoading(false)
+                    setShowLoading(1)
                     flipRefreshFlag({});
                 }, 5000);
-            }, showLoading)
+            }, showLoading == 0 ? undefined : toggleLoading)
         }
 
         loadData((data) => {
             setDownloads(data)
             // sleep for 5 second
             setTimeout(() => {
-                setShowLoading(false)
+                setShowLoading(1)
                 flipRefreshFlag({});
             }, 5000);
         })

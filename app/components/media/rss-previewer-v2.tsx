@@ -2,12 +2,13 @@ import { DialogTitle, } from '@headlessui/react'
 import { GET, POST, getAPIUrl } from "@/app/requests"
 import { useContext, useEffect, useState } from "react"
 import CodeBlock from "../code-block"
-import { useToggleNotification } from "@/app/reducers";
+import { useToggleLoading, useToggleNotification } from "@/app/reducers";
 import { CheckIcon, LinkIcon } from '@heroicons/react/20/solid'
 import { APITokenContext } from '@/app/contexts';
 
-export default function RSSPreviewer({ rssUrlSetCallback }: { rssUrlSetCallback: (url: string) => void }) {
+export default function RSSPreviewerV2({ rssUrlSetCallback }: { rssUrlSetCallback: (url: string) => void }) {
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const [url, setUrl] = useState("")
     const [rssContent, setRssContent] = useState("")
     const apiTokenContext = useContext(APITokenContext);
@@ -20,7 +21,7 @@ export default function RSSPreviewer({ rssUrlSetCallback }: { rssUrlSetCallback:
                 rssUrlSetCallback(url)
             }, (r) => {
                 toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
-            })
+            }, toggleLoading)
     }
 
     return (

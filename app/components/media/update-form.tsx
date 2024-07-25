@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import { DialogTitle } from '@headlessui/react'
 import { MediaPlan, MediaPlanConfig, MediaPlanConfigForUpdate } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
-import { useToggleModal, useToggleNotification, useFlipRefreshFlag } from '@/app/reducers';
+import { useToggleModal, useToggleNotification, useFlipRefreshFlag, useToggleLoading } from '@/app/reducers';
 import { APITokenContext } from '@/app/contexts';
 
 function UpdateFormBody({ task_name, planData, setPlanData }: { task_name: string, planData: MediaPlanConfigForUpdate, setPlanData: (key: string, value: any) => void }) {
@@ -347,6 +347,7 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
     const [taskName, setTaskName] = useState('');
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const flipRefreshFlag = useFlipRefreshFlag();
     const apiTokenContext = useContext(APITokenContext);
 
@@ -380,7 +381,8 @@ export function UpdateForm({ selectedPlan, open, setOpen }: { selectedPlan: Medi
                         status: 'error',
                     });
                     setOpen(false);
-                }
+                },
+                toggleLoading
             );
         }
     };

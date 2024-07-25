@@ -1,12 +1,13 @@
 import { DialogTitle, } from '@headlessui/react'
 import PictureTiles from "@/app/components/picture-tiles";
-import { useToggleNotification } from "@/app/reducers";
+import { useToggleLoading, useToggleNotification } from "@/app/reducers";
 import { GET, getAPIUrl } from "@/app/requests";
 import { useContext, useEffect, useState } from "react";
 import { APITokenContext } from '@/app/contexts';
 
 export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallback} : {defaultPoster: string, tmdbId: string, selectCallback: (season_no: number) => void}) {
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     const [tmdbData, setTmdbData] = useState([] as {
         id: string,
         name: string
@@ -38,7 +39,7 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
             },
             (err) => {
                 toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '检索TMDB TV季失败，请重试' });
-            })
+            }, toggleLoading)
     }, [tmdbId])
 
     return (

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { MediaPlanConfig } from "@/app/interfaces";
 import { POST, getAPIUrl } from "@/app/requests";
-import { useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
+import { useFlipRefreshFlag, useToggleNotification, useToggleModal, useToggleLoading } from '@/app/reducers';
 
 import Steps from "@/app/components/steps";
 import RSSPreviewer from "@/app/components/media/rss-previewer";
@@ -18,6 +18,7 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const flipRefreshFlag = useFlipRefreshFlag();
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
     // const [planData, setPlanData] = useState({} as MediaPlanConfig);
     const [currentStepId, setCurrentStepId] = useState(0);
     const [tmdbId, setTmdbId] = useState('');
@@ -119,7 +120,8 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
                     status: 'error',
                 });
                 setOpen(false);
-            }
+            },
+            toggleLoading
         )
     };
 

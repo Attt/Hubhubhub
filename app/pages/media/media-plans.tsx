@@ -8,7 +8,7 @@ import CardsList, { CardData, CardDataInfo, CardMenu } from "@/app/components/me
 import EmptyPage from "@/app/components/media/empty-page";
 import { MediaPlan } from "@/app/interfaces";
 import { GET, POST, PATCH, DELETE, getAPIUrl } from "@/app/requests";
-import { useRefreshFlag, useFlipRefreshFlag, useToggleNotification, useToggleModal } from '@/app/reducers';
+import { useRefreshFlag, useFlipRefreshFlag, useToggleNotification, useToggleModal, useToggleLoading } from '@/app/reducers';
 import { CreateSteps } from '@/app/components/media/create-steps';
 import { APITokenContext } from '@/app/contexts';
 import { TaskConfigList } from '@/app/components/media/task-config-list';
@@ -38,6 +38,7 @@ const convertDateStr = (dateStr: string) => {
 export default function MediaPlans() {
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
 
     const refreshFlag = useRefreshFlag();
     const flipRefreshFlag = useFlipRefreshFlag();
@@ -169,7 +170,8 @@ export default function MediaPlans() {
                 },
                 (r) => {
                     toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询媒体计划列表失败，请重试' });
-                }
+                },
+                toggleLoading
             )
         };
 
@@ -199,7 +201,8 @@ export default function MediaPlans() {
                 },
                 (r) => {
                     toggleNotification({ type: 'show', title: '失败', msg: '媒体计划暂停失败', status: 'error' });
-                }
+                },
+                toggleLoading
             )
         });
     }
@@ -213,7 +216,8 @@ export default function MediaPlans() {
                 },
                 (r) => {
                     toggleNotification({ type: 'show', title: '失败', msg: '媒体计划恢复失败', status: 'error' });
-                }
+                },
+                toggleLoading
             )
         });
     }
@@ -227,7 +231,7 @@ export default function MediaPlans() {
                 },
                 (r) => {
                     toggleNotification({ type: 'show', title: '失败', msg: '媒体计划删除失败', status: 'error' });
-                }
+                },toggleLoading
             )
         });
     }
@@ -243,6 +247,7 @@ export default function MediaPlans() {
                 (r) => {
                     toggleNotification({ type: 'show', title: '失败', msg: '媒体计划触发执行失败', status: 'error' });
                 }
+                ,toggleLoading
             )
         });
     }

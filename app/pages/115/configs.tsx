@@ -1,7 +1,7 @@
 import ButtonHeader, { HeaderButton } from '@/app/components/button-header';
 import { useState, useEffect, useRef, useContext } from 'react';
 import { GET, getAPIUrl } from '@/app/requests';
-import { useToggleModal, useToggleNotification } from '@/app/reducers';
+import { useToggleLoading, useToggleModal, useToggleNotification } from '@/app/reducers';
 import { ConfirmBody, ConfirmButton, CancelButton } from '@/app/components/modals/confirm-modal';
 import Divider from '@/app/components/divider';
 import { APITokenContext } from '@/app/contexts';
@@ -10,6 +10,7 @@ import { APITokenContext } from '@/app/contexts';
 export default function Drive115Configs() {
     const toggleModal = useToggleModal();
     const toggleNotification = useToggleNotification();
+    const toggleLoading = useToggleLoading();
 
     const [loginMethod, setLoginMethod] = useState('web');
     const [qrCode, setQrCode] = useState('');
@@ -44,7 +45,8 @@ export default function Drive115Configs() {
             },
             (r) => {
                 setQrCode('')
-            }
+            },
+            toggleLoading
         )
     }
 
@@ -66,7 +68,8 @@ export default function Drive115Configs() {
                         msg: '115登录失败',
                         status: 'error',
                     });
-                }
+                },
+                toggleLoading
             )
         }
     }, [uid]);
@@ -86,7 +89,8 @@ export default function Drive115Configs() {
                 }
             },
             (r) => {
-            }
+            },
+            toggleLoading
         )
     }, []);
 

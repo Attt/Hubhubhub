@@ -2,20 +2,21 @@ import { CreateDrive115TaskForm, TaskListBody } from "@/app/components/115/task-
 import { HeaderButton } from "@/app/components/button-header";
 import { APITokenContext } from "@/app/contexts";
 import { Drive115ListData } from "@/app/interfaces";
-import { useFlipRefreshFlag, useRefreshFlag } from "@/app/reducers";
+import { useFlipRefreshFlag, useRefreshFlag, useToggleLoading } from "@/app/reducers";
 import { GET, getAPIUrl } from "@/app/requests";
 import { useContext, useEffect, useState } from "react";
 
 export default function Drive115Tasks() {
     const refreshFlag = useRefreshFlag();
     const flipRefreshFlag = useFlipRefreshFlag();
+    const toggleLoading = useToggleLoading();
 
     const [drive115Tasks, setDrive115Tasks] = useState([] as Drive115ListData[]);
     const apiTokenContext = useContext(APITokenContext);
 
     const [openCreateForm, setOpenCreateForm] = useState(false);
 
-    const [showLoading, setShowLoading] = useState(true);
+    const [showLoading, setShowLoading] = useState(0);
 
     useEffect(() => {
         const loadData = async (afterSuccess: (data: Drive115ListData[]) => void) => {
@@ -24,17 +25,17 @@ export default function Drive115Tasks() {
             }, (err) => {
                 // sleep for 5 second
                 setTimeout(() => {
-                    setShowLoading(false)
+                    setShowLoading(1)
                     flipRefreshFlag({});
                 }, 5000);
-            }, showLoading)
+            }, showLoading == 0 ? undefined : toggleLoading)
         }
 
         loadData((data) => {
             setDrive115Tasks(data)
             // sleep for 5 second
             setTimeout(() => {
-                setShowLoading(false)
+                setShowLoading(1)
                 flipRefreshFlag({});
             }, 5000);
         })
