@@ -18,12 +18,14 @@ export function Loading() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="dark:bg-zinc-900/80 fixed inset-0 bg-zinc-500 transition-opacity" />
+              <div className="dark:bg-zinc-900/30 fixed inset-0 bg-zinc-500 transition-opacity" />
             </TransitionChild>
     
             <div className="fixed inset-0 z-10 w-screen overflow-hidden">
               <div className={"flex justify-center items-center h-screen"}>
-                  <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-gray-900"></div>
+                  <div className="dark:border-zinc-100 animate-spin rounded-full h-32 w-32 border-b-2 border-zinc-900"
+                  style={{backgroundImage: 'url("/favicon.ico")', backgroundPosition: 'center center', backgroundSize: 'cover', opacity: '0.5'}}
+                  ></div>
               </div>
             </div>
           </Dialog>
