@@ -14,9 +14,11 @@ export default function Downloads() {
     const [downloads, setDownloads] = useState([] as DownloadListData[]);
     const apiTokenContext = useContext(APITokenContext);
 
+    const [showLoading, setShowLoading] = useState(true);
+
     useEffect(() => {
         const loadData = async (afterSuccess: (data: DownloadListData[]) => void) => {
-            GET(getAPIUrl("query_all_downloads") + '?token=' + apiTokenContext, (data) => {
+            getAPIUrl("query_all_downloads") && GET(getAPIUrl("query_all_downloads") + '?token=' + apiTokenContext, (data) => {
                 data = data.map((item: any) => {
                     item.media.config = JSON.parse(item.media.config);
                     return item;
@@ -25,15 +27,17 @@ export default function Downloads() {
             }, (err) => {
                 // sleep for 5 second
                 setTimeout(() => {
+                    setShowLoading(false)
                     flipRefreshFlag({});
                 }, 5000);
-            })
+            }, showLoading)
         }
 
         loadData((data) => {
             setDownloads(data)
             // sleep for 5 second
             setTimeout(() => {
+                setShowLoading(false)
                 flipRefreshFlag({});
             }, 5000);
         })

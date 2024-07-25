@@ -11,6 +11,9 @@ export const ToggleModal = createContext((value: any) => {});
 export const NotificationContext = createContext({show: false} as {title: string, msg: string, status: string, show: boolean});
 export const ToggleNotification = createContext((value: any) => {});
 
+export const LoadingContext = createContext({show: false} as {show: boolean});
+export const ToggleLoading = createContext((value: any) => {});
+
 export const MenuGroupsContxt = createContext([] as {title: string, menus: {id: number, key: string, name: string, initial: string}[]}[])
 export const ConfigGroupsContxt = createContext([] as {title: string, description: string, items: {key: string, name: string, placehodler?: string}[]}[])
 export const APIConfigGroupsContxt = createContext([] as {title: string, description: string, items: {key: string, name: string}[]}[])

@@ -1,7 +1,8 @@
 import axios, { AxiosResponse } from 'axios';
+import { useToggleLoading } from './reducers';
 
 export function getAPIUrl(name: string) {
-    return  localStorage.getItem('api-configs') ? JSON.parse(localStorage.getItem('api-configs') || '')[name] : '';
+    return localStorage.getItem('api-configs') ? JSON.parse(localStorage.getItem('api-configs') || '')[name] : '';
 }
 
 export function getAllAPIUrls() {
@@ -50,7 +51,7 @@ function afterRequest(result: AxiosResponse<any, any> | undefined,
     afterFailure: (result: any) => void) {
 
     // parse config field
-    if (result && (result.data || typeof(result.data) == 'boolean')) {
+    if (result && (result.data || typeof (result.data) == 'boolean')) {
         afterSuccess(result.data);
     } else {
         afterFailure(result);
@@ -59,13 +60,18 @@ function afterRequest(result: AxiosResponse<any, any> | undefined,
 
 export async function GET(url: string | undefined,
     afterSuccess: (data: any) => void,
-    afterFailure: (result: any) => void) {
+    afterFailure: (result: any) => void,
+    showLoading: boolean = true) {
+    const toggleLoading = useToggleLoading()
     try {
+        if(showLoading) toggleLoading({ type: 'show' })
         const result = await request(url, 'get', null)
 
         afterRequest(result, afterSuccess, afterFailure);
     } catch {
         afterFailure({});
+    } finally {
+        if(showLoading) toggleLoading({ type: 'hide' })
     }
 }
 
@@ -73,35 +79,46 @@ export async function POST(url: string | undefined,
     data: any,
     afterSuccess: (data: any) => void,
     afterFailure: (result: any) => void) {
+    const toggleLoading = useToggleLoading()
     try {
+        toggleLoading({ type: 'show' })
         const result = await request(url, 'post', data)
 
         afterRequest(result, afterSuccess, afterFailure);
     } catch {
         afterFailure({});
+    } finally {
+        toggleLoading({ type: 'hide' })
     }
 }
 
 export async function PATCH(url: string | undefined,
     afterSuccess: (data: any) => void,
     afterFailure: (result: any) => void) {
+    const toggleLoading = useToggleLoading()
     try {
+        toggleLoading({ type: 'show' })
         const result = await request(url, 'patch', null)
 
         afterRequest(result, afterSuccess, afterFailure);
     } catch {
         afterFailure({});
+    } finally {
+        toggleLoading({ type: 'hide' })
     }
 }
 
 export async function DELETE(url: string | undefined,
     afterSuccess: (data: any) => void,
     afterFailure: (result: any) => void) {
+    const toggleLoading = useToggleLoading()
     try {
         const result = await request(url, 'delete', null)
 
         afterRequest(result, afterSuccess, afterFailure);
     } catch {
         afterFailure({});
+    } finally {
+        toggleLoading({ type: 'hide' })
     }
 }

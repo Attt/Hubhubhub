@@ -5,7 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import { Dialog, DialogPanel, Transition, TransitionChild } from '@headlessui/react';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { CurrNavItemContext, APIConfigGroupsContxt, ConfigGroupsContxt, MenuGroupsContxt, APISchemaContext, APITokenContext } from "@/app/contexts";
-import { ModalProvider, NotificationProvider } from "@/app/reducers";
+import { LoadingProvider, ModalProvider, NotificationProvider } from "@/app/reducers";
 import { GET, getAPIUrl, updateAPIUrl } from "./requests";
 import InputScreen from "./components/input-screen";
 
@@ -180,7 +180,9 @@ export default function RootLayout({
                     <APITokenContext.Provider value={apiToken}>
                       <ModalProvider>
                         <NotificationProvider>
-                          {children}
+                          <LoadingProvider>
+                            {children}
+                          </LoadingProvider>
                         </NotificationProvider>
                       </ModalProvider>
                     </APITokenContext.Provider>

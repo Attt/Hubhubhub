@@ -64,6 +64,18 @@ export interface DownloadListData {
     name_sts_prg: any[]; // name status progress
 }
 
+export interface Drive115ListData {
+    task_id: string
+    name: string
+    size: number
+    created_time: string
+    percent: number
+    precent: number
+    file_id: string
+    file_is_dir: boolean
+    status: string
+}
+
 export interface TaskConfigEpData {
     id: number
     ep: number

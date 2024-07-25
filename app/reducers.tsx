@@ -6,9 +6,12 @@ import {
     ToggleModal,
     NotificationContext,
     ToggleNotification,
+    LoadingContext,
+    ToggleLoading,
 } from "@/app/contexts";
 import Notification from "@/app/components/notification";
 import BaseModal from "@/app/components/modals/base-modal";
+import { Loading } from "./components/loading";
 
 /* refresh flag reducer */
 function flip(flag: boolean, action: any | undefined) {
@@ -112,5 +115,40 @@ export function NotificationProvider({ children }: any) {
                 <Notification/>
             </ToggleNotification.Provider>
         </NotificationContext.Provider>
+    )
+}
+
+
+function showLoading(props: any, action: any | undefined) {
+    switch (action.type) {
+        case 'show':
+            return {
+                show: true,
+            }
+        case 'hide':
+        default:
+            return {
+                show: false,
+            }
+    }
+}
+
+export function useLoadingContext() {
+    return useContext(LoadingContext);
+}
+
+export function useToggleLoading() {
+    return useContext(ToggleLoading);
+}
+
+export function LoadingProvider({ children }: any) {
+    const [props, dispatch] = useReducer(showLoading, {show: false});
+    return (
+        <LoadingContext.Provider value={props}>
+            <ToggleLoading.Provider value={dispatch}>
+                {children}
+                <Loading/>
+            </ToggleLoading.Provider>
+        </LoadingContext.Provider>
     )
 }
