@@ -89,7 +89,7 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
         <ul role="list" className="dark:divide-zinc-900/5 divide-y divide-white/5">
             {downloadTasks && downloadTasks.length > 0 && downloadTasks.map((downloadTask) => (
                 <li key={downloadTask.task.id} className="relative flex items-center space-x-4 py-4">
-                    <div className="min-w-0 flex-auto">
+                    <div className="min-w-0 flex-auto w-11/12">
                         <div className="flex items-center gap-x-3">
                             <div className={classNames(downloaderStatuses[downloadTask.name_sts_prg[1]], 'flex-none rounded-full p-1')}>
                                 <div className="h-2 w-2 rounded-full bg-current" ></div>

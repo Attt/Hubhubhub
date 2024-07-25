@@ -91,7 +91,7 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
         <ul role="list" className="dark:divide-zinc-900/5 divide-y divide-white/5">
             {drive115Tasks && drive115Tasks.length > 0 && drive115Tasks.map((drive115Task) => (
                 <li key={drive115Task.task_id} className="relative flex items-center space-x-4 py-4">
-                    <div className="min-w-0 flex-auto">
+                    <div className="min-w-0 flex-auto w-[90%]">
                         <div className="flex items-center gap-x-3">
                             <div className={classNames(downloaderStatuses[statuss[drive115Task.status + '']], 'flex-none rounded-full p-1')}>
                                 <div className="h-2 w-2 rounded-full bg-current" ></div>
