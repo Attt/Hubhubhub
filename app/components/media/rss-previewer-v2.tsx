@@ -23,11 +23,11 @@ export default function RSSPreviewerV2({ onRssItemClick, rssUrlSetCallback }: { 
         getAPIUrl('translate_to_rss_url') && POST(getAPIUrl('translate_to_rss_url') + '?token=' + apiTokenContext,
             url,
             (rss_url) => {
+                rssUrlSetCallback(rss_url)
                 getAPIUrl('fetch_rss') && POST(getAPIUrl('fetch_rss') + '?token=' + apiTokenContext,
                     rss_url,
                     (d) => {
                         setRssItems(d)
-                        rssUrlSetCallback(rss_url)
                     }, (r) => {
                         toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
                     }, toggleLoading)
