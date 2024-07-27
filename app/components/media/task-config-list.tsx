@@ -20,30 +20,32 @@ function classNames(...classes: any[]) {
 
 function mergeEpInfo(epList: TaskConfigEpData[]): string {
     let epS = ''
-    let epL: number[] = []
-    for (let i = 0; i < epList.length; i++) {
-        epL[i] = epList[i].ep
-    }
+    let epL: number[] = epList.map((ep) => ep.ep)
     epL = epL.sort()
-    if (epL.length == 1) {
-        epS = epL[0].toString()
-    }else if (epL.length > 1) {
-        let startEp = epL[0]
-        epS = startEp + '-'
-        for (let i = 1; i < epL.length; i++) {
-            startEp++
-            if (startEp != epL[i]) {
-                epS += (epL[i-1]) + ',' + startEp
-                startEp = epL[i]
-                epS += '-'
-            }
-        }
-        if (epS.endsWith('-')) {
-            epS += epL[epL.length-1]
+    epS = compressList(epL)
+    return epS
+}
+
+function compressList(arr: number[]): string {
+    if (arr.length == 0) {
+        return ''
+    }
+    let result = [];
+    let start = arr[0];
+    let end = arr[0];
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] === arr[i - 1] + 1) {
+            end = arr[i];
+        } else {
+            result.push(start === end ? start : `${start}-${end}`);
+            start = arr[i];
+            end = arr[i];
         }
     }
-    
-    return epS
+
+    result.push(start === end ? start : `${start}-${end}`);
+    return result.join(',');
 }
 
 export function TaskConfigListBody({ taskConfigs, configIdListRef }: { taskConfigs: TaskConfigData[], configIdListRef: MutableRefObject<number[]> }) {
