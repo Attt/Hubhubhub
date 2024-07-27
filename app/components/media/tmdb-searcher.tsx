@@ -47,7 +47,7 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
 
     return (
         <div>
-            <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
+            {/* <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
                 <div className="flex items-start justify-between space-x-3">
                     <div className="space-y-1">
                     </div>
@@ -57,7 +57,7 @@ export default function TMDBSearcher({ isTv, selectCallback: selectCallback }: {
                         </DialogTitle>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div>
                 <label htmlFor="tmdb_keyword" className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900">
                     {isTv ? '剧集检索' : '电影检索'}

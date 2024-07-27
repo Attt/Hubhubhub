@@ -1,4 +1,4 @@
-import { CheckIcon } from '@heroicons/react/24/solid'
+import { CogIcon } from '@heroicons/react/24/solid'
 import { useEffect, useState } from 'react'
 
 export default function StepHeader({ steps, currentId, clickCallback }: { steps: { id: number, name: string, href?: string, status?: string }[], currentId: number, clickCallback?: (id: number) => void }) {
@@ -46,7 +46,7 @@ export default function StepHeader({ steps, currentId, clickCallback }: { steps:
                             <a href={step.href ? step.href : '#'} className="group flex w-full items-center">
                                 <span className="flex items-center px-6 py-2 text-sm font-medium">
                                     <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-indigo-600 group-hover:bg-indigo-800">
-                                        <CheckIcon className="dark:text-zinc-100 h-6 w-6 text-white" aria-hidden="true" />
+                                        <CogIcon className="dark:text-zinc-100 h-6 w-6 text-white" aria-hidden="true" />
                                     </span>
                                     <span className="dark:text-zinc-100 ml-4 text-sm font-medium text-zinc-900">{step.name}</span>
                                 </span>

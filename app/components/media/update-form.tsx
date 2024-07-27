@@ -264,7 +264,7 @@ function UpdateFormBody({ task_name, planData, setPlanData }: { task_name: strin
                 </div>
 
                 {/* Experimental */}
-                <fieldset className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
+                {/* <fieldset className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
                     <legend className="sr-only">实验性功能</legend>
                     <div className="dark:text-zinc-100 text-sm font-medium leading-6 text-zinc-900" aria-hidden="true">
                         实验性功能
@@ -317,7 +317,7 @@ function UpdateFormBody({ task_name, planData, setPlanData }: { task_name: strin
                         </div>
 
                     </div>
-                </fieldset>
+                </fieldset> */}
             </div>
         </div>
     );

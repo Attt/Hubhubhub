@@ -92,7 +92,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
     return (
         <div className="flex-1">
             {/* Header */}
-            <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
+            {/* <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
                 <div className="flex items-start justify-between space-x-3">
                     <div className="space-y-1">
                     </div>
@@ -102,7 +102,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                         </DialogTitle>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             {/* Divider container */}
             <div className="dark:sm:divide-zinc-800 space-y-6 sm:py-6 sm:space-y-0 sm:divide-y sm:divide-zinc-200">
@@ -321,7 +321,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                 </div>
 
                 {/* Experimental */}
-                <fieldset className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
+                {/* <fieldset className="space-y-2 px-4 sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:space-y-0 sm:px-6 sm:py-5">
                     <legend className="sr-only">实验性功能</legend>
                     <div className="dark:text-zinc-100 text-sm font-medium leading-6 text-zinc-900" aria-hidden="true">
                         实验性功能
@@ -374,7 +374,7 @@ export function CreateFormBody({ planData, setPlanData }: { planData: MediaPlanC
                         </div>
 
                     </div>
-                </fieldset>
+                </fieldset> */}
             </div>
         </div>
     );

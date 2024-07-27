@@ -35,7 +35,7 @@ export default function CardsList({ cardDataList }: Props) {
             <ul role="list" className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
                 {cardDataList.map((cardData) => (
                     <li key={cardData.id} className="dark:border-zinc-900 overflow-hidden rounded-xl border border-zinc-200 shadow-xl">
-                        <div className="dark:border-zinc-100/5 dark:bg-zinc-900 flex items-center gap-x-4 border-b border-zinc-800/5 bg-zinc-50 p-4">
+                        <div className="dark:border-zinc-100/5 dark:bg-zinc-900 flex items-center gap-x-4 border-b border-zinc-800/5 bg-zinc-100 p-4">
                             <Link target="_blank" href={cardData.coverLink}>
                                 <img
                                     src={cardData.cover}

@@ -44,7 +44,7 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
 
     return (
         <div className="flex-1">
-            <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
+            {/* <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
                 <div className="flex items-start justify-between space-x-3">
                     <div className="space-y-1">
                     </div>
@@ -54,7 +54,7 @@ export default function TMDBTVSeasonViewer({defaultPoster, tmdbId, selectCallbac
                         </DialogTitle>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <PictureTiles
                 pictures={tmdbData}
             >

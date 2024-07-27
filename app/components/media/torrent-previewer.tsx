@@ -47,7 +47,7 @@ export default function TorrentPreviewer({ torrentUrl, torrentUrlSetCallback }: 
 
     return (
         <div className='flex-1'>
-            <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
+            {/* <div className="dark:bg-zinc-800 bg-zinc-50 px-4 sm:py-6 sm:px-6">
                 <div className="flex items-start justify-between space-x-3">
                     <div className="space-y-1">
                     </div>
@@ -57,7 +57,7 @@ export default function TorrentPreviewer({ torrentUrl, torrentUrlSetCallback }: 
                         </DialogTitle>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div>
                 <label htmlFor="torrent_magnet_link" className="dark:text-zinc-100 block text-sm font-medium leading-6 text-zinc-900">
                     种子/磁力链接
