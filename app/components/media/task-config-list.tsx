@@ -21,7 +21,7 @@ function classNames(...classes: any[]) {
 function mergeEpInfo(epList: TaskConfigEpData[]): string {
     let epS = ''
     let epL: number[] = epList.map((ep) => ep.ep)
-    epL = epL.sort()
+    epL = epL.sort((a,b) => a - b)
     epS = compressList(epL)
     return epS
 }
