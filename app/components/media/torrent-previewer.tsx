@@ -7,13 +7,20 @@ import { APITokenContext } from '@/app/contexts';
 import FileTree from '@/app/components/file-tree/file-tree';
 import { FileItem } from '@/app/components/file-tree/commons';
 
-export default function TorrentPreviewer({ torrentUrlSetCallback }: { torrentUrlSetCallback: (url: string) => void }) {
+export default function TorrentPreviewer({ torrentUrl, torrentUrlSetCallback }: { torrentUrl: string, torrentUrlSetCallback: (url: string) => void }) {
     const toggleNotification = useToggleNotification();
     const toggleLoading = useToggleLoading();
     const [url, setUrl] = useState("")
     const [fileData, setFileData] = useState({} as any)
     const apiTokenContext = useContext(APITokenContext);
     const [id, setId] = useState(0)
+
+    useEffect(() => {
+        if (torrentUrl) {
+            setUrl(torrentUrl)
+            fetchTorrentMagnetContent()
+        }
+    }, [torrentUrl])
 
     const fetchTorrentMagnetContent = () => {
         getAPIUrl('fetch_torrent_magnet_files') && url && GET(getAPIUrl('fetch_torrent_magnet_files') + '?url=' + url + '&token=' + apiTokenContext,

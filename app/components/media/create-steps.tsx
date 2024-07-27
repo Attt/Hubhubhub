@@ -10,6 +10,7 @@ import { CreateFormBody } from "@/app/components/media/create-form";
 import TMDBTVSeasonViewer from './tmdb-tv-season-viewer';
 import { APITokenContext } from '@/app/contexts';
 import TorrentPreviewer from './torrent-previewer';
+import RSSPreviewerV2 from './rss-previewer-v2';
 
 
 export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -23,6 +24,8 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
     const [currentStepId, setCurrentStepId] = useState(0);
     const [tmdbId, setTmdbId] = useState('');
     const [tmdbSelectedPoster, setTmdbSelectedPoster] = useState('');
+
+    const [torrentUrl, setTorrentUrl] = useState('');
 
     const planDataRef = useRef({} as MediaPlanConfig);
 
@@ -40,6 +43,11 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
 
     const onSeasonSelected = (seasonNo: number) => {
         setPartOfPlanData('season_no', seasonNo)
+        toNextStep();
+    }
+
+    const onRssItemClick = (value: string) => {
+        setTorrentUrl(value)
         toNextStep();
     }
 
@@ -61,17 +69,26 @@ export function CreateSteps({ open, setOpen }: { open: boolean, setOpen: React.D
                 selectCallback={onSeasonSelected}
             ></TMDBTVSeasonViewer>)
         },
+        // {
+        //     id: 2,
+        //     name: 'RSS源',
+        //     element: (<RSSPreviewer
+        //         rssUrlSetCallback={(value) => setPartOfPlanData('rss_url', value)}
+        //     ></RSSPreviewer>)
+        // },
         {
             id: 2,
             name: 'RSS源',
-            element: (<RSSPreviewer
+            element: (<RSSPreviewerV2
+                onRssItemClick={onRssItemClick}
                 rssUrlSetCallback={(value) => setPartOfPlanData('rss_url', value)}
-            ></RSSPreviewer>)
+            ></RSSPreviewerV2>)
         },
         {
             id: 3,
             name: '种子预览',
             element: (<TorrentPreviewer
+                torrentUrl={torrentUrl}
                 torrentUrlSetCallback={(value) => {}}
             ></TorrentPreviewer>)
         },

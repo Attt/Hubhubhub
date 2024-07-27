@@ -1,26 +1,38 @@
 import { DialogTitle, } from '@headlessui/react'
 import { GET, POST, getAPIUrl } from "@/app/requests"
 import { useContext, useEffect, useState } from "react"
-import CodeBlock from "../code-block"
 import { useToggleLoading, useToggleNotification } from "@/app/reducers";
 import { CheckIcon, LinkIcon } from '@heroicons/react/20/solid'
 import { APITokenContext } from '@/app/contexts';
 
-export default function RSSPreviewerV2({ rssUrlSetCallback }: { rssUrlSetCallback: (url: string) => void }) {
+interface RSSItem {
+    title: string
+    url: string
+    description: string
+}
+
+export default function RSSPreviewerV2({ onRssItemClick, rssUrlSetCallback }: { onRssItemClick: (url: string) => void, rssUrlSetCallback: (url: string) => void }) {
     const toggleNotification = useToggleNotification();
     const toggleLoading = useToggleLoading();
     const [url, setUrl] = useState("")
-    const [rssContent, setRssContent] = useState("")
+    // const [rssContent, setRssContent] = useState("")
+    const [rssItems, setRssItems] = useState([] as RSSItem[])
     const apiTokenContext = useContext(APITokenContext);
 
     const fetchRssContent = () => {
-        getAPIUrl('fetch_rss') && POST(getAPIUrl('fetch_rss') + '?token=' + apiTokenContext,
+        getAPIUrl('translate_to_rss_url') && POST(getAPIUrl('translate_to_rss_url') + '?token=' + apiTokenContext,
             url,
-            (data) => {
-                setRssContent(data)
-                rssUrlSetCallback(url)
+            (rss_url) => {
+                getAPIUrl('fetch_rss') && POST(getAPIUrl('fetch_rss') + '?token=' + apiTokenContext,
+                    rss_url,
+                    (d) => {
+                        setRssItems(d)
+                        rssUrlSetCallback(rss_url)
+                    }, (r) => {
+                        toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
+                    }, toggleLoading)
             }, (r) => {
-                toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
+                toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '翻译RSS内容失败，请重试' });
             }, toggleLoading)
     }
 
@@ -66,10 +78,43 @@ export default function RSSPreviewerV2({ rssUrlSetCallback }: { rssUrlSetCallbac
                     </button>
                 </div>
             </div>
-            {rssContent && <CodeBlock
-                code={rssContent}
+            {rssItems && rssItems.length > 0 && <RSSPreviewerV2Body
+                rssItems={rssItems}
+                onRssItemClick={onRssItemClick}
             >
-            </CodeBlock>}
+            </RSSPreviewerV2Body>}
         </div>
     )
+}
+
+export function RSSPreviewerV2Body({ rssItems, onRssItemClick }: { rssItems: RSSItem[], onRssItemClick: (url: string) => void }) {
+
+    return (
+        <div className="dark:bg-zinc-700 bg-zinc-100 rounded-md shadow sm:overflow-hidden overflow-auto">
+            <div className="p-2 px-2 w-full min-h-full">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                {rssItems.map((rssItem) => (
+                    <div
+                    onClick={() => onRssItemClick(rssItem.url)}
+                    key={rssItem.title}
+                    className="relative flex items-center space-x-3 rounded-lg border border-zinc-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-zinc-400"
+                    >
+                    {/* <div className="flex-shrink-0">
+                        <img className="h-10 w-10 rounded-full" src={person.imageUrl} alt="" />
+                    </div> */}
+                    <div className="min-w-0 flex-1">
+                        <a href="#" className="focus:outline-none">
+                        <span className="absolute inset-0" aria-hidden="true" />
+                        <p className="dark:text-zinc-100 text-sm font-medium text-zinc-900">{rssItem.title}</p>
+                        <p className="truncate text-sm text-zinc-500">{rssItem.description}</p>
+                        <p className="truncate text-sm text-zinc-500">{rssItem.url}</p>
+                        </a>
+                    </div>
+                    </div>
+                ))}
+                </div>
+            </div>
+        </div>
+    );
+
 }
