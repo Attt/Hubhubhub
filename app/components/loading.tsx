@@ -22,7 +22,7 @@ export function Loading() {
             </TransitionChild>
     
             <div className="fixed inset-0 z-10 w-screen overflow-hidden">
-              <div className={"dark:flex block justify-center items-center h-screen"}>
+              <div className={"dark:flex hidden justify-center items-center h-screen"}>
                   <div className="dark:border-zinc-100 animate-spin rounded-full h-32 w-32 border-b-2 border-zinc-900"
                   style={{backgroundImage: 'url("./logo-dark.png")', backgroundPosition: 'center center', backgroundSize: 'cover', opacity: '0.5'}}
                   ></div>

@@ -98,9 +98,9 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
                             </div>
                             <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                                 <div className="flex gap-x-2">
-                                    <span className="truncate">{drive115Task.name}</span>
+                                    <span className="dark:text-zinc-100 text-zinc-900 truncate">{drive115Task.name}</span>
                                     <span className="text-gray-400">/</span>
-                                    <span className="whitespace-nowrap">{convertStatus(statuss[drive115Task.status + ''])}</span>
+                                    <span className="dark:text-zinc-100 text-zinc-900 whitespace-nowrap">{convertStatus(statuss[drive115Task.status + ''])}</span>
                                     <span className="absolute inset-[0 25% 0 0]" />
                                 </div>
                             </h2>
