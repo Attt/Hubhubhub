@@ -27,7 +27,11 @@ export default function RSSPreviewerV2({ onRssItemClick, rssUrlSetCallback }: { 
                 getAPIUrl('fetch_rss') && POST(getAPIUrl('fetch_rss') + '?token=' + apiTokenContext,
                     rss_url,
                     (d) => {
-                        setRssItems(d)
+                        if (d) {
+                            setRssItems(d)
+                        }else {
+                            toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
+                        }
                     }, (r) => {
                         toggleNotification({ type: 'show', status: 'error', title: '失败', msg: '查询RSS内容失败，请重试' });
                     }, toggleLoading)
