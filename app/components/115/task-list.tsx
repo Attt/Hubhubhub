@@ -72,7 +72,7 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
         });
     }
 
-    const deleteTask = async (task_id: string) => {
+    const deleteTask = (task_id: string) => {
         openConfirmModal('删除离线任务', '删除115离线任务。', false, () => {
             DELETE(getAPIUrl('remove_115_task') + '/' + task_id + '?token=' + apiTokenContext,
                 (data) => {
@@ -154,6 +154,13 @@ export function TaskListBody({ drive115Tasks }: { drive115Tasks: Drive115ListDat
 
 export function Create115TaskFormBody({ url, setUrl }: { url: string, setUrl: (url: string) => void }) {
 
+    const [uurl, setUUrl] = useState('');
+
+    const onUrlChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setUUrl(e.target.value);
+        setUrl(e.target.value);
+    }
+
     return (
         <div className="flex-1">
             {/* Header */}
@@ -186,8 +193,8 @@ export function Create115TaskFormBody({ url, setUrl }: { url: string, setUrl: (u
                             type="text"
                             name="url"
                             id="url"
-                            value={url}
-                            onChange={(e) => setUrl(e.target.value)}
+                            value={uurl}
+                            onChange={(e) => onUrlChange(e)}
                             className="dark:text-zinc-100 dark:placeholder:text-zinc-600 dark:bg-zinc-800 block w-full rounded-md border-0 py-1.5 text-zinc-900 shadow-sm ring-1 ring-inset ring-zinc-300 placeholder:text-zinc-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         />
                     </div>
