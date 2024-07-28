@@ -1,19 +1,38 @@
 import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid'
+import { useContext, useEffect, useState } from 'react'
+import { useToggleLoading } from '@/app/reducers';
+import { GET, getAPIUrl } from '@/app/requests';
+import { APITokenContext } from '@/app/contexts';
 
-const stats = [
-  { name: 'メディア数', stat: '71,897', previousStat: '70,946', change: '12%', changeType: 'increase' },
-  { name: 'タスク数', stat: '58.16%', previousStat: '56.14%', change: '2.02%', changeType: 'increase' },
-  { name: '完了率', stat: '24.57%', previousStat: '28.62%', change: '4.05%', changeType: 'decrease' },
-]
+interface StatsData {
+    name: string
+    stat: string
+    previousStat: string
+    change: string
+    changeType: string
+}
 
 function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Stats() {
+    const [stats, setStats] = useState([] as StatsData[]);
+    const toggleLoading = useToggleLoading();
+    const apiTokenContext = useContext(APITokenContext);
+
+    useEffect(() => {
+        getAPIUrl("get_stats") && GET(getAPIUrl("get_stats") + '?token=' + apiTokenContext, (data) => {
+            if (data){
+                setStats(data);
+            }
+        }, (err) => {
+        }, toggleLoading)
+    })
+
   return (
     <div className="mx-auto max-w-8xl px-4 py-2 md:px-8 lg:px-8">
-      <h3 className="dark:text-zinc-100 text-base font-semibold leading-6 text-zinc-900">Last 30 days</h3>
+      <h3 className="dark:text-zinc-100 text-base font-semibold leading-6 text-zinc-900">Last 7 days</h3>
       <dl className="dark:bg-zinc-700 dark:divide-zinc-800 mt-5 grid grid-cols-1 divide-y divide-zinc-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-x md:divide-y-0">
         {stats.map((item) => (
           <div key={item.name} className="px-4 py-5 sm:p-6">
