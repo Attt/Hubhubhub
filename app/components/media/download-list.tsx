@@ -96,9 +96,9 @@ export function DownloadListBody({ downloadTasks }: { downloadTasks: DownloadLis
                             </div>
                             <h2 className="min-w-0 text-sm font-semibold leading-6 text-white">
                                 <div className="flex gap-x-2">
-                                    <span className="truncate">{downloadTask.task.name}</span>
+                                    <span className="dark:text-zinc-100 text-zinc-900 truncate">{downloadTask.task.name}</span>
                                     <span className="text-gray-400">/</span>
-                                    <span className="whitespace-nowrap">{convertDownloaderStatus(downloadTask.name_sts_prg[1])}</span>
+                                    <span className="dark:text-zinc-100 text-zinc-900 whitespace-nowrap">{convertDownloaderStatus(downloadTask.name_sts_prg[1])}</span>
                                     <span className="absolute inset-0" />
                                 </div>
                             </h2>
