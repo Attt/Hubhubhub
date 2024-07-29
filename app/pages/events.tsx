@@ -78,7 +78,7 @@ export default function Events() {
                 <div className="relative flex items-start space-x-3">
                     <div className="relative">
                       <img
-                        className="dark:bg-zinc-600 dark:ring-zinc-800 flex h-10 w-10 items-center justify-center rounded-full bg-zinc-400 ring-8 ring-white"
+                        className="dark:bg-zinc-600 dark:ring-zinc-800 object-cover flex h-12 w-12 items-center justify-center rounded-full bg-zinc-400 ring-8 ring-white"
                         src={eventsData.media_plan.config.cover}
                         alt=""
                       />
@@ -92,11 +92,26 @@ export default function Events() {
                         <div className="text-sm">
                             <span className="mr-0.5">
                                 <a href={eventsData.media_plan.config.homepage} className="dark:text-zinc-100 font-medium text-zinc-900">
-                                    {eventsData.media_plan.config.task_name}
+                                    {eventsData.media_plan.config.title}
                                 </a>{' '}
-                                Current EP.
+                                {/* <span className='text-zinc-500'></span> */}
                             </span>{' '}
                             <span className="mr-0.5">
+                                <Fragment key={eventsData.events.id}>
+                                    <a
+                                        href={eventsData.media_plan.config.homepage}
+                                        className="dark:text-zinc-100 dark:ring-zinc-800 inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-zinc-900 ring-1 ring-inset ring-zinc-200"
+                                    >
+                                        <svg
+                                        className={classNames('fill-red-500', 'h-1.5 w-1.5')}
+                                        viewBox="0 0 6 6"
+                                        aria-hidden="true"
+                                        >
+                                        <circle cx={3} cy={3} r={3} />
+                                        </svg>
+                                        {'S.' + eventsData.media_plan.config.season_no}
+                                    </a>{' '}
+                                </Fragment>
                                 <Fragment key={eventsData.events.id}>
                                     <a
                                         href={eventsData.media_plan.config.homepage}
@@ -109,12 +124,12 @@ export default function Events() {
                                         >
                                         <circle cx={3} cy={3} r={3} />
                                         </svg>
-                                        {eventsData.media_plan.current_ep}
+                                        {'EP.' + eventsData.media_plan.current_ep}
                                     </a>{' '}
                                 </Fragment>
                             </span>
                         </div>
-                        <p className="mt-0.5 text-sm text-zinc-500">{eventsData.events.created}　より</p>
+                        <p className="mt-0.5 text-sm text-zinc-500">{eventsData.events.created.substring(0,19).replace('T', '')}　より</p>
                       </div>
                       <div className="dark:text-zinc-300 mt-2 text-sm text-zinc-700">
                         <p>{eventsData.events.event}</p>
