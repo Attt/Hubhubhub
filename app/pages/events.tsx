@@ -47,38 +47,38 @@ function classNames(...classes: string[]) {
 
 export default function Events() {
   return (
-    <div className="mt-6 flow-root">
+    <div className="mt-6 flow-root mx-auto max-w-8xl px-4 py-2 md:px-8 lg:px-8">
       <ul role="list" className="-mb-8">
         {activity.map((activityItem, activityItemIdx) => (
           <li key={activityItem.id}>
             <div className="relative pb-8">
               {activityItemIdx !== activity.length - 1 ? (
-                <span className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-200" aria-hidden="true" />
+                <span className="dark:bg-zinc-800 absolute left-5 top-5 -ml-px h-full w-0.5 bg-zinc-200" aria-hidden="true" />
               ) : null}
               <div className="relative flex items-start space-x-3">
                 {activityItem.type === 'comment' ? (
                   <>
                     <div className="relative">
                       <img
-                        className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-400 ring-8 ring-white"
+                        className="dark:bg-zinc-600 dark:ring-zinc-800 flex h-10 w-10 items-center justify-center rounded-full bg-zinc-400 ring-8 ring-white"
                         src={activityItem.imageUrl}
                         alt=""
                       />
 
-                      <span className="absolute -bottom-0.5 -right-1 rounded-tl bg-white px-0.5 py-px">
-                        <ChatBubbleLeftEllipsisIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                      <span className="dark:bg-zinc-800 absolute -bottom-0.5 -right-1 rounded-tl bg-white px-0.5 py-px">
+                        <ChatBubbleLeftEllipsisIcon className="dark:text-zinc-600 h-5 w-5 text-zinc-400" aria-hidden="true" />
                       </span>
                     </div>
                     <div className="min-w-0 flex-1">
                       <div>
                         <div className="text-sm">
-                          <a href={activityItem.person.href} className="font-medium text-gray-900">
+                          <a href={activityItem.person.href} className="dark:text-zinc-100 font-medium text-zinc-900">
                             {activityItem.person.name}
                           </a>
                         </div>
-                        <p className="mt-0.5 text-sm text-gray-500">Commented {activityItem.date}</p>
+                        <p className="mt-0.5 text-sm text-zinc-500">Commented {activityItem.date}</p>
                       </div>
-                      <div className="mt-2 text-sm text-gray-700">
+                      <div className="dark:text-zinc-300 mt-2 text-sm text-zinc-700">
                         <p>{activityItem.comment}</p>
                       </div>
                     </div>
@@ -87,18 +87,18 @@ export default function Events() {
                   <>
                     <div>
                       <div className="relative px-1">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white">
-                          <UserCircleIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                        <div className="dark:bg-zinc-900 dark:ring-zinc-800 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 ring-8 ring-white">
+                          <UserCircleIcon className="h-5 w-5 text-zinc-500" aria-hidden="true" />
                         </div>
                       </div>
                     </div>
                     <div className="min-w-0 flex-1 py-1.5">
-                      <div className="text-sm text-gray-500">
-                        <a href={activityItem.person.href} className="font-medium text-gray-900">
+                      <div className="text-sm text-zinc-500">
+                        <a href={activityItem.person.href} className="dark:text-zinc-100 font-medium text-zinc-900">
                           {activityItem.person.name}
                         </a>{' '}
                         assigned{' '}
-                        <a href={activityItem.assigned?.href} className="font-medium text-gray-900">
+                        <a href={activityItem.assigned?.href} className="dark:text-zinc-100 font-medium text-zinc-900">
                           {activityItem.assigned?.name}
                         </a>{' '}
                         <span className="whitespace-nowrap">{activityItem.date}</span>
@@ -109,15 +109,15 @@ export default function Events() {
                   <>
                     <div>
                       <div className="relative px-1">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 ring-8 ring-white">
-                          <TagIcon className="h-5 w-5 text-gray-500" aria-hidden="true" />
+                        <div className="dark:bg-zinc-900 dark:ring-zinc-800 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 ring-8 ring-white">
+                          <TagIcon className="h-5 w-5 text-zinc-500" aria-hidden="true" />
                         </div>
                       </div>
                     </div>
                     <div className="min-w-0 flex-1 py-0">
-                      <div className="text-sm leading-8 text-gray-500">
+                      <div className="text-sm leading-8 text-zinc-500">
                         <span className="mr-0.5">
-                          <a href={activityItem.person.href} className="font-medium text-gray-900">
+                          <a href={activityItem.person.href} className="dark:text-zinc-100 font-medium text-zinc-900">
                             {activityItem.person.name}
                           </a>{' '}
                           added tags
@@ -127,7 +127,7 @@ export default function Events() {
                             <Fragment key={tag.name}>
                               <a
                                 href={tag.href}
-                                className="inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-gray-900 ring-1 ring-inset ring-gray-200"
+                                className="dark:text-zinc-100 dark:ring-zinc-800 inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-zinc-900 ring-1 ring-inset ring-zinc-200"
                               >
                                 <svg
                                   className={classNames(tag.color, 'h-1.5 w-1.5')}
