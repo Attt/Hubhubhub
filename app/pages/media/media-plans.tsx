@@ -54,7 +54,7 @@ export default function MediaPlans() {
 
     useEffect(() => {
         const fetchData = async () => {
-            GET(getAPIUrl('query_media_plans') + '?token=' + apiTokenContext,
+            GET(getAPIUrl('query_media_plans') + '?status=enabled&status=disabled&token=' + apiTokenContext,
                 (data) => {
                     const mediaPlansData = data.map((d: any): MediaPlan[] => {
                         d.config = JSON.parse(d.config);
