@@ -1,4 +1,4 @@
-import { ArrowDownIcon, ArrowUpIcon } from '@heroicons/react/20/solid'
+import { ArrowDownIcon, ArrowUpIcon, ArrowsRightLeftIcon } from '@heroicons/react/20/solid'
 import { useContext, useEffect, useState } from 'react'
 import { useToggleLoading } from '@/app/reducers';
 import { GET, getAPIUrl } from '@/app/requests';
@@ -45,7 +45,7 @@ export default function Stats() {
 
               <div
                 className={classNames(
-                  item.changeType === 'increase' ? 'dark:bg-green-900 dark:text-green-200 bg-green-100 text-green-800' : 'dark:bg-red-900 dark:text-red-200 bg-red-100 text-red-800',
+                  item.changeType === 'increase' ? 'dark:bg-green-900 dark:text-green-200 bg-green-100 text-green-800' : item.changeType === 'decrease' ? 'dark:bg-red-900 dark:text-red-200 bg-red-100 text-red-800' : 'dark:bg-yellow-900 dark:text-yellow-200 bg-yellow-100 text-yellow-800',
                   'inline-flex items-baseline rounded-full px-2.5 py-0.5 text-sm font-medium md:mt-2 lg:mt-0'
                 )}
               >
@@ -54,14 +54,19 @@ export default function Stats() {
                     className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-green-500"
                     aria-hidden="true"
                   />
-                ) : (
+                ) : item.changeType === 'decrease' ? (
                   <ArrowDownIcon
                     className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-red-500"
                     aria-hidden="true"
                   />
+                ) : (
+                  <ArrowsRightLeftIcon
+                    className="-ml-1 mr-0.5 h-5 w-5 flex-shrink-0 self-center text-yellow-500"
+                    aria-hidden="true"
+                  />
                 )}
 
-                <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : 'Decreased'} by </span>
+                <span className="sr-only"> {item.changeType === 'increase' ? 'Increased' : item.changeType === 'decrease' ? 'Decreased' : 'Unchanged'} by </span>
                 {item.change}
               </div>
             </dd>
