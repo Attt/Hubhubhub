@@ -1,5 +1,9 @@
-import { Fragment } from 'react'
+import { Fragment, useContext, useEffect, useState } from 'react'
 import { ChatBubbleLeftEllipsisIcon, TagIcon, UserCircleIcon } from '@heroicons/react/20/solid'
+import { useToggleLoading } from '../reducers';
+import { GET, getAPIUrl } from '../requests';
+import { APITokenContext } from '../contexts';
+import { EventsData } from '../interfaces';
 
 const activity = [
   {
@@ -46,22 +50,36 @@ function classNames(...classes: string[]) {
 }
 
 export default function Events() {
+    const [events, setEvents] = useState([] as EventsData[]);
+    const toggleLoading = useToggleLoading();
+    const apiTokenContext = useContext(APITokenContext);
+    useEffect(() => {
+        getAPIUrl("get_events") && GET(getAPIUrl("get_events") + '?token=' + apiTokenContext, (data) => {
+            if (data){
+                const parsedData = data.map((d: any): EventsData[] => {
+                    d.media_plan.config = JSON.parse(d.media_plan.config);
+                    return d;
+                })
+                setEvents(parsedData);
+            }
+        }, (err) => {
+        }, toggleLoading)
+         
+    },[])
   return (
     <div className="mt-4 flow-root">
       <ul role="list" className="-mb-8">
-        {activity.map((activityItem, activityItemIdx) => (
-          <li key={activityItem.id}>
+        {events.map((eventsData, eventsDataIdx) => (
+          <li key={eventsData.events.id}>
             <div className="relative pb-8">
-              {activityItemIdx !== activity.length - 1 ? (
+              {eventsDataIdx !== events.length - 1 ? (
                 <span className="dark:bg-zinc-800 absolute left-5 top-5 -ml-px h-full w-0.5 bg-zinc-200" aria-hidden="true" />
               ) : null}
-              <div className="relative flex items-start space-x-3">
-                {activityItem.type === 'comment' ? (
-                  <>
+                <div className="relative flex items-start space-x-3">
                     <div className="relative">
                       <img
                         className="dark:bg-zinc-600 dark:ring-zinc-800 flex h-10 w-10 items-center justify-center rounded-full bg-zinc-400 ring-8 ring-white"
-                        src={activityItem.imageUrl}
+                        src={eventsData.media_plan.config.cover}
                         alt=""
                       />
 
@@ -72,80 +90,36 @@ export default function Events() {
                     <div className="min-w-0 flex-1">
                       <div>
                         <div className="text-sm">
-                          <a href={activityItem.person.href} className="dark:text-zinc-100 font-medium text-zinc-900">
-                            {activityItem.person.name}
-                          </a>
+                            <span className="mr-0.5">
+                                <a href={eventsData.media_plan.config.homepage} className="dark:text-zinc-100 font-medium text-zinc-900">
+                                    {eventsData.media_plan.config.task_name}
+                                </a>{' '}
+                                Current EP.
+                            </span>{' '}
+                            <span className="mr-0.5">
+                                <Fragment key={eventsData.events.id}>
+                                    <a
+                                        href={eventsData.media_plan.config.homepage}
+                                        className="dark:text-zinc-100 dark:ring-zinc-800 inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-zinc-900 ring-1 ring-inset ring-zinc-200"
+                                    >
+                                        <svg
+                                        className={classNames('fill-indigo-500', 'h-1.5 w-1.5')}
+                                        viewBox="0 0 6 6"
+                                        aria-hidden="true"
+                                        >
+                                        <circle cx={3} cy={3} r={3} />
+                                        </svg>
+                                        {eventsData.media_plan.current_ep}
+                                    </a>{' '}
+                                </Fragment>
+                            </span>
                         </div>
-                        <p className="mt-0.5 text-sm text-zinc-500">Commented {activityItem.date}</p>
+                        <p className="mt-0.5 text-sm text-zinc-500">{eventsData.events.created}　より</p>
                       </div>
                       <div className="dark:text-zinc-300 mt-2 text-sm text-zinc-700">
-                        <p>{activityItem.comment}</p>
+                        <p>{eventsData.events.event}</p>
                       </div>
                     </div>
-                  </>
-                ) : activityItem.type === 'assignment' ? (
-                  <>
-                    <div>
-                      <div className="relative px-1">
-                        <div className="dark:bg-zinc-900 dark:ring-zinc-800 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 ring-8 ring-white">
-                          <UserCircleIcon className="h-5 w-5 text-zinc-500" aria-hidden="true" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="min-w-0 flex-1 py-1.5">
-                      <div className="text-sm text-zinc-500">
-                        <a href={activityItem.person.href} className="dark:text-zinc-100 font-medium text-zinc-900">
-                          {activityItem.person.name}
-                        </a>{' '}
-                        assigned{' '}
-                        <a href={activityItem.assigned?.href} className="dark:text-zinc-100 font-medium text-zinc-900">
-                          {activityItem.assigned?.name}
-                        </a>{' '}
-                        <span className="whitespace-nowrap">{activityItem.date}</span>
-                      </div>
-                    </div>
-                  </>
-                ) : activityItem.type === 'tags' ? (
-                  <>
-                    <div>
-                      <div className="relative px-1">
-                        <div className="dark:bg-zinc-900 dark:ring-zinc-800 flex h-8 w-8 items-center justify-center rounded-full bg-zinc-100 ring-8 ring-white">
-                          <TagIcon className="h-5 w-5 text-zinc-500" aria-hidden="true" />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="min-w-0 flex-1 py-0">
-                      <div className="text-sm leading-8 text-zinc-500">
-                        <span className="mr-0.5">
-                          <a href={activityItem.person.href} className="dark:text-zinc-100 font-medium text-zinc-900">
-                            {activityItem.person.name}
-                          </a>{' '}
-                          added tags
-                        </span>{' '}
-                        <span className="mr-0.5">
-                          {activityItem.tags?.map((tag) => (
-                            <Fragment key={tag.name}>
-                              <a
-                                href={tag.href}
-                                className="dark:text-zinc-100 dark:ring-zinc-800 inline-flex items-center gap-x-1.5 rounded-full px-2 py-1 text-xs font-medium text-zinc-900 ring-1 ring-inset ring-zinc-200"
-                              >
-                                <svg
-                                  className={classNames(tag.color, 'h-1.5 w-1.5')}
-                                  viewBox="0 0 6 6"
-                                  aria-hidden="true"
-                                >
-                                  <circle cx={3} cy={3} r={3} />
-                                </svg>
-                                {tag.name}
-                              </a>{' '}
-                            </Fragment>
-                          ))}
-                        </span>
-                        <span className="whitespace-nowrap">{activityItem.date}</span>
-                      </div>
-                    </div>
-                  </>
-                ) : null}
               </div>
             </div>
           </li>
