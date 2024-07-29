@@ -67,7 +67,7 @@ export default function Events() {
          
     },[])
   return (
-    <div className="mt-4 flow-root">
+    <div className="mt-6 py-2 flow-root">
       <ul role="list" className="-mb-8">
         {events.map((eventsData, eventsDataIdx) => (
           <li key={eventsData.events.id}>
@@ -132,7 +132,7 @@ export default function Events() {
                         <p className="mt-0.5 text-sm text-zinc-500">{eventsData.events.created.substring(0,19).replace('T', '')}　より</p>
                       </div>
                       <div className="dark:text-zinc-300 mt-2 text-sm text-zinc-700">
-                        <p>{eventsData.events.event}</p>
+                        <p className='break-all'>{eventsData.events.event}</p>
                       </div>
                     </div>
               </div>
