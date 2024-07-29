@@ -98,3 +98,15 @@ export interface NotificationVar {
     title: string;
     msg: string;
 }
+
+export interface Events {
+    media_plan_id: number
+    event: string
+    created: string
+    id: number
+}
+
+export interface EventsData {
+    media_plan: MediaPlan
+    events: Events
+}

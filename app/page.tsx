@@ -11,12 +11,13 @@ import MountedFiles from "@/app/pages/storage/mounted-files";
 import Downloads from "@/app/pages/media/downloads";
 import Drive115Tasks from "@/app/pages/115/tasks";
 import Stats from "@/app/pages/stats";
+import Events from "@/app/pages/events";
 
 
 export default function Home() {
   const currentNavItem = useContext(CurrNavItemContext);
 
-  let child = <Stats></Stats>;
+  let child = <><Stats></Stats><Events></Events></>;
   switch (currentNavItem.key) {
     case 'configuration/api-configs':
       child = <ApiConfigs></ApiConfigs>
