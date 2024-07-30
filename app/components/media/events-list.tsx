@@ -11,9 +11,9 @@ function classNames(...classes: string[]) {
 
 export function EventsListBody({ events }: { events: EventsData[] }) {
     return (
-        <ul role="list" className="-mb-8">
+        <ul role="list" className="dark:divide-zinc-900/5 divide-y divide-white/5">
         {events.map((eventsData, eventsDataIdx) => (
-          <li key={eventsData.events.id}>
+          <li key={eventsData.events.id} className="relative flex items-center space-x-4 py-4">
             <div className="relative pb-8">
               {eventsDataIdx !== events.length - 1 ? (
                 <span className="dark:bg-zinc-800 absolute left-5 top-5 -ml-px h-full w-0.5 bg-zinc-200" aria-hidden="true" />
