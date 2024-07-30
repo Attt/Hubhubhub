@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect, useContext } from 'react';
-import { ChatBubbleLeftEllipsisIcon } from '@heroicons/react/20/solid'
+import { ChatBubbleLeftEllipsisIcon, FilmIcon } from '@heroicons/react/20/solid'
 import { EventsData } from "@/app/interfaces";
 import { GET, getAPIUrl } from "@/app/requests";
 import { useToggleLoading, useToggleModal, useToggleNotification } from "@/app/reducers";
@@ -26,8 +26,8 @@ export function EventsListBody({ events }: { events: EventsData[] }) {
                         alt=""
                       />
 
-                      <span className="dark:bg-zinc-800 absolute -bottom-0.5 -right-1 rounded-tl bg-white px-0.5 py-px">
-                        <ChatBubbleLeftEllipsisIcon className="dark:text-zinc-600 h-5 w-5 text-zinc-400" aria-hidden="true" />
+                      <span className="dark:bg-zinc-800/50 absolute -bottom-0.5 -right-1 rounded-tl bg-white/50 px-0.5 py-px">
+                        <FilmIcon className="dark:text-green-400 h-5 w-5 text-green-400" aria-hidden="true" />
                       </span>
                     </div>
                     <div className="min-w-0 flex-1">
