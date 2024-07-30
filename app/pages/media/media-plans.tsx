@@ -12,6 +12,7 @@ import { useRefreshFlag, useFlipRefreshFlag, useToggleNotification, useToggleMod
 import { CreateSteps } from '@/app/components/media/create-steps';
 import { APITokenContext } from '@/app/contexts';
 import { TaskConfigList } from '@/app/components/media/task-config-list';
+import { EventsList } from '@/app/components/media/events-list';
 
 const statuses: any = {
     'enabled': 'text-green-700 bg-green-50 ring-green-600/20',
@@ -49,6 +50,7 @@ export default function MediaPlans() {
     const [openUpdateForm, setOpenUpdateForm] = useState(false);
     const [openDownloadList, setOpenDownloadList] = useState(false);
     const [openTaskConfigList, setOpenTaskConfigList] = useState(false);
+    const [openEventList, setOpenEventList] = useState(false);
     const [currentMediaPlan, setCurrentMediaPlan] = useState({} as MediaPlan);
     const apiTokenContext = useContext(APITokenContext);
 
@@ -75,6 +77,13 @@ export default function MediaPlans() {
                                 clickTrigger: () => {
                                     setCurrentMediaPlan(plan);
                                     setOpenDownloadList(true);
+                                },
+                            },
+                            {
+                                title: '查看事件',
+                                clickTrigger: () => {
+                                    setCurrentMediaPlan(plan);
+                                    setOpenEventList(true);
                                 },
                             },
                             {
@@ -264,6 +273,12 @@ export default function MediaPlans() {
                 open={openDownloadList}
                 setOpen={setOpenDownloadList}
                 selectedPlan={currentMediaPlan}
+            />
+
+            <EventsList
+                open={openEventList}
+                setOpen={setOpenEventList}
+                planId={currentMediaPlan.id}
             />
             {/* <CreateForm
                 open={openCreateForm}

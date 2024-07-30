@@ -200,7 +200,7 @@ export function DownloadList({ selectedPlan, open, setOpen }: { selectedPlan: Me
         if (open) {
             if (selectedPlan.id) {
                 const fetchData = async () => {
-                    GET(getAPIUrl('query_downloads') + '/' + selectedPlan.id + '?token=' + apiTokenContext,
+                    getAPIUrl('query_downloads') && GET(getAPIUrl('query_downloads') + '/' + selectedPlan.id + '?token=' + apiTokenContext,
                         (data) => {
                             data = data.map((item: any) => {
                                 item.media.config = JSON.parse(item.media.config);

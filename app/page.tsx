@@ -17,7 +17,7 @@ import Events from "@/app/pages/events";
 export default function Home() {
   const currentNavItem = useContext(CurrNavItemContext);
 
-  let child = <div className="mx-auto max-w-8xl px-4 py-2 md:px-8 lg:px-8 overflow-hidden"><Stats></Stats><Events></Events></div>;
+  let child = <div className="mx-auto max-w-8xl px-4 py-4 md:px-8 lg:px-8 overflow-hidden"><Stats></Stats><Events></Events></div>;
   switch (currentNavItem.key) {
     case 'configuration/api-configs':
       child = <ApiConfigs></ApiConfigs>

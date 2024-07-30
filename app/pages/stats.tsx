@@ -33,7 +33,7 @@ export default function Stats() {
   return (
     <div>
       <h3 className="dark:text-zinc-100 text-base font-semibold leading-6 text-zinc-900">Last 2 days</h3>
-      <dl className="dark:bg-zinc-700 dark:divide-zinc-800 mt-5 grid grid-cols-1 divide-y divide-zinc-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-4 md:divide-x md:divide-y">
+      <dl className="dark:bg-zinc-700 dark:divide-zinc-800 mt-5 grid grid-cols-1 divide-y divide-zinc-200 overflow-hidden rounded-lg bg-white shadow md:grid-cols-3 md:divide-x-0 md:divide-y-0">
         {stats.map((item) => (
           <div key={item.name} className="px-4 py-5 sm:p-6">
             <dt className="dark:text-zinc-100 text-base font-normal text-zinc-900">{item.name}</dt>
