@@ -21,7 +21,7 @@ export function EventsListBody({ events }: { events: EventsData[] }) {
                 <div className="relative flex items-start space-x-3">
                     <div className="relative">
                       <img
-                        className="dark:bg-zinc-600 dark:ring-zinc-800 object-cover flex h-12 w-12 items-center justify-center rounded-full bg-zinc-400 ring-8 ring-white"
+                        className="dark:bg-zinc-600 dark:ring-zinc-800 object-cover flex h-12 w-12 items-center justify-center rounded-full bg-zinc-400 ring-8 ring-white bg-green-600/10 ring-green-500/10 rounded-full"
                         src={eventsData.media_plan.config.cover}
                         alt=""
                       />
