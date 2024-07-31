@@ -79,7 +79,7 @@ export function TaskConfigListBody({ taskConfigs, configIdListRef }: { taskConfi
                 <li
                 onClick={() => onSelectList(taskConfig.id)} key={taskConfig.id} 
                 className={
-                    configIdList.includes(taskConfig.id) ? 'dark:hover:bg-green-600/10 text-green-600 bg-green-600/10 ring-green-500/10 rounded-md relative flex justify-between gap-x-6 px-4 py-5 hover:bg-zinc-600 sm:px-6 lg:px-8' : 'dark:hover:bg-zinc-800 rounded-md relative flex justify-between gap-x-6 px-4 py-5 hover:bg-zinc-600 sm:px-6 lg:px-8'
+                    configIdList.includes(taskConfig.id) ? 'dark:hover:bg-green-600/10 text-green-600 bg-green-600/10 ring-green-500/10 rounded-md relative flex justify-between gap-x-6 px-4 py-5 hover:bg-zinc-600 sm:px-6 lg:px-8' : 'dark:hover:bg-zinc-700 rounded-md relative flex justify-between gap-x-6 px-4 py-5 hover:bg-zinc-600 sm:px-6 lg:px-8'
                 }
                 >
                     <div className="flex min-w-0 gap-x-4">
