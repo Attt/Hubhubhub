@@ -97,7 +97,7 @@ export function TaskConfigListBody({ taskConfigs, configIdListRef }: { taskConfi
                             {taskConfig.name}
                         </p>
                         <p className="mt-1 flex text-xs leading-5 text-zinc-500 break-all">
-                            {mergeEpInfo(taskConfig.ep_list)}
+                            {'第' + mergeEpInfo(taskConfig.ep_list) + '集'}
                         </p>
                         <p className="mt-1 flex text-xs break-all leading-5 text-zinc-500 break-all">
                             {taskConfig.url}
