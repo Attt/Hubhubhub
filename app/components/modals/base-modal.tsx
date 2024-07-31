@@ -29,10 +29,10 @@ export default function BaseModal() {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="dark:bg-zinc-900/80 fixed inset-0 bg-zinc-500 transition-opacity" />
+          <div className="dark:bg-zinc-900/80 fixed inset-0 bg-zinc-500/80 transition-opacity" />
         </TransitionChild>
 
-        <div className="fixed inset-0 z-10 w-screen overflow-y-auto xs:overflow-y-hidden">
+        <div className="fixed inset-0 z-10 w-screen sm:overflow-y-auto overflow-hidden">
           <div className="flex min-h-full items-end justify-center text-center sm:items-center sm:p-0">
             <TransitionChild
               as={Fragment}
@@ -43,12 +43,12 @@ export default function BaseModal() {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <DialogPanel className="xs:overflow-y-auto xs:max-h-screen w-full max-w-lg dark:bg-zinc-800 relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:p-6">
+              <DialogPanel className="w-full max-w-lg dark:bg-zinc-800 relative transform overflow-y-auto sm:overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl sm:p-6">
                 
                 <div className="">
                   {modalContext.body}
                 </div>
-                <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse xs:sticky xs:bottom-0">
+                <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse sm:bottom-auto sticky bottom-0">
                   {modalContext.confirmButton &&
                     <button
                       type="button"
