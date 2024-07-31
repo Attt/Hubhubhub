@@ -27,6 +27,11 @@ function mergeEpInfo(epList: TaskConfigEpData[]): string {
 }
 
 function compressList(arr: number[]): string {
+    // 去重
+    arr = arr.filter(function(item, index, arr) {
+        return arr.indexOf(item, 0) === index;
+    });
+
     if (arr.length == 0) {
         return ''
     }
