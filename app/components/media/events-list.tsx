@@ -72,9 +72,9 @@ export function EventsListBody({ events }: { events: EventsData[] }) {
                                 </Fragment>
                             </span>
                         </div>
-                        <p className="mt-0.5 text-sm text-zinc-500">{eventsData.events.created.substring(0,19).replace('T', ' ')}　より</p>
+                        <p className="mt-0.5 text-xs text-zinc-500">{eventsData.events.created.substring(0,19).replace('T', ' ')}　より</p>
                       </div>
-                      <div className="dark:text-zinc-300 mt-2 text-sm text-zinc-700">
+                      <div className="dark:text-zinc-300 mt-2 text-xs text-zinc-700">
                         <p className='break-all'>{eventsData.events.event}</p>
                       </div>
                     </div>
