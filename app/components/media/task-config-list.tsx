@@ -145,14 +145,26 @@ export function TaskConfigList({ selectedPlan, open, setOpen }: { selectedPlan: 
             POST(getAPIUrl('select_task_configs') + '?token=' + apiTokenContext,
                 configIdListRef.current,
                 (data) => {
-                    flipRefreshFlag({});
-                    toggleNotification({
-                        type: 'show',
-                        title: '成功',
-                        msg: '选择下载剧集成功',
-                        status: 'success',
-                    });
+                    // if every value in data is true
+                    if (data && JSON.stringify(data).indexOf('false') === -1) {
+                        flipRefreshFlag({});
+                        toggleNotification({
+                            type: 'show',
+                            title: '成功',
+                            msg: '选择下载剧集成功',
+                            status: 'success',
+                        });   
+                        
+                    }else {
+                        toggleNotification({
+                            type: 'show',
+                            title: '失败',
+                            msg: '选择下载剧集失败: ' + JSON.stringify(data),
+                            status: 'error',
+                        });
+                    }
                     setOpen(false);
+                    
                 },
                 (r) => {
                     toggleNotification({
