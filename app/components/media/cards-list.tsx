@@ -69,7 +69,7 @@ export default function CardsList({ cardDataList }: Props) {
                                                         onClick={() => menu.clickTrigger()}
                                                         className={
                                                             [focus ? 'dark:bg-zinc-950 bg-zinc-50' : '',
-                                                                'dark:text-zinc-100 block px-3 py-1 text-sm leading-6 text-zinc-800'].filter(Boolean).join(' ')
+                                                                'dark:text-zinc-100 block px-3 py-1 text-sm leading-6 text-zinc-800 cursor-pointer'].filter(Boolean).join(' ')
                                                         }
                                                     >
                                                         {menu.title}<span className="sr-only">, {cardData.subTitle}</span>
