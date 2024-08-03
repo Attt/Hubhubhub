@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Drive115ListData } from "@/app/interfaces";
 import { DELETE, getAPIUrl, POST } from "@/app/requests";
 import { useFlipRefreshFlag, useToggleLoading, useToggleModal, useToggleNotification } from "@/app/reducers";
@@ -213,14 +213,15 @@ export function CreateDrive115TaskForm({ open, setOpen }: { open: boolean, setOp
     const apiTokenContext = useContext(APITokenContext);
 
     const [url, setUrl] = useState('');
+    const urlRef = useRef(url);
 
     const setUrlFunc = (url: string) => {
         setUrl(url)
     }
 
     const createTask = async () => {
-        getAPIUrl('add_115_task') &&  url && POST(getAPIUrl('add_115_task') + '?token=' + apiTokenContext,
-            url,
+        getAPIUrl('add_115_task') &&  urlRef.current && POST(getAPIUrl('add_115_task') + '?token=' + apiTokenContext,
+            urlRef.current,
             (data) => {
                 flipRefreshFlag({});
                 toggleModal({ type: 'close' });
