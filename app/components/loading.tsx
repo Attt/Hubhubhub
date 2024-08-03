@@ -18,7 +18,7 @@ export function Loading() {
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
             >
-              <div className="dark:bg-zinc-900/30 fixed inset-0 bg-zinc-500 transition-opacity" />
+              <div className="dark:bg-zinc-900/30 fixed inset-0 bg-zinc-500/30 transition-opacity" />
             </TransitionChild>
     
             <div className="fixed inset-0 z-10 w-screen overflow-hidden">

@@ -94,7 +94,7 @@ export default function RootLayout({
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <div className="fixed inset-0 dark:bg-zinc-900/80 bg-zinc-500" />
+                <div className="fixed inset-0 dark:bg-zinc-900/80 bg-zinc-500/80" />
               </TransitionChild>
 
               <div className="fixed inset-0 flex">
